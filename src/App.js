@@ -1,12 +1,12 @@
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";
 import "./styles.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import About from "./About";
-import Contact from "./Contact";
-import Home from "./Home";
-import Books from "./Books";
-import Cart from "./Cart";
-import Profile from "./Profile";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Home from "./components/Home";
+import Books from "./components/Books";
+import Cart from "./components/Cart";
+import Profile from "./components/Profile";
 
 export default function App() {
   return (
