@@ -7,9 +7,13 @@ export default function Book() {
   return (
     <>
       <h1>Books:</h1>
+      <div class="container">
+        <div class="row">
       {books.map((book) => {
         return <Books book={book} />;
       })}
+      </div>
+      </div>
     </>
   );
 }
