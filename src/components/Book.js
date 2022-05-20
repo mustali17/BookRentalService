@@ -6,10 +6,10 @@ export default function Book() {
 
   return (
     <>
+      <h1>Books:</h1>
       {books.map((book) => {
         return <Books book={book} />;
       })}
-      <h1>Books</h1>
     </>
   );
 }

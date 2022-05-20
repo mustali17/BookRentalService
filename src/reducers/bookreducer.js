@@ -3,9 +3,9 @@ import { CREATE_BOOK } from "../constant/type";
 const initialstate = {
   books: [
     {
-      bookname: "Mustali",
-      author: "abcd",
-      desc: "xyz"
+      bookname: "Atomic Habits",
+      author: "James Clear",
+      desc: "An Easy & Proven Way to Build Good Habits & Break Bad Ones"
     }
   ]
 };
