@@ -10,7 +10,7 @@ export default function Navbar() {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </head>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -51,6 +51,12 @@ export default function Navbar() {
                 <Link className="nav-link" to="/books">
                   Books
                   <i className="material-icons">library_books</i>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/addbook">
+                  Add Books
+                  <i className="material-icons">add</i>
                 </Link>
               </li>
               <li className="nav-item">

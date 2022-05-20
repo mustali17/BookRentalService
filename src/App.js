@@ -4,24 +4,29 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Home from "./components/Home";
-import Books from "./components/Books";
+import Book from "./components/Books";
 import Cart from "./components/Cart";
 import Profile from "./components/Profile";
-
+import AddBoook from "./components/AddBook";
+import { Provider } from "react-redux";
+import store from "./store";
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/books" element={<Books />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/books" element={<Book />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/addbook" element={<AddBoook />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
