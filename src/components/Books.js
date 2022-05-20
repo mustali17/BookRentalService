@@ -7,7 +7,7 @@ export default function Books({ book }) {
     <>
       <div className="card" style={{ width: "18rem" }}>
         <img
-          src="https://m.media-amazon.com/images/I/51-nXsSRfZL.jpg"
+          src=""
           className="card-img-top"
           height="220"
           width="200"
