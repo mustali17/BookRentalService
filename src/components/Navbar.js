@@ -7,13 +7,13 @@ export default function Navbar() {
       <head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          to="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </head>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
+      {/* <nav classNameName="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div classNameName="container-fluid">
           <button
-            className="navbar-toggler"
+            classNameName="navbar-toggler"
             type="button"
             data-mdb-toggle="collapse"
             data-mdb-target="#navbarSupportedContent"
@@ -21,50 +21,50 @@ export default function Navbar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <i className="material-icons">list</i>
+            <i classNameName="material-icons">list</i>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
+          <div classNameName="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul classNameName="navbar-nav me-auto mb-2 mb-lg-0">
+              <li classNameName="nav-item">
+                <Link classNameName="nav-link" to="/">
                   Home
-                  <i className="material-icons">home</i>
+                  <i classNameName="material-icons">home</i>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/about">
+              <li classNameName="nav-item">
+                <Link classNameName="nav-link" to="/about">
                   About us
-                  <i className="material-icons">info</i>
+                  <i classNameName="material-icons">info</i>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/books">
+              <li classNameName="nav-item">
+                <Link classNameName="nav-link" to="/books">
                   Books
-                  <i className="material-icons">library_books</i>
+                  <i classNameName="material-icons">library_books</i>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/addbook">
+              <li classNameName="nav-item">
+                <Link classNameName="nav-link" to="/addbook">
                   Add Books
-                  <i className="material-icons">add</i>
+                  <i classNameName="material-icons">add</i>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contact">
+              <li classNameName="nav-item">
+                <Link classNameName="nav-link" to="/contact">
                   Conatact Us
-                  <i className="material-icons">contacts</i>
+                  <i classNameName="material-icons">contacts</i>
                 </Link>
               </li>
             </ul>
           </div>
 
-          <div className="d-flex align-items-center">
-            <Link className="text-reset me-3" to="/cart">
-              <i className="material-icons">shopping_cart</i>
+          <div classNameName="d-flex align-items-center">
+            <Link classNameName="text-reset me-3" to="/cart">
+              <i classNameName="material-icons">shopping_cart</i>
             </Link>
 
-            <div className="dropdown">
+            <div classNameName="dropdown">
               <Link
                 to="/profile"
                 id="navbarDropdownMenuAvatar"
@@ -74,13 +74,71 @@ export default function Navbar() {
               >
                 <img
                   src="https://avatars.githubusercontent.com/u/74243780?v=4"
-                  className="rounded-circle"
+                  classNameName="rounded-circle"
                   height="25"
                   alt="Black and White Portrait of a Man"
                   loading="lazy"
                 />
               </Link>
             </div>
+          </div>
+        </div>
+      </nav> */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
+          <Link className="navbar-brand" to="/">
+            BookRental Service
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav  ms-auto">
+              <li className="nav-item mx-auto mx-md-2">
+                <Link className="nav-link active" to="/">
+                  <i className="bi bi-house"></i> Home
+                </Link>
+              </li>
+              <li className="nav-item mx-auto mx-md-2">
+                <Link className="nav-link active" to="/about">
+                  <i className="bi bi-info-lg"></i> About
+                </Link>
+              </li>
+              <li className="nav-item mx-auto mx-md-2">
+                <Link className="nav-link active" to="/books">
+                  <i className="bi bi-book"></i> Books
+                </Link>
+              </li>
+              <li className="nav-item mx-auto mx-md-2">
+                <Link className="nav-link active" to="/addbook">
+                  <i className="bi bi-plus"></i> Add Books
+                </Link>
+              </li>
+              <li className="nav-item mx-auto mx-md-2">
+                <Link className="nav-link active" to="contact">
+                  <i className="bi bi-person"></i> Contact Us
+                </Link>
+              </li>
+              <li className="nav-item mx-auto mx-md-2">
+                <Link className="nav-link" to="/profile">
+                  <img
+                    src="https://avatars.githubusercontent.com/u/74243780?v=4"
+                    className="rounded-circle"
+                    height="25"
+                    alt="Black and White Portrait of a Man"
+                    loading="lazy"
+                  />
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

@@ -10,8 +10,8 @@ export default function Books({ book }) {
           <img
             src=""
             className="card-img-top"
-            height="220"
-            width="200"
+            width="100"
+            height="170"
             alt="..."
           />
           <div className="card-body">
