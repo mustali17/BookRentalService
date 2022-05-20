@@ -18,6 +18,7 @@ export default function AddBook() {
       desc: desc
     };
     dispatch(addBook(new_book));
+    history("/books");
   }
 
   return (
