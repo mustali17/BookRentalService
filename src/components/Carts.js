@@ -20,7 +20,7 @@ export default function Carts({ book }) {
           <div className="btn">-</div>
         </div>
         <div className="prices">
-          <div className="amount">{price}</div>
+          <div className="amount">{price}/-</div>
           <div className="save">
             <u>Save for later</u>
           </div>
