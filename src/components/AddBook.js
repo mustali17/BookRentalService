@@ -2,20 +2,25 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBook } from "../actions/bookaction";
 import { useNavigate } from "react-router-dom";
-
+import shortid from "shortid";
 export default function AddBook() {
   let history = useNavigate();
   const [bookname, setBookName] = useState("");
   const [author, setAuthor] = useState("");
   const [desc, setDesc] = useState("");
+  const [price, setPrice] = useState("");
+  const [imgurl, setImgUrl] = useState("");
   const dispatch = useDispatch();
 
   function createBook(e) {
     e.preventDefault();
     const new_book = {
+      id: shortid.generate(),
       bookname: bookname,
       author: author,
-      desc: desc
+      desc: desc,
+      price:price,
+      imgurl: imgurl
     };
     dispatch(addBook(new_book));
     history("/books");
@@ -59,6 +64,28 @@ export default function AddBook() {
                   className="form-control"
                   placeholder="Enter book description"
                   value={desc}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  onChange={function changename(event) {
+                    setPrice(event.target.value);
+                  }}
+                  className="form-control"
+                  placeholder="Enter book description"
+                  value={price}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  onChange={function changename(event) {
+                    setImgUrl(event.target.value);
+                  }}
+                  className="form-control"
+                  placeholder="Enter book image url"
+                  value={imgurl}
                 />
               </div>
               <div className="mb-3">

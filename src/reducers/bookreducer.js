@@ -3,9 +3,13 @@ import { CREATE_BOOK } from "../constant/type";
 const initialstate = {
   books: [
     {
-      bookname: "Atomic Habits",
+      id: 1,
+      bookname: "Atomic ",
       author: "James Clear",
-      desc: "An Easy & Proven Way to Build Good Habits & Break Bad Ones"
+      desc: "An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+      price: "100/-",
+      imgurl:
+        "https://therightbookstoreindia.com/wp-content/uploads/2021/09/1632735326.jpg"
     }
   ]
 };

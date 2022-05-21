@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Books({ book }) {
-  const { bookname, author, desc } = book;
+  const { bookname, author, desc, imgurl } = book;
   return (
     <>
       <div class="col-lg-6 mb-4">
         <div className="card" style={{ width: "18rem" }}>
           <img
-            src=""
+            src={imgurl}
             className="card-img-top"
             width="100"
             height="170"

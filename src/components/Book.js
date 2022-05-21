@@ -9,10 +9,10 @@ export default function Book() {
       <h1>Books:</h1>
       <div class="container">
         <div class="row">
-      {books.map((book) => {
-        return <Books book={book} />;
-      })}
-      </div>
+          {books.map((book) => {
+            return <Books book={book} key={book.id} />;
+          })}
+        </div>
       </div>
     </>
   );
