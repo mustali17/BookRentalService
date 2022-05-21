@@ -19,7 +19,7 @@ export default function AddBook() {
       bookname: bookname,
       author: author,
       desc: desc,
-      price:price,
+      price: price,
       imgurl: imgurl
     };
     dispatch(addBook(new_book));
@@ -73,7 +73,7 @@ export default function AddBook() {
                     setPrice(event.target.value);
                   }}
                   className="form-control"
-                  placeholder="Enter book description"
+                  placeholder="Enter book Price"
                   value={price}
                 />
               </div>
