@@ -12,29 +12,41 @@ export default function EditContact() {
 
   const book = useSelector((state) => state.book.book);
 
-  const [bookname, setName] = useState("");
-  const [author, setPhone] = useState("");
-  const [desc, setEmail] = useState("");
+  const [bookname, setBookName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [desc, setDesc] = useState("");
+  const [imgurl, setImgUrl] = useState("");
+  const [price, setPrice] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-     
+    if (book != null) {
+      setBookName(book.bookname);
+      setAuthor(book.author);
+      setDesc(book.desc);
+      setImgUrl(book.imgurl);
+      setPrice(book.price);
+    }
     dispatch(getBook(id));
   }, [book]);
 
   return (
     <div>
-      <div className="card mb-3" style={{ maxWidth: "540px" }}>
-        <div className="row g-0">
-          <div className="col-md-4">
-            <img src="..." className="img-fluid rounded-start" alt="..." />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">{bookname}</h5>
-              <p className="card-text">{desc}</p>
-              <p className="card-text">
-                <small class="text-muted">{author}</small>
-              </p>
+      <div className="container text-center">
+        <div className="card mb-3 border-primary" style={{ maxWidth: "540px" }}>
+          <div className="row g-0">
+            <div className="col-md-4">
+              <img src={imgurl} className="img-fluid rounded-start" alt="..." />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <h5 className="card-title">Book Name:{bookname}</h5>
+                <p className="card-text">{author}</p>
+                <p className="card-text">
+                  <small class="text-muted">{desc}</small>
+                </p>
+                <p className="card-text">₹ {price} /per month</p>
+                <button className="btn btn-primary">Rent Book</button>
+              </div>
             </div>
           </div>
         </div>

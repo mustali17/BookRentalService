@@ -5,7 +5,7 @@ export default function Books({ book }) {
   const { id, bookname, author, desc, imgurl, price } = book;
   return (
     <>
-      <div class="col-lg-6 mb-4">
+      <div class="col">
         <div className="card" style={{ width: "18rem" }}>
           <img
             src={imgurl}
@@ -18,7 +18,7 @@ export default function Books({ book }) {
             <h5 className="card-title">{bookname}</h5>
             <h6 className="card-subtitle mb-2 text-muted">{author}</h6>
             <p className="card-text">{desc}</p>
-            <p className="card-text">{price}/-</p>
+            <p className="card-text">₹{price}/per month</p>
             <Link to={`/books/cart/${id}`} className="btn btn-primary">
               Add to cart
             </Link>
