@@ -21,7 +21,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/books" element={<Book />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/books/cart/:id" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/addbook" element={<AddBoook />} />
           </Routes>

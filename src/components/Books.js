@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Books({ book }) {
-  const { bookname, author, desc, imgurl, price } = book;
+  const { id, bookname, author, desc, imgurl, price } = book;
   return (
     <>
       <div class="col-lg-6 mb-4">
@@ -19,7 +19,7 @@ export default function Books({ book }) {
             <h6 className="card-subtitle mb-2 text-muted">{author}</h6>
             <p className="card-text">{desc}</p>
             <p className="card-text">{price}/-</p>
-            <Link to="/cart" className="btn btn-primary">
+            <Link to={`/books/cart/${id}`} className="btn btn-primary">
               Add to cart
             </Link>
           </div>
