@@ -4,7 +4,15 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <>
-      <div className="container text-center">
+      <div
+        className="container text-center"
+        style={{
+          height: "80vh",
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex"
+        }}
+      >
         <div>
           <h1>Books on Rent</h1>
           <h3>Books on your doorstep</h3>
