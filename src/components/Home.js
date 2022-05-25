@@ -27,7 +27,7 @@ export default function Home() {
           <h5>
             If you want to give your books on rent kindly emial the details of
             your book at:{" "}
-            <a href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey!Thanks for connecting with us.Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration you want to give your book:">
+            <a href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey!Thanks for connecting with us.Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:">
               mustalichunawala@gmail.com
             </a>
           </h5>
