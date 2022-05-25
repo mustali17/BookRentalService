@@ -39,7 +39,7 @@ export default function EditContact() {
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <h5 className="card-title">Book Name:{bookname}</h5>
+                <h5 className="card-title">{bookname}</h5>
                 <p className="card-text">{author}</p>
                 <p className="card-text">
                   <small class="text-muted">{desc}</small>
