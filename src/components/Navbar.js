@@ -51,7 +51,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item mx-auto mx-md-2">
-                <Link className="nav-link active" to="/addbook">
+                <Link className="nav-link active" to="/authenticate">
                   <i className="bi bi-plus"></i> Add Books
                 </Link>
               </li>

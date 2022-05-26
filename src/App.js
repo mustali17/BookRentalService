@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import AddBoook from "./components/AddBook";
 import { Provider } from "react-redux";
 import store from "./store";
+import Authenticate from "./components/Authenticate";
 export default function App() {
   return (
     <Provider store={store}>
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/books/cart/:id" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/addbook" element={<AddBoook />} />
+            <Route path="/authenticate" element={<Authenticate />} />
           </Routes>
         </div>
       </BrowserRouter>
