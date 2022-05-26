@@ -28,7 +28,9 @@ export default function AddBook() {
 
   return (
     <div>
-      <div className="card border-0 shadow">
+      <br />
+      <br />
+      <div className="container text-center card border-dark shadow">
         <div className="card-header">Add a Book</div>
         <div className="card-body">
           <form onSubmit={(e) => createBook(e)}>

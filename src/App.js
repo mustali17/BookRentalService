@@ -1,4 +1,4 @@
-import Navbar from "./components/Navbar";
+import Navbr from "./components/Navbar";
 import "./styles.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./components/About";
@@ -16,7 +16,7 @@ export default function App() {
     <Provider store={store}>
       <BrowserRouter>
         <div className="App">
-          <Navbar />
+          <Navbr />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
