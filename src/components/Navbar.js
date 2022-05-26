@@ -14,7 +14,13 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            BookRental Service
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQarEYDc2Nb8_EGg6UnXsJzAWbgPeIMQe4GkQ&usqp=CAU"
+              height="45"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+            <span style={{ fontFamily: "yellowtail" }}>Rent&Read</span>
           </Link>
           <button
             className="navbar-toggler"
