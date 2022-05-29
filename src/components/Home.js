@@ -37,7 +37,7 @@ export default function Home() {
           </h6>
         </div>
         <img
-          src="https://www.pngall.com/wp-content/uploads/12/Illustration-PNG-Photo.png"
+          src="https://freepngimg.com/thumb/reading/146802-boy-reading-book-png-free-photo.png"
           alt="..."
           style={{ maxWidth: "100%", minWidth: "90px", height: "auto" }}
         />
