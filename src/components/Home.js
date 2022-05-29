@@ -28,18 +28,18 @@ export default function Home() {
           <br />
           <br />
           <br />
-          <h5 style={{ fontFamily: "garamond" }}>
+          <h6 style={{ fontFamily: "garamond" }}>
             If you want to give your books on rent kindly email the details of
             your book at:{" "}
             <a href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:">
               mustalichunawala@gmail.com
             </a>
-          </h5>
+          </h6>
         </div>
         <img
           src="https://www.pngall.com/wp-content/uploads/12/Illustration-PNG-Photo.png"
           alt="..."
-          style={{ maxWidth: "100%", minWidth: "100px", height: "auto" }}
+          style={{ maxWidth: "100%", minWidth: "90px", height: "auto" }}
         />
       </div>
     </>
