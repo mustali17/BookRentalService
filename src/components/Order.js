@@ -1,16 +1,16 @@
-import React,{ useState }  from "react";
+import React, { useState } from "react";
 
 export default function Order() {
-const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-function auth(e) {
+  function auth(e) {
     e.preventDefault();
-    
   }
-  return <div>
-  <div
+  return (
+    <div>
+      <div
         className="container card border-info shadow text-center"
-        style={{ width: "25rem" }}
+        style={{ maxWidth: "25rem", minWidth: "10rem" }}
       >
         <div className="card-header">Enter Your Details</div>
         <div className="card-body">
@@ -60,5 +60,7 @@ function auth(e) {
             </div>
           </form>
         </div>
-      </div></div>
+      </div>
+    </div>
+  );
 }
