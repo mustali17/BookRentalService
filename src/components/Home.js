@@ -39,7 +39,7 @@ export default function Home() {
         <img
           src="https://www.pngall.com/wp-content/uploads/12/Illustration-PNG-Photo.png"
           alt="..."
-          style={{ maxWidth: "100%", minWidth: "300px", height: "auto" }}
+          style={{ maxWidth: "100%", minWidth: "150px", height: "auto" }}
         />
       </div>
     </>
