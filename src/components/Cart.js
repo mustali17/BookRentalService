@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 import shortid from "shortid";
 import { useNavigate, useParams } from "react-router-dom";
 import { cartBook, getBook } from "../actions/bookaction";
 
-export default function EditContact() {
+export default function Cart() {
   let { id } = useParams();
 
   let history = useNavigate();
@@ -31,7 +31,7 @@ export default function EditContact() {
 
   return (
     <div>
-      <div className="container text-center">
+      <div className="container  text-center">
         <div className="card mb-3 border-primary" style={{ maxWidth: "540px" }}>
           <div className="row g-0">
             <div className="col-md-4">
@@ -45,7 +45,9 @@ export default function EditContact() {
                   <small class="text-muted">{desc}</small>
                 </p>
                 <p className="card-text">₹ {price} /per month</p>
-                <button className="btn btn-primary">Rent Book</button>
+                <Link to="/books/order">
+                  <button className="btn btn-primary">Rent Book</button>
+                </Link>
               </div>
             </div>
           </div>

@@ -12,8 +12,8 @@ export default function Navbr() {
         />
       </head>
 
-      <div class="shadow p-1 mb-5 bg-white rounded">
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <div className="shadow p-1 mb-5 bg-white rounded">
+        <Navbar collapseOnSelect expand="lg">
           <Container>
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQarEYDc2Nb8_EGg6UnXsJzAWbgPeIMQe4GkQ&usqp=CAU"
@@ -29,7 +29,7 @@ export default function Navbr() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto"></Nav>
-              <Nav style={{ fontFamily: "yellowtail", fontWeight: "bold" }}>
+              <Nav style={{ fontFamily: "yellowtail" }}>
                 <ul className="navbar-nav ">
                   <li className="nav-item mx-auto mx-md-2">
                     <Link className="nav-link active" to="/">

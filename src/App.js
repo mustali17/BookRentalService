@@ -6,11 +6,13 @@ import Contact from "./components/Contact";
 import Home from "./components/Home";
 import Book from "./components/Book";
 import Cart from "./components/Cart";
+import Order from "./components/Order";
 import Profile from "./components/Profile";
 import AddBoook from "./components/AddBook";
 import { Provider } from "react-redux";
 import store from "./store";
 import Authenticate from "./components/Authenticate";
+import Footer from "./components/Footer";
 export default function App() {
   return (
     <Provider store={store}>
@@ -26,7 +28,9 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/addbook" element={<AddBoook />} />
             <Route path="/authenticate" element={<Authenticate />} />
+            <Route path="/books/order" element={<Order />} />
           </Routes>
+          <Footer />
         </div>
       </BrowserRouter>
     </Provider>

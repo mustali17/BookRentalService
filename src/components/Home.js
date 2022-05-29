@@ -14,8 +14,12 @@ export default function Home() {
         }}
       >
         <div>
-          <h1 style={{ fontFamily: "cambria" }}>Books on Rent</h1>
-          <h3 style={{ fontFamily: "cambria" }}>Books on your doorstep</h3>
+          <h1 style={{ fontFamily: "cambria", color: "#00539CFF" }}>
+            Books on Rent
+          </h1>
+          <h3 style={{ fontFamily: "cambria", color: "#00539CFF" }}>
+            Books on your doorstep
+          </h3>
           <Link to="/books">
             <button type="button" className="btn btn-outline-primary">
               Rent Books
@@ -32,6 +36,11 @@ export default function Home() {
             </a>
           </h5>
         </div>
+        <img
+          src="https://www.pngall.com/wp-content/uploads/12/Illustration-PNG-Photo.png"
+          alt="..."
+          style={{ maxWidth: "100%", minWidth: "300px", height: "auto" }}
+        />
       </div>
     </>
   );
