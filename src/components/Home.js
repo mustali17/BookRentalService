@@ -15,7 +15,7 @@ export default function Home() {
       >
         <div>
           <h1
-            style={{ fontFamily: "cambria", color: "white", fontSize: "7vw" }}
+            style={{ fontFamily: "cambria", color: "white", fontSize: "7.5vw" }}
           >
             Books on Rent
           </h1>

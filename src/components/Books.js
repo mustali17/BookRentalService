@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Books({ book }) {
-  const { id, bookname, author, desc, imgurl, price } = book;
+  const { id, bookname, author, desc, imgurl, price, ownermail } = book;
   return (
     <>
-      <div class="col">
+      <div className="col">
         <div className="card" style={{ width: "18rem" }}>
           <img
             src={imgurl}
@@ -19,6 +19,7 @@ export default function Books({ book }) {
             <h6 className="card-subtitle mb-2 text-muted">{author}</h6>
             <p className="card-text">{desc}</p>
             <p className="card-text">₹{price}/per month</p>
+
             <Link to={`/books/cart/${id}`} className="btn btn-primary">
               Add to cart
             </Link>

@@ -92,12 +92,13 @@ export default function Contact() {
             </form>
 
             <div className="text-center text-md-left">
-              <a
+              <button
                 className="btn btn-primary"
-                onclick="document.getElementById('contact-form').submit();"
+                // onClick={function d() {
+                //   document.getElementById("contact-form").submit();}}
               >
                 Send
-              </a>
+              </button>
             </div>
             <div className="status"></div>
           </div>

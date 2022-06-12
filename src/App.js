@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import Authenticate from "./components/Authenticate";
 import Footer from "./components/Footer";
+import OrderSucc from "./components/OrderSucc";
 export default function App() {
   return (
     <Provider store={store}>
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="/addbook" element={<AddBoook />} />
             <Route path="/authenticate" element={<Authenticate />} />
             <Route path="/books/order" element={<Order />} />
+            <Route path="/sucess" element={<OrderSucc />} />
           </Routes>
           <Footer />
         </div>
