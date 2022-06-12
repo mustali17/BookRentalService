@@ -49,7 +49,9 @@ export default function Order() {
         className="container card border-info shadow text-center"
         style={{ maxWidth: "25rem", minWidth: "10rem" }}
       >
-        <div className="card-header">Enter Your Details {book.ownermail}</div>
+        <div className="card-header">
+          Enter Your Details {book.ownermail} {book.bookname}
+        </div>
 
         <div className="card-body">
           <form onSubmit={(e) => auth(e)}>
