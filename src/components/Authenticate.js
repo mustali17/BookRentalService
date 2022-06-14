@@ -60,6 +60,8 @@ export default function Authenticate() {
           </form>
         </div>
       </div>
+      <br />
+      <br />
     </div>
   );
 }

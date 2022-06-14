@@ -3,7 +3,7 @@ import React from "react";
 export default function About() {
   return (
     <div>
-      <div id="about" className="container-fluid">
+      <div id="about" className="container">
         <div className="row">
           <div className="col-sm-8">
             <h2>About Company Page</h2>
