@@ -31,7 +31,7 @@ export default function Cart() {
 
   return (
     <div>
-      <div className="container  text-center">
+      <div className="container text-center">
         <div className="card mb-3 border-primary" style={{ maxWidth: "540px" }}>
           <div className="row g-0">
             <div className="col-md-4">

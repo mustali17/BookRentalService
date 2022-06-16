@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ItemCarousel from "./ItemCarousel";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
               Rent Books
             </button>
           </Link>
+
           <br />
           <br />
           <br />
@@ -43,9 +45,10 @@ export default function Home() {
         <img
           src="https://freepngimg.com/thumb/reading/146802-boy-reading-book-png-free-photo.png"
           alt="..."
-          style={{ maxWidth: "100%", minWidth: "90px", height: "auto" }}
+          style={{ maxWidth: "40%", minWidth: "90px", height: "auto" }}
         />
       </div>
+      <ItemCarousel />
     </>
   );
 }

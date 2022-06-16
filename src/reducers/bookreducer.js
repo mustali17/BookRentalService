@@ -52,7 +52,7 @@ const initialstate = {
       desc:
         "It’s the self-help book for people who hate self-help. It’s as much a pat on the back as a slap in the face. It’s the first truly no BS guide to flourishing in a crazy, crazy world.",
       price: "100",
-      imgurl: "https://eshfamart.com/wp-content/uploads/2021/09/002-1-3.jpg",
+      imgurl: "https://images-na.ssl-images-amazon.com/images/I/413R2vCAcLL.jpg",
       ownermail: "mustalichunawala@gmail.com"
     }
   ]
