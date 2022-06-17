@@ -10,6 +10,7 @@ export default function AddBook() {
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
   const [imgurl, setImgUrl] = useState("");
+  const [ownermail, setOwnerMail] = useState("");
   const dispatch = useDispatch();
 
   function createBook(e) {
@@ -19,8 +20,9 @@ export default function AddBook() {
       bookname: bookname,
       author: author,
       desc: desc,
-      price:price,
-      imgurl: imgurl
+      price: price,
+      imgurl: imgurl,
+      ownermail: ownermail
     };
     dispatch(addBook(new_book));
     history("/books");
@@ -28,7 +30,9 @@ export default function AddBook() {
 
   return (
     <div>
-      <div className="card border-0 shadow">
+      <br />
+      <br />
+      <div className="container text-center card border-dark shadow">
         <div className="card-header">Add a Book</div>
         <div className="card-body">
           <form onSubmit={(e) => createBook(e)}>
@@ -73,8 +77,19 @@ export default function AddBook() {
                     setPrice(event.target.value);
                   }}
                   className="form-control"
-                  placeholder="Enter book description"
+                  placeholder="Enter book Price"
                   value={price}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  onChange={function changename(event) {
+                    setOwnerMail(event.target.value);
+                  }}
+                  className="form-control"
+                  placeholder="Enter book owner email id"
+                  value={ownermail}
                 />
               </div>
               <div className="mb-3">

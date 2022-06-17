@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
 
-export default function Navbar() {
+export default function Navbr() {
   return (
     <div>
       <head>
@@ -10,138 +11,80 @@ export default function Navbar() {
           to="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </head>
-      {/* <nav classNameName="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div classNameName="container-fluid">
-          <button
-            classNameName="navbar-toggler"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i classNameName="material-icons">list</i>
-          </button>
 
-          <div classNameName="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul classNameName="navbar-nav me-auto mb-2 mb-lg-0">
-              <li classNameName="nav-item">
-                <Link classNameName="nav-link" to="/">
-                  Home
-                  <i classNameName="material-icons">home</i>
-                </Link>
-              </li>
-              <li classNameName="nav-item">
-                <Link classNameName="nav-link" to="/about">
-                  About us
-                  <i classNameName="material-icons">info</i>
-                </Link>
-              </li>
-              <li classNameName="nav-item">
-                <Link classNameName="nav-link" to="/books">
-                  Books
-                  <i classNameName="material-icons">library_books</i>
-                </Link>
-              </li>
-              <li classNameName="nav-item">
-                <Link classNameName="nav-link" to="/addbook">
-                  Add Books
-                  <i classNameName="material-icons">add</i>
-                </Link>
-              </li>
-              <li classNameName="nav-item">
-                <Link classNameName="nav-link" to="/contact">
-                  Conatact Us
-                  <i classNameName="material-icons">contacts</i>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div classNameName="d-flex align-items-center">
-            <Link classNameName="text-reset me-3" to="/cart">
-              <i classNameName="material-icons">shopping_cart</i>
+      <div className="shadow p-1 mb-5 bg-white rounded">
+        <Navbar collapseOnSelect expand="lg">
+          <Container>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQarEYDc2Nb8_EGg6UnXsJzAWbgPeIMQe4GkQ&usqp=CAU"
+              height="45"
+              alt="Logo"
+              loading="lazy"
+            />
+            <Link className="nav-link active" to="/">
+              <Navbar.Brand style={{ fontFamily: "yellowtail" }}>
+                Rent&Read
+              </Navbar.Brand>
             </Link>
-
-            <div classNameName="dropdown">
-              <Link
-                to="/profile"
-                id="navbarDropdownMenuAvatar"
-                role="button"
-                data-mdb-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  src="https://avatars.githubusercontent.com/u/74243780?v=4"
-                  classNameName="rounded-circle"
-                  height="25"
-                  alt="Black and White Portrait of a Man"
-                  loading="lazy"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav> */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            BookRental Service
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav  ms-auto">
-              <li className="nav-item mx-auto mx-md-2">
-                <Link className="nav-link active" to="/">
-                  <i className="bi bi-house"></i> Home
-                </Link>
-              </li>
-              <li className="nav-item mx-auto mx-md-2">
-                <Link className="nav-link active" to="/about">
-                  <i className="bi bi-info-lg"></i> About
-                </Link>
-              </li>
-              <li className="nav-item mx-auto mx-md-2">
-                <Link className="nav-link active" to="/books">
-                  <i className="bi bi-book"></i> Books
-                </Link>
-              </li>
-              <li className="nav-item mx-auto mx-md-2">
-                <Link className="nav-link active" to="/addbook">
-                  <i className="bi bi-plus"></i> Add Books
-                </Link>
-              </li>
-              <li className="nav-item mx-auto mx-md-2">
-                <Link className="nav-link active" to="contact">
-                  <i className="bi bi-person"></i> Contact Us
-                </Link>
-              </li>
-              <li className="nav-item mx-auto mx-md-2">
-                <Link className="nav-link" to="/profile">
-                  <img
-                    src="https://avatars.githubusercontent.com/u/74243780?v=4"
-                    className="rounded-circle"
-                    height="25"
-                    alt="Black and White Portrait of a Man"
-                    loading="lazy"
-                  />
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto"></Nav>
+              <Nav style={{ fontFamily: "yellowtail" }}>
+                <ul className="navbar-nav ">
+                  <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/">
+                      <NavItem>
+                        <i className="bi bi-house"></i> Home
+                      </NavItem>
+                    </Link>
+                  </li>
+                  <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/about">
+                      <NavItem>
+                        <i className="bi bi-info-lg"></i> About us
+                      </NavItem>
+                    </Link>
+                  </li>
+                  <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/books">
+                      <NavItem>
+                        <i className="bi bi-book"></i> Books
+                      </NavItem>
+                    </Link>
+                  </li>
+                  <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/authenticate">
+                      <NavItem>
+                        <i className="bi bi-plus"></i> Add Books
+                      </NavItem>
+                    </Link>
+                  </li>
+                  <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/contact">
+                      <NavItem>
+                        <i className="bi bi-person"></i> Contact us
+                      </NavItem>
+                    </Link>
+                  </li>
+                  <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/profile">
+                      <NavItem>
+                        <img
+                          src="https://avatars.githubusercontent.com/u/74243780?v=4"
+                          className="rounded-circle"
+                          height="25"
+                          alt="Black and White Portrait of a Man"
+                          loading="lazy"
+                        />
+                      </NavItem>
+                    </Link>
+                  </li>
+                </ul>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </div>
     </div>
   );
 }

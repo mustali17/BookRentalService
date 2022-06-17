@@ -1,47 +1,58 @@
-import React from "react";
-import "../styles1.css";
-import { useSelector } from "react-redux";
-import Carts from "./Carts";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import shortid from "shortid";
+import { useNavigate, useParams } from "react-router-dom";
+import { cartBook, getBook } from "../actions/bookaction";
 
 export default function Cart() {
-  const books = useSelector((state) => state.book.books);
-  return (
-    <>
-      <body
-        style={{
-          display: "flex",
-          margin: "0",
-          margin: "0",
-          padding: "0",
-          background: "linear-gradient(to bottom right, #E3F0FF, #FAFCFF)",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <div className="CartContainer">
-          <div className="Header">
-            <h3 className="Heading">Shopping Cart</h3>
-            <h5 className="Action">Remove all</h5>
-          </div>
-          {books.map((book) => {
-            return <Carts book={book} key={book.id} />;
-          })}
+  let { id } = useParams();
 
-          <hr />
-          <div className="checkout">
-            <div className="total">
-              <div>
-                <div className="Subtotal">Sub-Total</div>
-                <div className="items">2 items</div>
-              </div>
-              <div className="total-amount">$6.18</div>
+  let history = useNavigate();
+
+  const book = useSelector((state) => state.book.book);
+
+  const [bookname, setBookName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [desc, setDesc] = useState("");
+  const [imgurl, setImgUrl] = useState("");
+  const [price, setPrice] = useState("");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (book != null) {
+      setBookName(book.bookname);
+      setAuthor(book.author);
+      setDesc(book.desc);
+      setImgUrl(book.imgurl);
+      setPrice(book.price);
+    }
+    dispatch(getBook(id));
+  }, [book]);
+
+  return (
+    <div>
+      <div className="container text-center">
+        <div className="card mb-3 border-primary" style={{ maxWidth: "540px" }}>
+          <div className="row g-0">
+            <div className="col-md-4">
+              <img src={imgurl} className="img-fluid rounded-start" alt="..." />
             </div>
-            <button className="button">Checkout</button>
+            <div className="col-md-8">
+              <div className="card-body">
+                <h5 className="card-title">{bookname}</h5>
+                <p className="card-text">{author}</p>
+                <p className="card-text">
+                  <small class="text-muted">{desc}</small>
+                </p>
+                <p className="card-text">₹ {price} /per month</p>
+                <Link to="/books/order">
+                  <button className="btn btn-primary">Rent Book</button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </body>
-    </>
+      </div>
+    </div>
   );
 }

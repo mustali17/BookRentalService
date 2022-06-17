@@ -6,9 +6,12 @@ export default function Book() {
 
   return (
     <>
-      <h1>Books:</h1>
-      <div class="container">
-        <div class="row">
+      <h3 style={{ textAlign: "center", fontFamily: "yellowtail" }}>
+        View Books:
+      </h3>
+
+      <div className="container" style={{ alignItems: "center" }}>
+        <div class="row row-cols-1 row-cols-md-3 g-2">
           {books.map((book) => {
             return <Books book={book} key={book.id} />;
           })}
