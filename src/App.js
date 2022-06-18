@@ -27,10 +27,11 @@ export default function App() {
             <Route path="/books" element={<Book />} />
             <Route path="/books/cart/:id" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/addbook" element={<AddBoook />} />
             <Route path="/authenticate" element={<Authenticate />} />
             <Route path="/books/order" element={<Order />} />
             <Route path="/sucess" element={<OrderSucc />} />
+            <Route path="/books" element={<Book />} />
+            <Route path="/addbook" element={<AddBoook />} />
           </Routes>
           <Footer />
         </div>

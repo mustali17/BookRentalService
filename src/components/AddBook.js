@@ -1,120 +1,124 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addBook } from "../actions/bookaction";
-import { useNavigate } from "react-router-dom";
-import shortid from "shortid";
-export default function AddBook() {
-  let history = useNavigate();
-  const [bookname, setBookName] = useState("");
-  const [author, setAuthor] = useState("");
-  const [desc, setDesc] = useState("");
-  const [price, setPrice] = useState("");
-  const [imgurl, setImgUrl] = useState("");
-  const [ownermail, setOwnerMail] = useState("");
-  const dispatch = useDispatch();
-
-  function createBook(e) {
-    e.preventDefault();
-    const new_book = {
-      id: shortid.generate(),
-      bookname: bookname,
-      author: author,
-      desc: desc,
-      price: price,
-      imgurl: imgurl,
-      ownermail: ownermail
-    };
-    dispatch(addBook(new_book));
-    history("/books");
-  }
-
-  return (
-    <div>
-      <br />
-      <br />
-      <div className="container text-center card border-dark shadow">
-        <div className="card-header">Add a Book</div>
-        <div className="card-body">
-          <form onSubmit={(e) => createBook(e)}>
-            <div className="form-group">
-              <div className="mb-3">
-                <input
-                  type="text"
-                  onChange={function changename(event) {
-                    setBookName(event.target.value);
-                  }}
-                  className="form-control"
-                  placeholder="Enter Book Name"
-                  value={bookname}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  onChange={function changephone(event) {
-                    setAuthor(event.target.value);
-                  }}
-                  className="form-control"
-                  placeholder="Enter Author Name"
-                  value={author}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  onChange={function changename(event) {
-                    setDesc(event.target.value);
-                  }}
-                  className="form-control"
-                  placeholder="Enter book description"
-                  value={desc}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  onChange={function changename(event) {
-                    setPrice(event.target.value);
-                  }}
-                  className="form-control"
-                  placeholder="Enter book Price"
-                  value={price}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  onChange={function changename(event) {
-                    setOwnerMail(event.target.value);
-                  }}
-                  className="form-control"
-                  placeholder="Enter book owner email id"
-                  value={ownermail}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  onChange={function changename(event) {
-                    setImgUrl(event.target.value);
-                  }}
-                  className="form-control"
-                  placeholder="Enter book image url"
-                  value={imgurl}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="submit"
-                  className="btn btn-primary"
-                  name="add"
-                  value="Add"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
+import { useNavigate } from "react-router";
+ 
+export default function Create() {
+ const [form, setForm] = useState({
+   bookname: "",
+   authorname: "",
+   desc: "",
+   price: "",
+   imgurl: "",
+   ownermail: "",
+ });
+ const navigate = useNavigate();
+ 
+ // These methods will update the state properties.
+ function updateForm(value) {
+   return setForm((prev) => {
+     return { ...prev, ...value };
+   });
+ }
+ 
+ // This function will handle the submission.
+ async function onSubmit(e) {
+   e.preventDefault();
+ 
+   // When a post request is sent to the create url, we'll add a new record to the database.
+   const newPerson = { ...form };
+ 
+   await fetch("http://localhost:5000/record/add", {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(newPerson),
+   })
+   .catch(error => {
+     window.alert(error);
+     return;
+   });
+ 
+   setForm({ bookname: "", authorname: "", desc: "" ,price: "", imgurl: "",ownermail: ""});
+   navigate("/");
+ }
+ 
+ // This following section will display the form that takes the input from the user.
+ return (
+   <div>
+     <div className="container text-center card border-dark shadow">
+         <div className="card-header">Add a Book</div>
+         <div className="card-body">
+     <form onSubmit={onSubmit}>
+       <div className="mb-3 form-group">
+         <input
+           type="text"
+           className="form-control"
+           id="bookname"
+           value={form.bookname}
+           placeholder="Enter Book Name"
+           onChange={(e) => updateForm({ bookname: e.target.value })}
+         />
+       </div>
+       <div className="mb-3 form-group">
+         <input
+           type="text"
+           className="form-control"
+           id="authorname"
+           value={form.authorname}
+           placeholder="Enter Author Name"
+           onChange={(e) => updateForm({ authorname: e.target.value })}
+         />
+       </div>
+       <div className="mb-3 form-group">
+         <input
+           type="text"
+           className="form-control"
+           id="desc"
+           value={form.desc}
+           placeholder="Enter Description"
+           onChange={(e) => updateForm({ desc: e.target.value })}
+         />
+       </div>
+       <div className="mb-3 form-group">
+         <input
+           type="text"
+           className="form-control"
+           id="price"
+           value={form.price}
+           placeholder="Enter Price"
+           onChange={(e) => updateForm({ price: e.target.value })}
+         />
+       </div>
+       <div className="mb-3 form-group">
+         <input
+           type="text"
+           className="form-control"
+           id="imgurl"
+           value={form.imgurl}
+           placeholder="Enter Image URL"
+           onChange={(e) => updateForm({ imgurl: e.target.value })}
+         />
+       </div>
+       <div className="mb-3 form-group">
+         <input
+           type="text"
+           className="form-control"
+           id="ownermail"
+           value={form.ownermail}
+           placeholder="Book Owner Mail ID"
+           onChange={(e) => updateForm({ ownermail: e.target.value })}
+         />
+       </div>
+       <div className="mb-3 form-group">
+         <input
+           type="submit"
+           value="Add Book"
+           className="btn btn-primary"
+         />
+       </div>
+     </form>
+     </div>
+     </div>
+   </div>
+ );
 }
