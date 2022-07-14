@@ -16,7 +16,6 @@ import Footer from "./components/Footer";
 import OrderSucc from "./components/OrderSucc";
 export default function App() {
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <div className="App">
           <Navbr />
@@ -36,6 +35,5 @@ export default function App() {
           <Footer />
         </div>
       </BrowserRouter>
-    </Provider>
   );
 }
