@@ -27,7 +27,7 @@ export default function App() {
             <Route path="/books/cart/:id" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/authenticate" element={<Authenticate />} />
-            <Route path="/books/order" element={<Order />} />
+            <Route path="/books/order/:id" element={<Order />} />
             <Route path="/sucess" element={<OrderSucc />} />
             <Route path="/books" element={<Book />} />
             <Route path="/addbook" element={<AddBoook />} />

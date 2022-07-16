@@ -10,7 +10,7 @@ const Record = (props) => (
   <h5 className="card-title">{props.record.bookname}</h5>
   <h6 className="card-subtitle mb-2 text-muted">{props.record.authorname}</h6>
   <p className="card-text mb-2" style={{ color: "green" }}>₹{props.record.price}/pm</p>
-  <Link className="btn btn-primary" to={`/books/cart/${props.record._id}`}>Rent Now</Link>
+  <Link className="btn btn-primary" to={`/books/cart/${props.record._id}`}>Rent Now! </Link>
   </div>
   </div>
   </div>
@@ -45,7 +45,7 @@ export default function RecordList() {
  
  // This method will delete a record
  async function deleteRecord(id) {
-   await fetch(`https://endearing-pasca-84ee46.netlify.app/${id}`, {
+   await fetch(`https://backend-rent-read.herokuapp.com/api/${id}`, {
      method: "DELETE"
    });
  

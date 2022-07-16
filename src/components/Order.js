@@ -1,22 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function Order() {
-  let history = useNavigate();
-
+  const params = useParams();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [address, setAddress] = useState("");
   const [emailid, setEmailId] = useState("");
   const [pincode, setPincode] = useState("");
+  const [form, setForm] = useState({
+    bookname: "",
+    authorname: "",
+    desc: "",
+    imgurl: "",
+    price: "",
+    ownermail:"",
+    records: [],
+  });
+  useEffect(() => {
+    async function fetchData() {
+      const id = params.id.toString();
+      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/record/${params.id.toString()}`);
+  
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+  
+      const record = await response.json();
+      if (!record) {
+        window.alert(`Record with id ${id} not found`);
+        navigate("/");
+        return;
+      }
+  
+      setForm(record);
+    }
+  
+    fetchData();
+  
+    return;
+  }, [params.id, navigate]);
 
-  const book = useSelector((state) => state.book.book);
+  // const book = useSelector((state) => state.book.book);
 
   function auth(e) {
     e.preventDefault();
-    var mailid = book.ownermail;
-    var bookname = book.bookname;
+    var mailid = form.ownermail;
+    var bookname = form.bookname;
     var body =
       "You just got a order for your book " +
       bookname +
@@ -41,7 +75,7 @@ export default function Order() {
       "&body=" +
       encodeURIComponent(body);
     window.location.href = link;
-    history("/sucess");
+    navigate("/sucess");
   }
   return (
     <div>
@@ -49,7 +83,7 @@ export default function Order() {
         className="container card border-info shadow text-center"
         style={{ maxWidth: "25rem", minWidth: "10rem" }}
       >
-        <div className="card-header">Enter Your Details</div>
+        <div className="card-header">Enter Your Details </div>
 
         <div className="card-body">
           <form onSubmit={(e) => auth(e)}>

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
  
-export default function Edit() {
+export default function Cart() {
  const [form, setForm] = useState({
    bookname: "",
    authorname: "",
@@ -18,7 +18,7 @@ export default function Edit() {
  useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`/api/record/${params.id.toString()}`);
+     const response = await fetch(`https://backend-rent-read.herokuapp.com/api/record/${params.id.toString()}`);
  
      if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
@@ -57,7 +57,7 @@ export default function Edit() {
                   <small class="text-muted">{form.desc}</small>
                 </p>
                 <p className="card-text">₹ {form.price} /per month</p>
-                <Link to="/books/order">
+                <Link to={`/books/order/${params.id}`}>
                   <button className="btn btn-primary">Rent Book</button>
                 </Link>
               </div>
