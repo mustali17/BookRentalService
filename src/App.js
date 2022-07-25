@@ -14,6 +14,8 @@ import store from "./store";
 import Authenticate from "./components/Authenticate";
 import Footer from "./components/Footer";
 import OrderSucc from "./components/OrderSucc";
+import SignUp from "./components/Signup";
+import Signin from "./components/Signin";
 export default function App() {
   return (
       <BrowserRouter>
@@ -31,7 +33,11 @@ export default function App() {
             <Route path="/sucess" element={<OrderSucc />} />
             <Route path="/books" element={<Book />} />
             <Route path="/addbook" element={<AddBoook />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<Signin />} />
           </Routes>
+          <br/>
+          <br/>
           <Footer />
         </div>
       </BrowserRouter>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
  
 const Record = (props) => (
  <div>
@@ -25,12 +27,12 @@ export default function RecordList() {
  useEffect(() => {
    async function getRecords() {
 
-     const response = await fetch('https://backend-rent-read.herokuapp.com/api/record/');
+     const response = await fetch('https://backend-rent-read.herokuapp.com/api/record');
 
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
-       window.alert(message);
+       toast.error(message);
        return;
      }
  
@@ -77,6 +79,7 @@ export default function RecordList() {
        {recordList()}
        </div>
      </div>
+     <ToastContainer />
    </div>
  );
 }

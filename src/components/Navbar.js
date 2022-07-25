@@ -66,6 +66,20 @@ export default function Navbr() {
                       </NavItem>
                     </Link>
                   </li>
+                  {/* <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/login">
+                      <NavItem>
+                        <i className="bi bi-person-plus"></i> SignUp
+                      </NavItem>
+                    </Link>
+                  </li> */}
+                  <li className="nav-item mx-auto mx-md-2">
+                    <Link className="nav-link active" to="/signin">
+                      <NavItem>
+                        <i className="bi bi-person-plus"></i> Login
+                      </NavItem>
+                    </Link>
+                  </li>
                   <li className="nav-item mx-auto mx-md-2">
                     <Link className="nav-link active" to="/profile">
                       <NavItem>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ItemCarousel from "./ItemCarousel";
+import M from "materialize-css";
 
 export default function Home() {
   return (
@@ -40,6 +41,7 @@ export default function Home() {
             <a href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:">
               mustalichunawala@gmail.com
             </a>
+            <a onClick="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
           </h5>
         </div>
         <img

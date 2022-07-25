@@ -1,6 +1,9 @@
 import React from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function About() {
+  const notify = () => {toast.success("Wow so easy!")};
   return (
     <div>
       <div id="about" className="container">
@@ -28,6 +31,10 @@ export default function About() {
             </p>
             <br />
             <button className="btn btn-outline-primary">Get in Touch</button>
+            <div>
+      <button onClick={notify} className="btn btn-outline-dark">Notify!</button>
+      <ToastContainer />
+    </div>
             <br />
             <br />
           </div>
