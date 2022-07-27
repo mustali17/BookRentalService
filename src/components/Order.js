@@ -29,7 +29,7 @@ export default function Order() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`http://localhost:5000/api/order/${params.id.toString()}`, {
+      const response = await fetch(`https://backend-rent-read.herokuapp.com/${params.id.toString()}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export default function Order() {
     e.preventDefault();
   
   
-   const response = await fetch("http://localhost:5000/api/order", {
+   const response = await fetch("https://backend-rent-read.herokuapp.com/api/order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

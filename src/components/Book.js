@@ -27,7 +27,7 @@ export default function RecordList() {
  useEffect(() => {
    async function getRecords() {
 
-     const response = await fetch('http://localhost:5000/api/record');
+     const response = await fetch('https://backend-rent-read.herokuapp.com/api/record');
 
  
      if (!response.ok) {

@@ -37,7 +37,7 @@ export default function Profile() {
   useEffect(() => {
     async function fetchData() {
       // const id = params.id.toString();
-      const response = await fetch(`http://localhost:5000/api/user/${user._id}`, {
+      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/${user._id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function Profile() {
  
    const newPerson = { ...form };
  
-  const response = await fetch(`http://localhost:5000/api/user/update/${user._id}`, {
+  const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/update/${user._id}`, {
      method: "POST",
      headers: {
        "Content-Type": "application/json",
