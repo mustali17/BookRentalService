@@ -25,7 +25,11 @@ export default function Signin(){
      if(data.error){
        toast.error(data.error)
      }else{
+      localStorage.setItem("jwt",data.token)
+      localStorage.setItem("user",JSON.stringify(data.user))
+      localStorage.setItem("loginStatus",true)
        toast.success(data.message);
+       navigate("/books");
      }
     })
 

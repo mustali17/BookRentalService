@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
  
 export default function AddBook() {
  const [form, setForm] = useState({
@@ -23,26 +25,30 @@ export default function AddBook() {
  async function onSubmit(e) {
    e.preventDefault();
  
-   // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
  
-   await fetch("https://backend-rent-read.herokuapp.com/api/record/add", {
+  const response = await fetch("http://localhost:5000/api/record/add", {
      method: "POST",
      headers: {
        "Content-Type": "application/json",
+       "Authorization":"Bearer "+localStorage.getItem("jwt")
      },
      body: JSON.stringify(newPerson),
    })
    .catch(error => {
-     window.alert(error);
+    toast.error(error);
      return;
    });
+   if (!response.ok) {
+    const message = `An error occurred: ${response.statusText}`;
+    toast.error(message);
+    return;
+  }
  
    setForm({ bookname: "", authorname: "", desc: "" ,price: "", imgurl: "",ownermail: ""});
-   navigate("/");
+  //  navigate("/");
  }
  
- // This following section will display the form that takes the input from the user.
  return (
    <div>
      <div className="container text-center card border-dark shadow">
@@ -117,6 +123,8 @@ export default function AddBook() {
          />
        </div>
      </form>
+     <ToastContainer />
+
      </div>
      </div>
    </div>

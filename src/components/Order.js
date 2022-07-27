@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 export default function Order() {
   const params = useParams();
@@ -19,14 +21,27 @@ export default function Order() {
     ownermail:"",
     records: [],
   });
+  const user=JSON.parse(localStorage.getItem("user"));
+  const username=user.username;
+  const userID=user._id;
+  console.log(user.email);
+  
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/record/${params.id.toString()}`);
+      const response = await fetch(`http://localhost:5000/api/order/${params.id.toString()}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization":"Bearer "+localStorage.getItem("jwt")
+        },
+        
+      })
   
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
-        window.alert(message);
+        toast.error(message);
+        navigate("/signin");
         return;
       }
   
@@ -38,45 +53,83 @@ export default function Order() {
       }
   
       setForm(record);
+      setEmailId(user.email)
     }
-  
+    
     fetchData();
   
     return;
   }, [params.id, navigate]);
 
   // const book = useSelector((state) => state.book.book);
-
-  function auth(e) {
+  var bookname = form.bookname;
+  var bookID = params.id;
+  async function onSubmit(e) {
     e.preventDefault();
-    var mailid = form.ownermail;
-    var bookname = form.bookname;
-    var body =
-      "You just got a order for your book " +
-      bookname +
-      "from " +
-      name +
-      ".\nFollowing are the details of your coustomer:\nCoustomer Name: " +
-      name +
-      "\nPhone Number: " +
-      number +
-      "\nCustomer Address: " +
-      address +
-      "\nPincode: " +
-      pincode +
-      "\nCustomer mailid: " +
-      emailid;
-    var link =
-      "mailto:" +
-      mailid +
-      "?cc=admin@rentandread.com" +
-      "&subject=" +
-      encodeURIComponent("Order for " + bookname) +
-      "&body=" +
-      encodeURIComponent(body);
-    window.location.href = link;
-    navigate("/sucess");
+  
+  
+   const response = await fetch("http://localhost:5000/api/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // "Authorization":"Bearer "+localStorage.getItem("jwt")
+      },
+      body: JSON.stringify({
+        name,
+        number,
+        emailid,
+        address,
+        pincode,
+        userID,        
+        username,
+        bookID,
+        bookname,
+      }),
+    }).then(res=>res.json())
+    .then(data=>{
+     if(data.error){
+       toast.error(data.error)
+     }else{
+       toast.success("Order Successfully" );
+     }
+    })
+  
+   //  navigate("/");
   }
+
+
+
+
+  // function auth(e) {
+  //   e.preventDefault();
+    // var mailid = form.ownermail;
+    // var bookname = form.bookname;
+    // var body =
+    //   "You just got a order for your book " +
+    //   bookname +
+    //   "from " +
+    //   name +
+    //   ".\nFollowing are the details of your coustomer:\nCoustomer Name: " +
+    //   name +
+    //   "\nPhone Number: " +
+    //   number +
+    //   "\nCustomer Address: " +
+    //   address +
+    //   "\nPincode: " +
+    //   pincode +
+    //   "\nCustomer mailid: " +
+    //   emailid;
+    // var link =
+    //   "mailto:" +
+    //   mailid +
+    //   "?cc=admin@rentandread.com" +
+    //   "&subject=" +
+    //   encodeURIComponent("Order for " + bookname) +
+    //   "&body=" +
+    //   encodeURIComponent(body);
+    // window.location.href = link;
+    // navigate("/sucess");
+  // }
   return (
     <div>
       <div
@@ -86,7 +139,7 @@ export default function Order() {
         <div className="card-header">Enter Your Details </div>
 
         <div className="card-body">
-          <form onSubmit={(e) => auth(e)}>
+          <form onSubmit={onSubmit}>
             <div className="form-group">
               <div className="mb-3">
                 <input
@@ -156,6 +209,7 @@ export default function Order() {
           </form>
         </div>
       </div>
+      <ToastContainer />
       <br />
       <br />
     </div>

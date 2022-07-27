@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
-
+let status="Login";
+let linkto="signin"
+let user=JSON.parse(localStorage.getItem("user"));
 export default function Navbr() {
+  if(localStorage.getItem("loginStatus")=="true"){
+    status = "Logout"
+    linkto="logout"
+    console.log("loged in")
+  }
   return (
     <div>
       <head>
@@ -74,9 +81,9 @@ export default function Navbr() {
                     </Link>
                   </li> */}
                   <li className="nav-item mx-auto mx-md-2">
-                    <Link className="nav-link active" to="/signin">
+                    <Link className="nav-link active" to={`/${linkto}`}>
                       <NavItem>
-                        <i className="bi bi-person-plus"></i> Login
+                        <i className="bi bi-person-plus"></i> {status}
                       </NavItem>
                     </Link>
                   </li>
