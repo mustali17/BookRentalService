@@ -7,29 +7,50 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Order() {
   const params = useParams();
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [emailid, setEmailId] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [form, setForm] = useState({
+  // const [name, setName] = useState("");
+  // const [number, setNumber] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [emailid, setEmailId] = useState("");
+  // const [pincode, setPincode] = useState("");
+  const [form1, setForm1] = useState({
     bookname: "",
     authorname: "",
     desc: "",
     imgurl: "",
     price: "",
     ownermail:"",
-    records: [],
+});
+
+  const [form, setForm] = useState({
+    name:"",
+    email:"",
+    phone:"",
+    addr1:"",
+    addr2:"",
+    pin:"",
+    state:"",
+    country:"",
   });
-  const user=JSON.parse(localStorage.getItem("user"));
-  const username=user.username;
-  const userID=user._id;
-  console.log(user.email);
+  function updateForm(value) {
+    return setForm((prev) => {
+      return { ...prev, ...value };
+    });
+  }
+  var userID;
+  var username
+  if(localStorage.length>0){
+    const user=JSON.parse(localStorage.getItem("user"));
+  username=user.username;
+  userID=user._id;
+  }else{
+    navigate("/signin");
+  }
   
+
   useEffect(() => {
     async function fetchData() {
-      const id = params.id.toString();
-      const response = await fetch(`https://backend-rent-read.herokuapp.com/${params.id.toString()}`, {
+      // const id = params.id.toString();
+      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/${userID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -53,6 +74,42 @@ export default function Order() {
       }
   
       setForm(record);
+    }
+    
+    fetchData();
+  
+    return;
+  }, [params.id, navigate]);
+
+
+  
+  useEffect(() => {
+    async function fetchData() {
+      const id = params.id.toString();
+      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/record/${params.id.toString()}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization":"Bearer "+localStorage.getItem("jwt")
+        },
+        
+      })
+  
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.statusText}`;
+        toast.error(message);
+        navigate("/signin");
+        return;
+      }
+  
+      const record = await response.json();
+      if (!record) {
+        window.alert(`Record with id ${id} not found`);
+        navigate("/");
+        return;
+      }
+  
+      setForm1(record);
       setEmailId(user.email)
     }
     
@@ -62,7 +119,17 @@ export default function Order() {
   }, [params.id, navigate]);
 
   // const book = useSelector((state) => state.book.book);
-  var bookname = form.bookname;
+  var name = form.name;
+  var phone = form.phone;
+  var email = form.email;
+  var addr1 = form.addr1;
+  var addr2 = form.addr2;
+  var pin = form.pin;
+  var state = form.state;
+  var country = form.country;
+  var bookname = form1.bookname;
+  var imgurl = form1.imgurl;
+  var price = form1.price;
   var bookID = params.id;
   async function onSubmit(e) {
     e.preventDefault();
@@ -76,14 +143,19 @@ export default function Order() {
       },
       body: JSON.stringify({
         name,
-        number,
-        emailid,
-        address,
-        pincode,
+        phone,
+        email,
+        addr1,
+        addr2,
+        pin,
+        state,
+        country,
         userID,        
         username,
         bookID,
         bookname,
+        imgurl,
+        price,
       }),
     }).then(res=>res.json())
     .then(data=>{
@@ -100,104 +172,100 @@ export default function Order() {
 
 
 
-  // function auth(e) {
-  //   e.preventDefault();
-    // var mailid = form.ownermail;
-    // var bookname = form.bookname;
-    // var body =
-    //   "You just got a order for your book " +
-    //   bookname +
-    //   "from " +
-    //   name +
-    //   ".\nFollowing are the details of your coustomer:\nCoustomer Name: " +
-    //   name +
-    //   "\nPhone Number: " +
-    //   number +
-    //   "\nCustomer Address: " +
-    //   address +
-    //   "\nPincode: " +
-    //   pincode +
-    //   "\nCustomer mailid: " +
-    //   emailid;
-    // var link =
-    //   "mailto:" +
-    //   mailid +
-    //   "?cc=admin@rentandread.com" +
-    //   "&subject=" +
-    //   encodeURIComponent("Order for " + bookname) +
-    //   "&body=" +
-    //   encodeURIComponent(body);
-    // window.location.href = link;
-    // navigate("/sucess");
-  // }
+  
   return (
     <div>
-      <div
-        className="container card border-info shadow text-center"
-        style={{ maxWidth: "25rem", minWidth: "10rem" }}
-      >
-        <div className="card-header">Enter Your Details </div>
+            <div className="container rounded bg-white mt-5 mb-5">
+
+        <div className="card-header text-center">Enter Your Details</div>
 
         <div className="card-body">
           <form onSubmit={onSubmit}>
             <div className="form-group">
               <div className="mb-3">
+              <label className="labels">Name</label>
                 <input
                   type="text"
-                  onChange={function changename(event) {
-                    setName(event.target.value);
-                  }}
+                  onChange={(e) => updateForm({ name: e.target.value })}
                   className="form-control"
                   placeholder="Enter your Name"
-                  value={name}
+                  value={form.name}
                 />
               </div>
               <div className="mb-3">
+              <label className="labels">Phone Number</label>
                 <input
                   type="text"
-                  onChange={function changename(event) {
-                    setNumber(event.target.value);
-                  }}
+                  onChange={(e) => updateForm({ phone: e.target.value })}
                   className="form-control"
                   placeholder="Enter your Phone Number"
-                  value={number}
+                  value={form.phone}
                 />
               </div>
               <div className="mb-3">
+              <label className="labels">Email ID</label>
                 <input
                   type="text"
-                  onChange={function changename(event) {
-                    setEmailId(event.target.value);
-                  }}
+                  onChange={(e) => updateForm({ email: e.target.value })}
                   className="form-control"
                   placeholder="Enter your Email Id"
-                  value={emailid}
+                  value={form.email}
                 />
               </div>
               <div className="mb-3">
+              <label className="labels">Address line 1</label>
                 <input
                   type="text"
-                  onChange={function changename(event) {
-                    setAddress(event.target.value);
-                  }}
+                  onChange={(e) => updateForm({ addr1: e.target.value })}
                   className="form-control"
-                  placeholder="Enter your Address"
-                  value={address}
+                  placeholder="Address line 1"
+                  value={form.addr1}
                 />
               </div>
               <div className="mb-3">
+              <label className="labels">Address line 2</label>
                 <input
                   type="text"
-                  onChange={function changename(event) {
-                    setPincode(event.target.value);
-                  }}
+                  onChange={(e) => updateForm({ addr2: e.target.value })}
+                  className="form-control"
+                  placeholder="Address line 2"
+                  value={form.addr2}
+                />
+              </div>
+              <div className="mb-3">
+              <label className="labels">Pincode</label>
+                <input
+                  type="text"
+                  onChange={(e) => updateForm({ pin: e.target.value })}
                   className="form-control"
                   placeholder="Enter your Pincode"
-                  value={pincode}
+                  value={form.pin}
                 />
               </div>
+              <div className="row mt-3">
+                <div className="col-md-6">
+                  <label className="labels">Country</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="country"
+                    value={form.country}
+                    onChange={(e) => updateForm({ country: e.target.value })}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <label className="labels">State/Region</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={form.state}
+                    onChange={(e) => updateForm({ state: e.target.value })}
+                    placeholder="state"
+                  />
+                </div>
+              </div>
 
-              <div className="mb-3">
+              <div className="mt-5 text-center">
                 <input
                   type="submit"
                   className="btn btn-primary"

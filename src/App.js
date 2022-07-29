@@ -17,6 +17,7 @@ import OrderSucc from "./components/OrderSucc";
 import SignUp from "./components/Signup";
 import Signin from "./components/Signin";
 import Logout from "./components/Logout";
+import MyOrder from "./components/MyOrder";
 export default function App() {
   return (
       <BrowserRouter>
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/logout" element={<Logout/>} />
+            <Route path="/myorder" element={<MyOrder/>} />
           </Routes>
           <br/>
           <br/>

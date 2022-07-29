@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import MyOrder from "./MyOrder";
 
 
 
@@ -11,7 +12,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Profile() {
-  let user=JSON.parse(localStorage.getItem("user"));
+  var userID;
+  if(localStorage.length>0){
+    const user=JSON.parse(localStorage.getItem("user"));
+    userID=user._id;
+  }else{
+console.log("empty");
+console.log("dcerj");
+  }  
   const params = useParams();
   const navigate=useNavigate();
   const [form, setForm] = useState({
@@ -25,7 +33,7 @@ export default function Profile() {
     pin:"",
     state:"",
     country:"",
-    userID:user._id,
+    userID:userID,
   });
 
   function updateForm(value) {
@@ -37,21 +45,26 @@ export default function Profile() {
   useEffect(() => {
     async function fetchData() {
       // const id = params.id.toString();
-      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/${user._id}`, {
+      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/${userID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Authorization":"Bearer "+localStorage.getItem("jwt")
         },
         
+      }).then(res=>res.json())
+      .then(data=>{
+       if(data.error){
+         toast.error(data.error)
+         navigate("/signin");
+       }
       })
   
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        toast.error(message);
-        navigate("/signin");
-        return;
-      }
+      // if (!response.ok) {
+      
+      //   navigate("/signin");
+      //   return;
+      // }
   
       const record = await response.json();
       if (!record) {
@@ -73,7 +86,7 @@ export default function Profile() {
  
    const newPerson = { ...form };
  
-  const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/update/${user._id}`, {
+  const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/update/${userID}`, {
      method: "POST",
      headers: {
        "Content-Type": "application/json",
@@ -133,7 +146,7 @@ export default function Profile() {
                   <input
                     type="text"
                     className="form-control"
-                    value=""
+                    
                     placeholder="surname"
                   />
                 </div>
@@ -223,32 +236,7 @@ export default function Profile() {
           </div>
           <div className="col-md-4">
             <div className="p-3 py-5">
-              <div className="d-flex justify-content-between align-items-center experience">
-                <span>Edit Experience</span>
-                <span className="border px-3 p-1 add-experience">
-                  <i className="fa fa-plus"></i>&nbsp;Experience
-                </span>
-              </div>
-              <br />
-              <div className="col-md-12">
-                <label className="labels">Experience in Designing</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="experience"
-                  value=""
-                />
-              </div>{" "}
-              <br />
-              <div className="col-md-12">
-                <label className="labels">Additional Details</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="additional details"
-                  value=""
-                />
-              </div>
+              <MyOrder/>
             </div>
           </div>
         </div>
