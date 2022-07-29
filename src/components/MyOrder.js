@@ -40,12 +40,11 @@ console.log("dcerj");
       },
       
     })
-    .then(res=>res.json())
-    .then(data=>{
-     if(data.error){
-       console.log(data.error);
-     }
-    })
+    if (!response.ok) {
+      toast.error("You must be logged in!")
+      navigate("/signin");
+      return;
+    }
  
    
  
@@ -66,7 +65,7 @@ console.log("dcerj");
      return (
        <Record
          record={record}
-         key={userID}
+        //  key={_id}
        />
      );
    });

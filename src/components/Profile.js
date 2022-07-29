@@ -52,19 +52,20 @@ console.log("dcerj");
           "Authorization":"Bearer "+localStorage.getItem("jwt")
         },
         
-      }).then(res=>res.json())
-      .then(data=>{
-       if(data.error){
-         toast.error(data.error)
-         navigate("/signin");
-       }
       })
+      // .then(res=>res.json())
+      // .then(data=>{
+      //  if(data.error){
+      //    toast.error(data.error)
+      //    navigate("/signin");
+      //  }
+      // })
   
-      // if (!response.ok) {
-      
-      //   navigate("/signin");
-      //   return;
-      // }
+      if (!response.ok) {
+        toast.error("You must be logged in!")
+        navigate("/signin");
+        return;
+      }
   
       const record = await response.json();
       if (!record) {
