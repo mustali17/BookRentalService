@@ -18,6 +18,7 @@ import SignUp from "./components/Signup";
 import Signin from "./components/Signin";
 import Logout from "./components/Logout";
 import MyOrder from "./components/MyOrder";
+import AllOrders from "./components/AllOrders";
 export default function App() {
   return (
       <BrowserRouter>
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/signin" element={<Signin />} />
             <Route path="/logout" element={<Logout/>} />
             <Route path="/myorder" element={<MyOrder/>} />
+            <Route path="/allorders" element={<AllOrders/>} />
           </Routes>
           <br/>
           <br/>
