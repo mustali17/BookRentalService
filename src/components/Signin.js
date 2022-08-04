@@ -56,7 +56,7 @@ export default function Signin(){
        </div>
        <div className="mb-3 form-group">
          <input
-           type="text"
+           type="password"
            className="form-control"
            id="password"
            placeholder="Enter Your Password"

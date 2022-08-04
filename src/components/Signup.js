@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function SignUp() {
  const [form, setForm] = useState({
    name: "",
+   lname:"",
    username: "",
    email: "",
    password: "",
@@ -27,7 +28,7 @@ export default function SignUp() {
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
  
-   const response = await fetch("https://backend-rent-read.herokuapp.com/api/user/signup", {
+   const response = await fetch("http://localhost:5000/api/user/signup", {
      method: "POST",
      headers: {
        "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export default function SignUp() {
    
 
  
-   setForm({ name: "", username: "", email: "" ,password: ""});
+   setForm({ name: "",lname: "", username: "", email: "" ,password: ""});
    
 
  }
@@ -60,7 +61,7 @@ export default function SignUp() {
          <div className="card-header">FILL YOUR DETAILS</div>
          <div className="card-body">
      <form onSubmit={onSubmit}>
-       <div className="mb-3 form-group">
+       {/* <div className="mb-3 form-group">
          <input
            type="text"
            className="form-control"
@@ -69,7 +70,30 @@ export default function SignUp() {
            placeholder="Enter Your Name"
            onChange={(e) => updateForm({ name: e.target.value })}
          />
-       </div>
+       </div> */}
+       <div className="row mb-3">
+                <div className="col-md-6">
+                  {/* <label className="labels">Name</label> */}
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    placeholder="First name"
+                    value={form.name}
+                    onChange={(e) => updateForm({ name: e.target.value })}
+                  />
+                </div>
+                <div className="col-md-6">
+                  {/* <label className="labels">Surname</label> */}
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={form.lname}
+                    onChange={(e) => updateForm({ lname: e.target.value })}
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
        <div className="mb-3 form-group">
          <input
            type="text"
@@ -92,7 +116,7 @@ export default function SignUp() {
        </div>
        <div className="mb-3 form-group">
          <input
-           type="text"
+           type="password"
            className="form-control"
            id="password"
            value={form.password}

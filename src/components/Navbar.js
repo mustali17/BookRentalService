@@ -91,7 +91,7 @@ export default function Navbr() {
                     <Link className="nav-link active" to="/profile">
                       <NavItem>
                         <img
-                          src="https://avatars.githubusercontent.com/u/74243780?v=4"
+                          src="https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236__340.png"
                           className="rounded-circle"
                           height="25"
                           alt="Black and White Portrait of a Man"

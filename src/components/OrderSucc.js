@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 export default function OrderSucc() {
   return (
@@ -19,11 +21,17 @@ export default function OrderSucc() {
           <l className="checkmark">✓</l>
         </div>
         <p1>Success</p1>
-        <p>
+        <p><h5>
           We received your purchase request;
-          <br /> we'll be in touch shortly!
+          <br /> we'll be in touch shortly!</h5>
+          <br /><h6>Check Profile section to know your order status.</h6>
+          <Link to="/profile">
+            <button type="button" className="btn btn-outline-primary">
+              My Profile
+            </button>
+          </Link>
           <br />
-          <br />
+          <br/>
         </p>
       </div>
       <br />

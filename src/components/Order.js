@@ -163,6 +163,7 @@ export default function Order() {
        toast.error(data.error)
      }else{
        toast.success("Order Successfully" );
+       navigate("/sucess")
      }
     })
   

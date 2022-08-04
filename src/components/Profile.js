@@ -24,6 +24,7 @@ console.log("dcerj");
   const navigate=useNavigate();
   const [form, setForm] = useState({
     name:"",
+    lname:"",
     username:"",
     email:"",
     password:"",
@@ -137,7 +138,7 @@ console.log("dcerj");
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="first name"
+                    placeholder="First name"
                     value={form.name}
                     onChange={(e) => updateForm({ name: e.target.value })}
                   />
@@ -147,8 +148,9 @@ console.log("dcerj");
                   <input
                     type="text"
                     className="form-control"
-                    
-                    placeholder="surname"
+                    value={form.lname}
+                    onChange={(e) => updateForm({ lname: e.target.value })}
+                    placeholder="Last name"
                   />
                 </div>
               </div>

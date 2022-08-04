@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
+
 
 export default function Logout(){
 const navigate =useNavigate();
@@ -15,13 +16,23 @@ const navigate =useNavigate();
   <form onSubmit={onSubmit}>
   <l className="exclamationmark">!</l>
   <p>Are you sure you want to logout?</p><br/>
-<div className="mb-3 form-group">
+<div className="row mb-3 form-group">
+  <div className="col">
  <input
    type="submit"
    value="Logout"
    className="btn btn-primary"
  />
+ </div>
+ <div className="col">
+ <Link to="/">
+            <button type="button" className="btn btn-outline-primary">
+              Cancel
+            </button>
+          </Link>
+          </div>
 </div>
+
 
   </form>
 
