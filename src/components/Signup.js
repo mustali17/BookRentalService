@@ -28,7 +28,7 @@ export default function SignUp() {
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
  
-   const response = await fetch("http://localhost:5000/api/user/signup", {
+   const response = await fetch("https://backend-rent-read.herokuapp.com/api/user/signup", {
      method: "POST",
      headers: {
        "Content-Type": "application/json",
