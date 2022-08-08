@@ -13,6 +13,7 @@ const Record = (props) => (
         <td>{props.record.email}</td>
         <td>{props.record.addr1}<br/>{props.record.addr2}<br/>{props.record.pin}<br/>{props.record.state}<br/>{props.record.country}</td>
         <td>₹{props.record.price}/-</td>
+        <td>{props.record.FDate}</td>
         <td style={{ color: "red" }}>Pending </td>
        
   </tr>
@@ -91,6 +92,7 @@ console.log("dcerj");
         <th scope="col">Email ID</th>
         <th scope="col">Address</th>
         <th scope="col">Rent Price</th>
+        <th scope="col">Order Date</th>
         <th scope="col">Order Status</th>
       </tr>
     </thead>

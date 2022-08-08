@@ -11,6 +11,7 @@ const Record = (props) => (
   <div className="card-body">
   <h5 className="card-title">{props.record.bookname}</h5>
   <h6 className="card-subtitle mb-2 text-muted">Order Status : </h6>
+  <h6 className="card-subtitle mb-2 text-muted">Order Date: {props.record.FDate}</h6>
   <h6 className="card-subtitle mb-2 text-muted">Price: ₹{props.record.price}/-</h6>
   </div>
   </div><br/>
