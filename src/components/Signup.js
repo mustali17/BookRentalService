@@ -23,7 +23,10 @@ export default function SignUp() {
  // This function will handle the submission.
  async function onSubmit(e) {
    e.preventDefault();
-   
+   if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(form.email)){
+      toast.error("Invalid Email ID");
+      return
+   }
    
    // When a post request is sent to the create url, we'll add a new record to the database.
    const newPerson = { ...form };
