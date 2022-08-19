@@ -10,7 +10,6 @@ import Order from "./components/Order";
 import Profile from "./components/Profile";
 import AddBoook from "./components/AddBook";
 import { Provider } from "react-redux";
-import store from "./store";
 import Authenticate from "./components/Authenticate";
 import Footer from "./components/Footer";
 import OrderSucc from "./components/OrderSucc";
