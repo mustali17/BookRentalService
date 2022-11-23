@@ -18,7 +18,7 @@ export default function Authenticate() {
   return (
     <div>
       <h3 style={{ textAlign: "center", fontFamily: "yellowtail" }}>
-        Authenticate Your self!!
+        Authenticate Your self!
       </h3>
       <div
         className="container card border-info shadow text-center"
