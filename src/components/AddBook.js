@@ -35,15 +35,15 @@ export default function AddBook() {
      },
      body: JSON.stringify(newPerson),
    })
-   .catch(error => {
-    toast.error(error);
-     return;
-   });
-   if (!response.ok) {
-    const message = `An error occurred: ${response.statusText}`;
-    toast.error(message);
-    return;
-  }
+   .then(res=>res.json())
+    .then(data=>{
+     if(data.error){
+       toast.error(data.error)
+     }else{
+       toast.success("Book added Successfully" );
+       navigate("/books")
+     }
+    })
  
    setForm({ bookname: "", authorname: "", desc: "" ,price: "", imgurl: "",ownermail: ""});
   //  navigate("/");
