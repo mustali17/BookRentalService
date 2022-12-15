@@ -46,7 +46,7 @@ console.log("dcerj");
   useEffect(() => {
     async function fetchData() {
       // const id = params.id.toString();
-      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/${userID}`, {
+      const response = await fetch(`https://rentandread.onrender.com/api/user/${userID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,7 @@ console.log("dcerj");
  
    const newPerson = { ...form };
  
-  const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/update/${userID}`, {
+  const response = await fetch(`https://rentandread.onrender.com/api/user/update/${userID}`, {
      method: "POST",
      headers: {
        "Content-Type": "application/json",

@@ -33,7 +33,7 @@ console.log("dcerj");
  useEffect(() => {
    async function getRecords() {
 
-     const response = await fetch(`https://backend-rent-read.herokuapp.com/api/order/${userID}`, {
+     const response = await fetch(`https://rentandread.onrender.com/api/order/${userID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

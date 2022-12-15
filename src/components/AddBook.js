@@ -27,7 +27,7 @@ export default function AddBook() {
  
    const newPerson = { ...form };
  
-  const response = await fetch("https://backend-rent-read.herokuapp.com/api/record/add", {
+  const response = await fetch("https://rentandread.onrender.com/api/record/add", {
      method: "POST",
      headers: {
        "Content-Type": "application/json",

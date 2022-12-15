@@ -27,7 +27,7 @@ export default function RecordList() {
  useEffect(() => {
    async function getRecords() {
 
-     const response = await fetch('https://backend-rent-read.herokuapp.com/api/record');
+     const response = await fetch('https://rentandread.onrender.com/api/record');
 
  
      if (!response.ok) {
@@ -47,7 +47,7 @@ export default function RecordList() {
  
  // This method will delete a record
  async function deleteRecord(id) {
-   await fetch(`https://backend-rent-read.herokuapp.com/api/${id}`, {
+   await fetch(`https://rentandread.onrender.com/api/${id}`, {
      method: "DELETE"
    });
  

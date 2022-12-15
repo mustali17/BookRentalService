@@ -50,7 +50,7 @@ export default function Order() {
   useEffect(() => {
     async function fetchData() {
       // const id = params.id.toString();
-      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/user/${userID}`, {
+      const response = await fetch(`https://rentandread.onrender.com/api/user/${userID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export default function Order() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`https://backend-rent-read.herokuapp.com/api/record/${params.id.toString()}`, {
+      const response = await fetch(`https://rentandread.onrender.com/api/record/${params.id.toString()}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ export default function Order() {
     e.preventDefault();
   
   
-   const response = await fetch("https://backend-rent-read.herokuapp.com/api/order", {
+   const response = await fetch("https://rentandread.onrender.com/api/order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
