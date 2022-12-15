@@ -28,7 +28,7 @@ export default function Home() {
             Books on your doorstep!
           </h3>
           <Link to="/books">
-            <button type="button" className="primary">
+            <button type="button" className="btn btn-outline-primary">
               Rent Books
             </button>
           </Link>
