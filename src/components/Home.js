@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Testimonials from "./Testimonials";
 
 export default function Home() {
 
@@ -28,7 +29,7 @@ export default function Home() {
             Books on your doorstep!
           </h3>
           <Link to="/books">
-            <button type="button" className="btn btn-outline-primary">
+            <button type="button" className="btn btn-light">
               Rent Books
             </button>
           </Link>
@@ -50,6 +51,8 @@ export default function Home() {
           style={{ maxWidth: "40%", minWidth: "90px", height: "auto" }}
         />
       </div>
+      <Testimonials/>
+
     </>
   );
 }
