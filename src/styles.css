@@ -2,6 +2,30 @@
   font-family: sans-serif;
   background-color: rgb(76, 134, 226);
 }
+@media only screen and (max-width: 768px) {
+  .container {
+    height: auto;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  h3 {
+    font-size: 2em;
+  }
+
+  /* img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+  } */
+
+  h5 {
+    font-size: 1.5em;
+  }
+}
 
 p1 {
   color: #88b04b;

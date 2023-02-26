@@ -24,6 +24,7 @@ const Record = (props) => (
  
 export default function AllOrders() {
  const [records, setRecords] = useState([]);
+ const [isLoading, setIsLoading] = useState(true);
  var userID;
   if(localStorage.length>0){
     const user=JSON.parse(localStorage.getItem("user"));
@@ -46,6 +47,7 @@ console.log("dcerj");
     })
     if (!response.ok) {
       toast.error("You must be logged in!")
+      setIsLoading(false);
       navigate("/signin");
       return;
     }
@@ -54,6 +56,7 @@ console.log("dcerj");
  
      const records = await response.json();
      setRecords(records);
+     setIsLoading(false);
    }
  
    getRecords();
@@ -81,6 +84,13 @@ console.log("dcerj");
     <h3 style={{ textAlign: "center", fontFamily: "yellowtail" }}>
         All Orders:
       </h3>
+      {isLoading ? (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "200px" }}>
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
       <div className="card">
      <table className="table table-striped table-bordered table-hover bg-white">
     <thead>
@@ -101,6 +111,7 @@ console.log("dcerj");
        </tbody>
      </table>
      </div>
+      )}
      <ToastContainer />
    </div>
  );

@@ -13,6 +13,7 @@ import MyOrder from "./MyOrder";
 
 export default function Profile() {
   var userID;
+  const [isLoading, setIsLoading] = useState(true);
   if(localStorage.length>0){
     const user=JSON.parse(localStorage.getItem("user"));
     userID=user._id;
@@ -54,13 +55,6 @@ console.log("dcerj");
         },
         
       })
-      // .then(res=>res.json())
-      // .then(data=>{
-      //  if(data.error){
-      //    toast.error(data.error)
-      //    navigate("/signin");
-      //  }
-      // })
   
       if (!response.ok) {
         toast.error("You must be logged in!")
@@ -76,6 +70,7 @@ console.log("dcerj");
       }
   
       setForm(record);
+      setIsLoading(false);
     }
     
     fetchData();
@@ -112,6 +107,13 @@ console.log("dcerj");
 
   return (
     <>
+    {isLoading ? (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "200px" }}>
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
       <div className="container rounded bg-white mt-5 mb-5">
         <div className="row">
           <div className="col-md-3 border-right">
@@ -244,6 +246,7 @@ console.log("dcerj");
           </div>
         </div>
       </div>
+      )}
     </>
   );
 }
