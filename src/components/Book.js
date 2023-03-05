@@ -50,6 +50,10 @@ export default function RecordList() {
         const message = `An error occurred: ${response.statusText}`;
         toast.error(message);
         setIsLoading(false);
+        if (!isReloaded) {
+          isReloaded = true;
+          setTimeout(() => window.location.reload(false), 1000); // reload after 1 second
+        }
         return;
       }
 
