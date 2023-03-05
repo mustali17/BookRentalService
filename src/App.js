@@ -18,33 +18,35 @@ import Signin from "./components/Signin";
 import Logout from "./components/Logout";
 import MyOrder from "./components/MyOrder";
 import AllOrders from "./components/AllOrders";
+import TryTapop from "./components/TryTapop";
 export default function App() {
   return (
-      <BrowserRouter>
-        <div className="App">
-          <Navbr />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/books" element={<Book />} />
-            <Route path="/books/cart/:id" element={<Cart />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/authenticate" element={<Authenticate />} />
-            <Route path="/books/order/:id" element={<Order />} />
-            <Route path="/sucess" element={<OrderSucc />} />
-            <Route path="/books" element={<Book />} />
-            <Route path="/addbook" element={<AddBoook />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/logout" element={<Logout/>} />
-            <Route path="/myorder" element={<MyOrder/>} />
-            <Route path="/allorders" element={<AllOrders/>} />
-          </Routes>
-          <br/>
-          <br/>
-          <Footer />
-        </div>
-      </BrowserRouter>
+    <BrowserRouter>
+      <div className="App">
+        <Navbr />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/books" element={<Book />} />
+          <Route path="/books/cart/:id" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/authenticate" element={<Authenticate />} />
+          <Route path="/books/order/:id" element={<Order />} />
+          <Route path="/sucess" element={<OrderSucc />} />
+          <Route path="/books" element={<Book />} />
+          <Route path="/addbook" element={<AddBoook />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/myorder" element={<MyOrder />} />
+          <Route path="/allorders" element={<AllOrders />} />
+          <Route path="/try" element={<TryTapop />} />
+        </Routes>
+        <br />
+        <br />
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }

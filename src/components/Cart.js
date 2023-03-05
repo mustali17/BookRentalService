@@ -54,7 +54,7 @@ export default function Cart() {
                 <h5 className="card-title">{form.bookname}</h5>
                 <p className="card-text">{form.authorname}</p>
                 <p className="card-text">
-                  <small class="text-muted">{form.desc}</small>
+                  <small className="text-muted">{form.desc}</small>
                 </p>
                 <p className="card-text">₹ {form.price} /per month</p>
                 <Link to={`/books/order/${params.id}`}>
