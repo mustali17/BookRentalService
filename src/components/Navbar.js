@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
-let status="Login";
-let linkto="signin"
-let user=JSON.parse(localStorage.getItem("user"));
+let status = "Login";
+let linkto = "signin";
+let user = JSON.parse(localStorage.getItem("user"));
 export default function Navbr() {
-  if(localStorage.getItem("loginStatus")=="true"){
-    status = "Logout"
-    linkto="logout"
-    console.log("loged in")
+  if (localStorage.getItem("loginStatus") == "true") {
+    status = "Logout";
+    linkto = "logout";
+    console.log("loged in");
   }
   return (
     <div>

@@ -14,24 +14,38 @@ export default function About() {
             <br />
             <AdsComponent />
             <h4>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Welcome to our book rental service! Our mission is to make reading
+              more accessible and affordable for everyone. We believe that
+              knowledge should be accessible to all, and that’s why we started
+              this service.
             </h4>
             <br />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-              minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
+              My name is Mustali, and I’m a college student in my third year of
+              studies. I’ve always been passionate about reading, but I know how
+              expensive it can be to buy books. That’s why I started this
+              website, to help others like me who love reading but can’t always
+              afford to buy new books. Our website offers a wide selection of
+              books for rent, from classic literature to contemporary
+              bestsellers. We believe that reading is not just a hobby, but a
+              way to expand your mind and explore new ideas. By renting books
+              from us, you can save money and still enjoy the pleasure of
+              reading.
             </p>
             <br />
+            <p>
+              We also offer flexible rental options to fit your schedule and
+              budget. You can rent a book for as little as a week or as long as
+              a month. And if you decide you want to keep the book, we offer the
+              option to purchase it at a discounted price. At our book rental
+              service, we’re dedicated to providing the best possible experience
+              for our customers. We’re constantly adding new titles to our
+              collection and improving our website to make it easier for you to
+              find the books you want. Thank you for choosing our service, and
+              happy reading!
+            </p>
+            <br />
+            <AdsComponent />
             <button className="btn btn-outline-primary">Get in Touch</button>
             <div></div>
             <br />
