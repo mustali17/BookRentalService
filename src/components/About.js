@@ -1,7 +1,10 @@
 import React from "react";
+import AdsComponent from "./AdsComponent";
 
 export default function About() {
-  const notify = () => {toast.success("Wow so easy!")};
+  const notify = () => {
+    toast.success("Wow so easy!");
+  };
   return (
     <div>
       <div id="about" className="container">
@@ -9,6 +12,7 @@ export default function About() {
           <div className="col-sm-8">
             <h2>About Company Page</h2>
             <br />
+            <AdsComponent />
             <h4>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -29,8 +33,7 @@ export default function About() {
             </p>
             <br />
             <button className="btn btn-outline-primary">Get in Touch</button>
-            <div>
-    </div>
+            <div></div>
             <br />
             <br />
           </div>

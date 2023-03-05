@@ -1,11 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Testimonials from "./Testimonials";
-
+import AdsComponent from "./AdsComponent";
 export default function Home() {
-
-  
-
   return (
     <>
       <div
@@ -14,7 +11,7 @@ export default function Home() {
           height: "80vh",
           alignItems: "center",
           justifyContent: "center",
-          display: "flex"
+          display: "flex",
         }}
       >
         <div>
@@ -51,8 +48,8 @@ export default function Home() {
           style={{ maxWidth: "40%", minWidth: "90px", height: "auto" }}
         />
       </div>
-      <Testimonials/>
-
+      <AdsComponent />
+      <Testimonials />
     </>
   );
 }
