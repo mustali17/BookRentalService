@@ -43,9 +43,9 @@ export default function Home() {
           </h5>
         </div>
         <img
-          src="https://freepngimg.com/thumb/reading/146802-boy-reading-book-png-free-photo.png"
+          src={require("./readingbook.png")}
           alt="..."
-          style={{ maxWidth: "40%", minWidth: "90px", height: "auto" }}
+          style={{ maxWidth: "30%", minWidth: "70px", height: "auto" }}
         />
       </div>
       <AdsComponent />
