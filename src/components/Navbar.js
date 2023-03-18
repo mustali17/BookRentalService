@@ -23,7 +23,7 @@ export default function Navbr() {
         <Navbar collapseOnSelect expand="lg">
           <Container>
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQarEYDc2Nb8_EGg6UnXsJzAWbgPeIMQe4GkQ&usqp=CAU"
+              src={require("../components/logo1.jpg")}
               height="45"
               alt="Logo"
               loading="lazy"
