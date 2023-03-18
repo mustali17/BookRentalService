@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Order() {
   const params = useParams();
@@ -18,18 +18,18 @@ export default function Order() {
     desc: "",
     imgurl: "",
     price: "",
-    ownermail:"",
-});
+    ownermail: "",
+  });
 
   const [form, setForm] = useState({
-    name:"",
-    email:"",
-    phone:"",
-    addr1:"",
-    addr2:"",
-    pin:"",
-    state:"",
-    country:"",
+    name: "",
+    email: "",
+    phone: "",
+    addr1: "",
+    addr2: "",
+    pin: "",
+    state: "",
+    country: "",
   });
   function updateForm(value) {
     return setForm((prev) => {
@@ -37,84 +37,85 @@ export default function Order() {
     });
   }
   var userID;
-  var username
-  if(localStorage.length>0){
-    const user=JSON.parse(localStorage.getItem("user"));
-  username=user.username;
-  userID=user._id;
-  }else{
+  var username;
+  if (localStorage.getItem("user")) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    username = user.username;
+    userID = user._id;
+  } else {
     navigate("/signin");
   }
-  
 
   useEffect(() => {
     async function fetchData() {
       // const id = params.id.toString();
-      const response = await fetch(`https://rentandread.onrender.com/api/user/${userID}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization":"Bearer "+localStorage.getItem("jwt")
-        },
-        
-      })
-  
+      const response = await fetch(
+        `https://rentandread.onrender.com/api/user/${userID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      );
+
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         toast.error(message);
         navigate("/signin");
         return;
       }
-  
+
       const record = await response.json();
       if (!record) {
         window.alert(`Record with id ${id} not found`);
         navigate("/");
         return;
       }
-  
+
       setForm(record);
     }
-    
+
     fetchData();
-  
+
     return;
   }, [params.id, navigate]);
 
-
-  
   useEffect(() => {
     async function fetchData() {
       const id = params.id.toString();
-      const response = await fetch(`https://rentandread.onrender.com/api/record/${params.id.toString()}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization":"Bearer "+localStorage.getItem("jwt")
-        },
-        
-      })
-  
+      const response = await fetch(
+        `https://rentandread.onrender.com/api/record/${params.id.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      );
+
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         toast.error(message);
         navigate("/signin");
         return;
       }
-  
+
       const record = await response.json();
       if (!record) {
         window.alert(`Record with id ${id} not found`);
         navigate("/");
         return;
       }
-  
+
       setForm1(record);
-      setEmailId(user.email)
+      setEmailId(user.email);
     }
-    
+
     fetchData();
-  
+
     return;
   }, [params.id, navigate]);
 
@@ -133,9 +134,8 @@ export default function Order() {
   var bookID = params.id;
   async function onSubmit(e) {
     e.preventDefault();
-  
-  
-   const response = await fetch("https://rentandread.onrender.com/api/order", {
+
+    const response = await fetch("https://rentandread.onrender.com/api/order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -150,41 +150,37 @@ export default function Order() {
         pin,
         state,
         country,
-        userID,        
+        userID,
         username,
         bookID,
         bookname,
         imgurl,
         price,
       }),
-    }).then(res=>res.json())
-    .then(data=>{
-     if(data.error){
-       toast.error(data.error)
-     }else{
-       toast.success("Order Successfully" );
-       navigate("/sucess")
-     }
     })
-  
-   //  navigate("/");
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          toast.error(data.error);
+        } else {
+          toast.success("Order Successfully");
+          navigate("/sucess");
+        }
+      });
+
+    //  navigate("/");
   }
 
-
-
-
-  
   return (
     <div>
-            <div className="container rounded bg-white mt-5 mb-5">
-
+      <div className="container rounded bg-white mt-5 mb-5">
         <div className="card-header text-center">Enter Your Details</div>
 
         <div className="card-body">
           <form onSubmit={onSubmit}>
             <div className="form-group">
               <div className="mb-3">
-              <label className="labels">Name</label>
+                <label className="labels">Name</label>
                 <input
                   type="text"
                   onChange={(e) => updateForm({ name: e.target.value })}
@@ -194,7 +190,7 @@ export default function Order() {
                 />
               </div>
               <div className="mb-3">
-              <label className="labels">Phone Number</label>
+                <label className="labels">Phone Number</label>
                 <input
                   type="text"
                   onChange={(e) => updateForm({ phone: e.target.value })}
@@ -204,7 +200,7 @@ export default function Order() {
                 />
               </div>
               <div className="mb-3">
-              <label className="labels">Email ID</label>
+                <label className="labels">Email ID</label>
                 <input
                   type="text"
                   onChange={(e) => updateForm({ email: e.target.value })}
@@ -214,7 +210,7 @@ export default function Order() {
                 />
               </div>
               <div className="mb-3">
-              <label className="labels">Address line 1</label>
+                <label className="labels">Address line 1</label>
                 <input
                   type="text"
                   onChange={(e) => updateForm({ addr1: e.target.value })}
@@ -224,7 +220,7 @@ export default function Order() {
                 />
               </div>
               <div className="mb-3">
-              <label className="labels">Address line 2</label>
+                <label className="labels">Address line 2</label>
                 <input
                   type="text"
                   onChange={(e) => updateForm({ addr2: e.target.value })}
@@ -234,7 +230,7 @@ export default function Order() {
                 />
               </div>
               <div className="mb-3">
-              <label className="labels">Pincode</label>
+                <label className="labels">Pincode</label>
                 <input
                   type="text"
                   onChange={(e) => updateForm({ pin: e.target.value })}
