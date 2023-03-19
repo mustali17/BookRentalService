@@ -45,7 +45,7 @@ export default function Footer() {
             <a
               className="btn btn-primary btn-floating m-1"
               style={{ backgroundColor: "#0082ca" }}
-              href="#!"
+              href="https://www.linkedin.com/"
               role="button"
             >
               <i className="bi bi-linkedin"></i>
