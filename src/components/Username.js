@@ -1,26 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Signin() {
-  const [email, setEmail] = useState("");
+export default function Username() {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  async function onSignin(e) {
+  const { state } = useLocation();
+  async function onSignUp(e) {
     e.preventDefault();
     const response = await fetch(
-      "https://rentandread.onrender.com/api/user/signin",
+      `http://localhost:5000/api/user/addusername/${state.email}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
         body: JSON.stringify({
-          email,
-          password,
+          username: username,
+          password: password,
         }),
       }
     )
@@ -29,34 +29,32 @@ export default function Signin() {
         if (data.error) {
           toast.error(data.error);
         } else {
-          localStorage.setItem("jwt", data.token);
-          localStorage.setItem("user", JSON.stringify(data.user));
-          localStorage.setItem("loginStatus", true);
-          toast.success(data.message);
-          navigate("/books");
+          toast.success("User Created Successfully");
+          navigate("/signin");
         }
       });
   }
-
   return (
     <div>
+      <ToastContainer />
+
       <div
         className="container text-center card border-dark shadow"
         style={{ width: "25rem" }}
       >
-        <div className="card-header">SIGN IN</div>
+        <div className="card-header">Enter Username and password</div>
         <div className="card-body">
-          <form onSubmit={onSignin}>
+          <form onSubmit={onSignUp}>
             <div className="mb-3 form-group">
               <input
                 type="text"
                 className="form-control"
                 id="email"
-                placeholder="Enter Your Email"
+                placeholder="Enter Your Username"
                 onChange={function changename(event) {
-                  setEmail(event.target.value);
+                  setUsername(event.target.value);
                 }}
-                value={email}
+                value={username}
               />
             </div>
             <div className="mb-3 form-group">
@@ -72,17 +70,9 @@ export default function Signin() {
               />
             </div>
             <div className="mb-3 form-group">
-              <input
-                type="submit"
-                value="Sign In"
-                className="btn btn-primary"
-              />
+              <input type="submit" value="Submit" className="btn btn-primary" />
             </div>
-            <h6>
-              <Link to="/signup">Don't have an account? Click here</Link>
-            </h6>
           </form>
-          <ToastContainer />
         </div>
       </div>
     </div>

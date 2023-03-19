@@ -19,6 +19,7 @@ import Logout from "./components/Logout";
 import MyOrder from "./components/MyOrder";
 import AllOrders from "./components/AllOrders";
 import TryTapop from "./components/TryTapop";
+import Username from "./components/Username";
 export default function App() {
   return (
     <BrowserRouter>
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/myorder" element={<MyOrder />} />
           <Route path="/allorders" element={<AllOrders />} />
           <Route path="/try" element={<TryTapop />} />
+          <Route path="/username" element={<Username />} />
         </Routes>
         <br />
         <br />

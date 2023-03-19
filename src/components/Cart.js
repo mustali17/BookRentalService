@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import AdsComponent from "./AdsComponent";
 
 export default function Cart() {
+  const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState({
     bookname: "",
     authorname: "",
@@ -36,6 +37,7 @@ export default function Cart() {
       }
 
       setForm(record);
+      setIsLoading(false);
     }
 
     fetchData();
@@ -47,28 +49,43 @@ export default function Cart() {
     <div>
       <div className="container text-center">
         <div className="card mb-3 border-primary" style={{ maxWidth: "540px" }}>
-          <div className="row g-0">
-            <div className="col-md-4">
-              <img
-                src={form.imgurl}
-                className="img-fluid rounded-start"
-                alt="..."
-              />
-            </div>
-            <div className="col-md-8">
-              <div className="card-body">
-                <h5 className="card-title">{form.bookname}</h5>
-                <p className="card-text">{form.authorname}</p>
-                <p className="card-text">
-                  <small className="text-muted">{form.desc}</small>
-                </p>
-                <p className="card-text">₹ {form.price} /per month</p>
-                <Link to={`/books/order/${params.id}`}>
-                  <button className="btn btn-primary">Rent Book</button>
-                </Link>
+          {isLoading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "200px",
+              }}
+            >
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="row g-0">
+              <div className="col-md-4">
+                <img
+                  src={form.imgurl}
+                  className="img-fluid rounded-start"
+                  alt="..."
+                />
+              </div>
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h5 className="card-title">{form.bookname}</h5>
+                  <p className="card-text">{form.authorname}</p>
+                  <p className="card-text">
+                    <small className="text-muted">{form.desc}</small>
+                  </p>
+                  <p className="card-text">₹ {form.price} /per month</p>
+                  <Link to={`/books/order/${params.id}`}>
+                    <button className="btn btn-primary">Rent Book</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <AdsComponent />
       </div>
