@@ -18,7 +18,7 @@ export default function Footer() {
             <a
               className="btn btn-primary btn-floating m-1"
               style={{ backgroundColor: "#55acee" }}
-              href="#!"
+              href="https://www.twitter.com/"
               role="button"
             >
               <i className="bi bi-twitter"></i>
@@ -27,7 +27,7 @@ export default function Footer() {
             <a
               className="btn btn-primary btn-floating m-1"
               style={{ backgroundColor: "#dd4b39" }}
-              href="#!"
+              href="https://www.google.com/"
               role="button"
             >
               <i className="bi bi-google"></i>
@@ -36,7 +36,7 @@ export default function Footer() {
             <a
               className="btn btn-primary btn-floating m-1"
               style={{ backgroundColor: "#ac2bac" }}
-              href="#!"
+              href="https://www.instagram.com/"
               role="button"
             >
               <i className="bi bi-instagram"></i>
@@ -53,7 +53,7 @@ export default function Footer() {
             <a
               className="btn btn-primary btn-floating m-1"
               style={{ backgroundColor: "#333333" }}
-              href="#!"
+              href="https://www.github.com/"
               role="button"
             >
               <i className="bi bi-github"></i>
