@@ -9,10 +9,10 @@ const Record = (props) => (
     <div className="col">
       <div className="container card border shadow" style={{ width: "18rem" }}>
         <img
-          src={require(`./books/${props.record.imgurl}.jpg`)}
+          src={require(`./books/${props.record.imgurl}`)}
           className="card-img-top"
           width="100"
-          height="170"
+          height="220"
           alt="..."
         />
         <div className="card-body">
