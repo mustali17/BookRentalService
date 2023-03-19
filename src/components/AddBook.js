@@ -33,13 +33,16 @@ export default function AddBook() {
     formData.append("ownermail", form.ownermail);
     formData.append("image", form.image);
 
-    const response = await fetch("http://localhost:5000/api/record/add", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-      body: formData,
-    })
+    const response = await fetch(
+      "https://rentandread.onrender.com/api/record/add",
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: formData,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
