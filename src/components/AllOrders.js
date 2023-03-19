@@ -7,7 +7,7 @@ const Record = (props) => (
   <tr>
     <td>
       <img
-        src={require(`./books/${props.record.imgurl}.jpg`)}
+        src={require(`./books/${props.record.imgurl}`)}
         className="card-img-top"
         width="100"
         height="170"
