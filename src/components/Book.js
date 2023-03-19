@@ -47,7 +47,7 @@ export default function RecordList() {
       );
 
       if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
+        const message = `An error occurred: ${response.statusText} Please Refresh this page`;
         toast.error(message);
         setIsLoading(false);
         if (!isReloaded) {
@@ -68,14 +68,14 @@ export default function RecordList() {
   }, [records.length]);
 
   // This method will delete a record
-  async function deleteRecord(id) {
-    await fetch(`https://rentandread.onrender.com/api/${id}`, {
-      method: "DELETE",
-    });
+  // async function deleteRecord(id) {
+  //   await fetch(`https://rentandread.onrender.com/api/${id}`, {
+  //     method: "DELETE",
+  //   });
 
-    const newRecords = records.filter((el) => el._id !== id);
-    setRecords(newRecords);
-  }
+  //   const newRecords = records.filter((el) => el._id !== id);
+  //   setRecords(newRecords);
+  // }
 
   // This method will map out the records on the table
   function recordList() {
@@ -83,7 +83,7 @@ export default function RecordList() {
       return (
         <Record
           record={record}
-          deleteRecord={() => deleteRecord(record._id)}
+          // deleteRecord={() => deleteRecord(record._id)}
           key={record._id}
         />
       );
