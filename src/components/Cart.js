@@ -66,7 +66,7 @@ export default function Cart() {
             <div className="row g-0">
               <div className="col-md-4">
                 <img
-                  src={form.imgurl}
+                  src={require(`./books/${form.imgurl}.jpg`)}
                   className="img-fluid rounded-start"
                   alt="..."
                 />
