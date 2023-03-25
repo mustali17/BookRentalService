@@ -34,6 +34,7 @@ export default function Signin() {
           localStorage.setItem("loginStatus", true);
           toast.success(data.message);
           navigate("/books");
+          window.location.reload();
         }
       });
   }

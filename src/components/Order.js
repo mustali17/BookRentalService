@@ -7,6 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Order() {
   const params = useParams();
   const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const days = parseInt(searchParams.get("days")) || 30;
+  const price = parseInt(searchParams.get("price")) || 49;
   // const [name, setName] = useState("");
   // const [number, setNumber] = useState("");
   // const [address, setAddress] = useState("");
@@ -111,7 +114,6 @@ export default function Order() {
       }
 
       setForm1(record);
-      setEmailId(user.email);
     }
 
     fetchData();
@@ -130,7 +132,7 @@ export default function Order() {
   var country = form.country;
   var bookname = form1.bookname;
   var imgurl = form1.imgurl;
-  var price = form1.price;
+  // var price = form1.price;
   var bookID = params.id;
   async function onSubmit(e) {
     e.preventDefault();
@@ -156,6 +158,7 @@ export default function Order() {
         bookname,
         imgurl,
         price,
+        days,
       }),
     })
       .then((res) => res.json())
@@ -165,6 +168,16 @@ export default function Order() {
         } else {
           toast.success("Order Successfully");
           navigate("/sucess");
+          fetch(`https://rentandread.onrender.com/api/onrent/${bookID}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              // "Authorization":"Bearer "+localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+              onRent: true,
+            }),
+          });
         }
       });
 

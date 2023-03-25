@@ -45,7 +45,20 @@ export default function Cart() {
 
     return;
   }, [params.id, navigate]);
-
+  const [price, setPrice] = useState(49);
+  const handleChange = (event) => {
+    setSelectedDays(event.target.value);
+    const days = parseInt(event.target.value);
+    let newPrice;
+    if (days === 30) {
+      newPrice = 49;
+    } else if (days === 60) {
+      newPrice = 99;
+    } else if (days === 90) {
+      newPrice = 199;
+    }
+    setPrice(newPrice);
+  };
   return (
     <div>
       <div className="container text-center">
@@ -84,19 +97,20 @@ export default function Cart() {
                     <select
                       className="form-control"
                       id="days"
+                      name="days"
+                      onChange={handleChange}
                       value={selectedDays}
-                      onChange={(e) =>
-                        setSelectedDays(parseInt(e.target.value))
-                      }
                     >
-                      <option value={30}>30 days</option>
-                      <option value={60}>60 days</option>
-                      <option value={90}>90 days</option>
+                      <option value="30">30 Days</option>
+                      <option value="60">60 Days</option>
+                      <option value="90">90 Days</option>
                     </select>
                   </div>
 
-                  <p className="card-text">₹ {form.price} /per month</p>
-                  <Link to={`/books/order/${params.id}?days=${selectedDays}`}>
+                  <p className="card-text">₹ {price}</p>
+                  <Link
+                    to={`/books/order/${params.id}?days=${selectedDays}&price=${price}`}
+                  >
                     <button className="btn btn-primary">Rent Book</button>
                   </Link>
                 </div>

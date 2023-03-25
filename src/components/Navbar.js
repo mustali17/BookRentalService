@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
+import Avatar from "react-avatar";
 let status = "Login";
 let linkto = "signin";
 let user = JSON.parse(localStorage.getItem("user"));
@@ -87,19 +88,21 @@ export default function Navbr() {
                       </NavItem>
                     </Link>
                   </li>
-                  <li className="nav-item mx-auto mx-md-2">
-                    <Link className="nav-link active" to="/profile">
-                      <NavItem>
-                        <img
-                          src="https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236__340.png"
-                          className="rounded-circle"
-                          height="25"
-                          alt="Black and White Portrait of a Man"
-                          loading="lazy"
-                        />
-                      </NavItem>
-                    </Link>
-                  </li>
+                  {user ? (
+                    <li className="nav-item mx-auto mx-md-2">
+                      <Link className="nav-link active" to="/profile">
+                        <NavItem>
+                          <Avatar
+                            name={user ? user.username : "R  & R "}
+                            round={true}
+                            size="30"
+                          />
+                        </NavItem>
+                      </Link>
+                    </li>
+                  ) : (
+                    ""
+                  )}
                 </ul>
               </Nav>
             </Navbar.Collapse>

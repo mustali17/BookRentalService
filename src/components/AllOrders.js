@@ -3,37 +3,114 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Record = (props) => (
-  <tr>
-    <td>
-      <img
-        src={require(`./books/${props.record.imgurl}`)}
-        className="card-img-top"
-        width="100"
-        height="170"
-        alt="..."
-      />
-    </td>
-    <td>{props.record.bookname}</td>
-    <td>{props.record.name}</td>
-    <td>{props.record.phone}</td>
-    <td>{props.record.email}</td>
-    <td>
-      {props.record.addr1}
-      <br />
-      {props.record.addr2}
-      <br />
-      {props.record.pin}
-      <br />
-      {props.record.state}
-      <br />
-      {props.record.country}
-    </td>
-    <td>₹{props.record.price}/-</td>
-    <td>{props.record.FDate}</td>
-    <td style={{ color: "red" }}>Pending </td>
-  </tr>
-);
+const Record = (props) => {
+  const handleBookRecieved = async () => {
+    console.log(props.record._id);
+    const response = await fetch(
+      `https://rentandread.onrender.com/api/bookrecieved/${props.record._id}/${props.record.bookID}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({ bookReturend: true }),
+      }
+    );
+    if (response.ok) {
+      toast.success("Book Recieved successfully!");
+      window.location.reload();
+    } else {
+      toast.error("Failed to Recieve book!");
+    }
+  };
+  const handleBookDelivered = async () => {
+    const response = await fetch(
+      `https://rentandread.onrender.com/api/bookdelivered/${props.record._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({ bookDelivered: true }),
+      }
+    );
+    if (response.ok) {
+      toast.success("Book Delivered successfully!");
+      window.location.reload();
+    } else {
+      toast.error("Failed to Delivered book!");
+    }
+  };
+  return (
+    <tr>
+      <td>
+        <img
+          src={require(`./books/${props.record.imgurl}`)}
+          className="card-img-top"
+          width="100"
+          height="170"
+          alt="..."
+        />
+      </td>
+      <td>{props.record.bookname}</td>
+      <td>{props.record.name}</td>
+      <td>{props.record.phone}</td>
+      <td>{props.record.email}</td>
+      <td>
+        {props.record.addr1}
+        <br />
+        {props.record.addr2}
+        <br />
+        {props.record.pin}
+        <br />
+        {props.record.state}
+        <br />
+        {props.record.country}
+      </td>
+      <td>₹{props.record.price}/-</td>
+      <td>{props.record.FDate}</td>
+      <td>{props.record.RDate}</td>
+      <td>
+        {props.record.bookDelivered ? (
+          <>
+            {props.record.bookReturend ? (
+              "Book Returned!"
+            ) : (
+              <>
+                Return Request:{" "}
+                {props.record.returnRequest ? (
+                  <>
+                    <span style={{ color: "green" }}>Yes</span>
+                  </>
+                ) : (
+                  <span style={{ color: "red" }}>No</span>
+                )}
+                <button
+                  className="btn btn-primary profile-button"
+                  type="button"
+                  disabled={!props.record.returnRequest}
+                  onClick={handleBookRecieved}
+                >
+                  Book Recieved
+                </button>
+              </>
+            )}
+          </>
+        ) : (
+          <button
+            className="btn btn-primary profile-button"
+            type="button"
+            onClick={handleBookDelivered}
+          >
+            Book Delivered
+          </button>
+        )}
+      </td>
+    </tr>
+  );
+};
 
 export default function AllOrders() {
   const [records, setRecords] = useState([]);
@@ -120,6 +197,7 @@ export default function AllOrders() {
                 <th scope="col">Address</th>
                 <th scope="col">Rent Price</th>
                 <th scope="col">Order Date</th>
+                <th scope="col">Return Date</th>
                 <th scope="col">Order Status</th>
               </tr>
             </thead>
