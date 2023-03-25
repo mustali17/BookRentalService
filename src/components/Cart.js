@@ -15,6 +15,7 @@ export default function Cart() {
   });
   const params = useParams();
   const navigate = useNavigate();
+  const [selectedDays, setSelectedDays] = useState(30); // default value of 30 days
 
   useEffect(() => {
     async function fetchData() {
@@ -78,8 +79,24 @@ export default function Cart() {
                   <p className="card-text">
                     <small className="text-muted">{form.desc}</small>
                   </p>
+                  <div className="form-group">
+                    <label htmlFor="days">Rent for</label>
+                    <select
+                      className="form-control"
+                      id="days"
+                      value={selectedDays}
+                      onChange={(e) =>
+                        setSelectedDays(parseInt(e.target.value))
+                      }
+                    >
+                      <option value={30}>30 days</option>
+                      <option value={60}>60 days</option>
+                      <option value={90}>90 days</option>
+                    </select>
+                  </div>
+
                   <p className="card-text">₹ {form.price} /per month</p>
-                  <Link to={`/books/order/${params.id}`}>
+                  <Link to={`/books/order/${params.id}?days=${selectedDays}`}>
                     <button className="btn btn-primary">Rent Book</button>
                   </Link>
                 </div>
