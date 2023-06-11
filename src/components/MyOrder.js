@@ -4,32 +4,70 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import StarRating from "star-rating-react";
 
 const Record = (props) => {
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const [returnAddress, setReturnAddress] = useState("");
 
-  const handleReturnRequest = async () => {
-    const response = await fetch(
-      `https://rentandread.onrender.com/api/return/${props.record._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify({ returnRequest: true }),
-      }
-    );
-    if (response.ok) {
-      toast.success("Return requested successfully!");
-      setModalShow(false);
-      window.location.reload();
-    } else {
-      toast.error("Failed to request return!");
-    }
-  };
   function MyVerticallyCenteredModal(props) {
+    var userID;
+    if (localStorage.length > 0) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      userID = user._id;
+    } else {
+      console.log("empty");
+      console.log("dcerj");
+    }
+    const [review, setReview] = useState("");
+    const [rating, setRating] = useState(0);
+    const handleReviewChange = (event) => {
+      setReview(event.target.value);
+    };
+    const handleRatingChange = (newRating) => {
+      setRating(newRating);
+    };
+
+    const handleReturnRequest = async () => {
+      const response = await fetch(
+        `https://rentandread.onrender.com/api/return/${props.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+          body: JSON.stringify({ returnRequest: true }),
+        }
+      );
+
+      const requestBody = {
+        bookID: props.bookID,
+        userId: userID,
+        review: review,
+        rating: rating,
+      };
+
+      const reviewResponse = await fetch(
+        `https://rentandread.onrender.com/api/review/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      if (response.ok && reviewResponse.ok) {
+        toast.success("Return requested and review added successfully!");
+        setModalShow(false);
+        window.location.reload();
+      } else {
+        toast.error("Failed to request return or add review!");
+      }
+    };
     return (
       <Modal
         {...props}
@@ -54,6 +92,25 @@ const Record = (props) => {
             Your Country
             <br />
           </p>
+        </Modal.Body>
+        <Modal.Body>
+          <h4>Enjoyed Reading the book? Leave a Review:</h4>
+          <div>
+            <StarRating
+              count={5}
+              onChange={handleRatingChange}
+              value={rating}
+            />
+          </div>
+          <div>
+            <textarea
+              className="form-control"
+              rows={3}
+              placeholder="Write your review here"
+              value={review}
+              onChange={handleReviewChange}
+            />
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -80,10 +137,6 @@ const Record = (props) => {
           <h6 className="card-subtitle mb-2 text-muted">
             Order Date: {props.record.FDate}
           </h6>
-          {/* <h6 className="card-subtitle mb-2 text-muted"> */}
-          {/* Days Remaining: {Math.floor((Math.floor(new Date(Date.parse(props.record.RDate)).getTime() / 1000) - Math.floor(new Date().getTime() / 1000)) / 86400);} */}
-          {/* {new Date(Date.parse("23/06/2023"))}
-        </h6> */}
           <h6 className="card-subtitle mb-2 text-muted">
             Return Due Date: {props.record.RDate}
           </h6>
@@ -118,6 +171,8 @@ const Record = (props) => {
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
+        id={props.record._id}
+        bookID={props.record.bookID}
       />
 
       <br />
@@ -136,7 +191,7 @@ export default function MyOrder() {
     console.log("empty");
     console.log("dcerj");
   }
-  // This method fetches the records from the database.
+
   async function getRecords() {
     const response = await fetch(
       `https://rentandread.onrender.com/api/order/${userID}`,
@@ -159,25 +214,17 @@ export default function MyOrder() {
     setRecords(records);
     setIsLoading(false);
   }
+
   useEffect(() => {
     getRecords();
-
-    return;
   }, []);
 
-  // This method will map out the records on the table
   function recordList() {
     return records.map((record) => {
-      return (
-        <Record
-          record={record}
-          //  key={_id}
-        />
-      );
+      return <Record key={record._id} bookID={record.bookID} record={record} />;
     });
   }
 
-  // This following section will display the table with the records of individuals.
   return (
     <div>
       <h3 style={{ textAlign: "center", fontFamily: "yellowtail" }}>
@@ -198,7 +245,7 @@ export default function MyOrder() {
         </div>
       ) : (
         <div className="container" style={{ alignItems: "center" }}>
-          {records.length == 0 ? (
+          {records.length === 0 ? (
             <>
               <h5>You don't have any orders yet! </h5>
               <Link to="/books">

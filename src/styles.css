@@ -46,3 +46,21 @@ l {
   line-height: 200px;
   margin-left: -15px;
 }
+
+#sideimage {
+  animation: sideimageanimation 4s infinite;
+}
+
+@keyframes sideimageanimation {
+  0% {
+    transform: translateY(-10px);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}

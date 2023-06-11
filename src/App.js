@@ -20,6 +20,7 @@ import MyOrder from "./components/MyOrder";
 import AllOrders from "./components/AllOrders";
 import TryTapop from "./components/TryTapop";
 import Username from "./components/Username";
+// import BookRecommendations from "./components/BookRecommendations";
 export default function App() {
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/allorders" element={<AllOrders />} />
           <Route path="/try" element={<TryTapop />} />
           <Route path="/username" element={<Username />} />
+          {/* <Route path="/recomedbook" element={<BookRecommendations />} /> */}
         </Routes>
         <br />
         <br />

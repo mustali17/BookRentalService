@@ -5,9 +5,10 @@ export default function About() {
   const notify = () => {
     toast.success("Wow so easy!");
   };
+
   return (
     <div>
-      <div id="about" className="container">
+      <div className="container">
         <div className="row">
           <div className="col-sm-8">
             <h2>About Company Page</h2>
@@ -50,6 +51,27 @@ export default function About() {
             <div></div>
             <br />
             <br />
+          </div>
+          <div className="col-sm-4 d-flex justify-content-end">
+            <div
+              id="sideimage"
+              style={{
+                perspective: "800px",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <img
+                src={require("../2672335-removebg-preview.png")}
+                alt="..."
+                style={{
+                  maxWidth: "100%",
+                  minWidth: "70px",
+                  height: "auto",
+                  transform: "rotateY(-20deg)",
+                  filter: "drop-shadow(8px 5px 4px #303030)",
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

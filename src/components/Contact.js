@@ -2,6 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core";
 
+import image from "../5127314-removebg-preview.png";
+
 export default function Contact() {
   return (
     <div>
@@ -21,9 +23,28 @@ export default function Contact() {
             directly. Our team will come back to you within a matter of hours to
             help you.
           </p>
-
           <div className="row">
-            <div className="col-md-9 mb-md-0 mb-5">
+            <div className="col-md-6">
+              <div
+                id="sideimage"
+                style={{
+                  perspective: "800px",
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <img
+                  src={image}
+                  alt="Contact"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    transform: "rotateY(20deg)",
+                    filter: "drop-shadow(8px 5px 4px #303030)",
+                  }}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
               <form
                 id="contact-form"
                 name="contact-form"
@@ -39,7 +60,7 @@ export default function Contact() {
                         name="name"
                         className="form-control"
                       />
-                      <label for="name" className="">
+                      <label htmlFor="name" className="">
                         Your name
                       </label>
                     </div>
@@ -53,7 +74,7 @@ export default function Contact() {
                         name="email"
                         className="form-control"
                       />
-                      <label for="email" className="">
+                      <label htmlFor="email" className="">
                         Your email
                       </label>
                     </div>
@@ -69,7 +90,7 @@ export default function Contact() {
                         name="subject"
                         className="form-control"
                       />
-                      <label for="subject" className="">
+                      <label htmlFor="subject" className="">
                         Subject
                       </label>
                     </div>
@@ -86,41 +107,22 @@ export default function Contact() {
                         rows="2"
                         className="form-control md-textarea"
                       ></textarea>
-                      <label for="message">Your message</label>
+                      <label htmlFor="message">Your message</label>
                     </div>
                   </div>
                 </div>
+
+                <div className="text-center text-md-left">
+                  <button
+                    className="btn btn-primary"
+                    // onClick={function d() {
+                    //   document.getElementById("contact-form").submit();}}
+                  >
+                    Send
+                  </button>
+                </div>
+                <div className="status"></div>
               </form>
-
-              <div className="text-center text-md-left">
-                <button
-                  className="btn btn-primary"
-                  // onClick={function d() {
-                  //   document.getElementById("contact-form").submit();}}
-                >
-                  Send
-                </button>
-              </div>
-              <div className="status"></div>
-            </div>
-
-            <div className="col-md-3 text-center">
-              <ul className="list-unstyled mb-0">
-                <li>
-                  <FontAwesomeIcon icon="fa-thin fa-map-location" />
-                  <p>Dahod, Gujarat, India</p>
-                </li>
-
-                <li>
-                  <i className="bi bi-phone mt-4 bi-2x"></i>
-                  <p>+91 823XXX8952</p>
-                </li>
-
-                <li>
-                  <i className="bi bi-envelope mt-4 fa-2x"></i>
-                  <p>contact@mustali.com</p>
-                </li>
-              </ul>
             </div>
           </div>
         </section>

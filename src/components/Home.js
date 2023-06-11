@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Testimonials from "./Testimonials";
 import AdsComponent from "./AdsComponent";
+
 export default function Home() {
+  const [records, setRecords] = useState([]);
+
+  useEffect(() => {
+    async function getRecords() {
+      const response = await fetch(
+        "https://rentandread.onrender.com/api/record"
+      );
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText} Please Refresh this page`;
+
+        return;
+      }
+
+      const records = await response.json();
+      setRecords(records);
+    }
+
+    getRecords();
+
+    return;
+  }, []);
   return (
     <>
       <div
@@ -42,11 +65,25 @@ export default function Home() {
             </a>
           </h5>
         </div>
-        <img
-          src={require("./readingbook.png")}
-          alt="..."
-          style={{ maxWidth: "30%", minWidth: "70px", height: "auto" }}
-        />
+        <div
+          id="sideimage"
+          style={{
+            perspective: "800px",
+            transformStyle: "preserve-3d",
+          }}
+        >
+          <img
+            src={require("./5437683-removebg-preview.png")}
+            alt="..."
+            style={{
+              maxWidth: "70%",
+              minWidth: "70px",
+              height: "auto",
+              transform: "rotateY(20deg)",
+              filter: "drop-shadow(8px 5px 4px #303030)",
+            }}
+          />
+        </div>
       </div>
       <AdsComponent />
       {/* <Testimonials /> */}
