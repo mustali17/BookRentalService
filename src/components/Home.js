@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Testimonials from "./Testimonials";
 import AdsComponent from "./AdsComponent";
+import AboutSection from "./AboutSection";
 
 export default function Home() {
   const [records, setRecords] = useState([]);
@@ -60,12 +61,15 @@ export default function Home() {
           <h5 style={{ fontFamily: "garamond", fontSize: "2vm" }}>
             If you want to give your books on rent kindly email the details of
             your book at:{" "}
-            <a href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:">
+            <a
+              style={{ color: "white" }}
+              href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
+            >
               mustalichunawala@gmail.com
             </a>
           </h5>
         </div>
-        <div
+        {/* <div
           id="sideimage"
           style={{
             perspective: "800px",
@@ -83,10 +87,10 @@ export default function Home() {
               filter: "drop-shadow(8px 5px 4px #303030)",
             }}
           />
-        </div>
+        </div> */}
       </div>
-      <AdsComponent />
-      {/* <Testimonials /> */}
+      <AboutSection />
+      <Testimonials />
     </>
   );
 }

@@ -265,7 +265,6 @@ export default function Cart() {
             </div>
           </div>
         </div>
-        <AdsComponent />
       </div>
     </div>
   );

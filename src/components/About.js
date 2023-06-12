@@ -13,7 +13,6 @@ export default function About() {
           <div className="col-sm-8">
             <h2>About Company Page</h2>
             <br />
-            <AdsComponent />
             <h4>
               Welcome to our book rental service! Our mission is to make reading
               more accessible and affordable for everyone. We believe that
@@ -46,7 +45,6 @@ export default function About() {
               happy reading!
             </p>
             <br />
-            <AdsComponent />
             <button className="btn btn-outline-primary">Get in Touch</button>
             <div></div>
             <br />
