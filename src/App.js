@@ -20,6 +20,12 @@ import MyOrder from "./components/MyOrder";
 import AllOrders from "./components/AllOrders";
 import TryTapop from "./components/TryTapop";
 import Username from "./components/Username";
+import Admin from "./components/Admin";
+import AdminPage from "./components/AdminPage";
+import AllUsers from "./components/AllUsers";
+import RequestBook from "./components/RequestBook";
+import BookRequest from "./components/BookRequest";
+
 // import BookRecommendations from "./components/BookRecommendations";
 export default function App() {
   return (
@@ -45,6 +51,12 @@ export default function App() {
           <Route path="/allorders" element={<AllOrders />} />
           <Route path="/try" element={<TryTapop />} />
           <Route path="/username" element={<Username />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/adminpage" element={<AdminPage />} />
+          <Route path="/admin/all-users" element={<AllUsers />} />
+          <Route path="/requestbook" element={<RequestBook />} />
+          <Route path="/admin/book-request" element={<BookRequest />} />
+
           {/* <Route path="/recomedbook" element={<BookRecommendations />} /> */}
         </Routes>
         <br />

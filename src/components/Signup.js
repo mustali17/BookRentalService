@@ -110,17 +110,14 @@ export default function SignUp() {
     // When a post request is sent to the create url, we'll add a new record to the database.
     const newPerson = { ...form };
 
-    const response = await fetch(
-      "https://rentandread.onrender.com/api/user/signup",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify(newPerson),
-      }
-    )
+    const response = await fetch("http://localhost:5000/api/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+      body: JSON.stringify(newPerson),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {

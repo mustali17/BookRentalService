@@ -11,19 +11,16 @@ export default function Signin() {
 
   async function onSignin(e) {
     e.preventDefault();
-    const response = await fetch(
-      "https://rentandread.onrender.com/api/user/signin",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    )
+    const response = await fetch("http://localhost:5000/api/user/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {

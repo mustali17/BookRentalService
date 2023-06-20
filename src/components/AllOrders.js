@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -47,7 +47,7 @@ const Record = (props) => {
     <tr>
       <td>
         <img
-          src={require(`./books/${props.record.imgurl}`)}
+          src={props.record.imgurl}
           className="card-img-top"
           width="100"
           height="170"
@@ -115,27 +115,24 @@ const Record = (props) => {
 export default function AllOrders() {
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  var userID;
-  if (localStorage.length > 0) {
-    const user = JSON.parse(localStorage.getItem("user"));
-    userID = user._id;
-  } else {
-    console.log("empty");
-    console.log("dcerj");
-  }
+  const navigate = useNavigate();
+
   // This method fetches the records from the database.
   useEffect(() => {
+    const adminLogin = localStorage.getItem("adminLogin");
+    if (!adminLogin) {
+      toast.error("You are not authorized to access this page.");
+      navigate("/"); // Redirect to home page or login page
+      return;
+    }
     async function getRecords() {
-      const response = await fetch(
-        "https://rentandread.onrender.com/api/order",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("jwt"),
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/order", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      });
       if (!response.ok) {
         toast.error("You must be logged in!");
         setIsLoading(false);

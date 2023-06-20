@@ -1,26 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.9c20a72b.css",
-    "main.js": "/static/js/main.8c303c11.js",
-    "static/media/readingbook.png": "/static/media/readingbook.1b6eb323de29796c2ce5.png",
-    "static/media/richdad.jpg": "/static/media/richdad.0e51f59bc4f603a9dba0.jpg",
-    "static/media/powerofsub.jpg": "/static/media/powerofsub.3aade763e9298440c20b.jpg",
-    "static/media/noexcuse.jpg": "/static/media/noexcuse.d6d56a451803ca62fedd.jpg",
-    "static/media/theart.jpg": "/static/media/theart.64f6e82416dee87d6b9e.jpg",
-    "static/media/thefour.jpg": "/static/media/thefour.e1ca3ff1a3acc550a4f0.jpg",
-    "static/media/death.jpg": "/static/media/death.647c79ef67b3c658d243.jpg",
-    "static/media/awakenthegiant.jpg": "/static/media/awakenthegiant.e06aee23e191e93461f3.jpg",
-    "static/media/thinklikeamonk.jpg": "/static/media/thinklikeamonk.777f127cbefbd1dfc729.jpg",
-    "static/media/mansearch.jpg": "/static/media/mansearch.3d0101a7fcd72ed721ab.jpg",
-    "static/media/12rules.jpg": "/static/media/12rules.1f428e19e87ca22c2bfd.jpg",
-    "static/media/powerofhabit.jpg": "/static/media/powerofhabit.bc97621c516d6dba89f3.jpg",
+    "main.css": "/static/css/main.00591e89.css",
+    "main.js": "/static/js/main.2894e4ba.js",
+    "static/media/2672335-removebg-preview.png": "/static/media/2672335-removebg-preview.3205ce3ed693a559a5ed.png",
+    "static/media/2672266-removebg-preview.png": "/static/media/2672266-removebg-preview.8f410718ae31d6084c68.png",
+    "static/media/20945184-removebg-preview.png": "/static/media/20945184-removebg-preview.4496d42a8e8038a5ec1b.png",
+    "static/media/5127314-removebg-preview.png": "/static/media/5127314-removebg-preview.0fbfb59e3223b1230ffa.png",
+    "static/media/5385893-removebg-preview.png": "/static/media/5385893-removebg-preview.d2f3abb528855982389d.png",
+    "static/media/5836-removebg-preview.png": "/static/media/5836-removebg-preview.d7ffc8f0885657f061d1.png",
+    "static/media/5278-removebg-preview.png": "/static/media/5278-removebg-preview.9e16c895c0c3a9088ece.png",
     "static/media/logo1.jpg": "/static/media/logo1.70902c64acd5acf96414.jpg",
     "index.html": "/index.html",
-    "main.9c20a72b.css.map": "/static/css/main.9c20a72b.css.map",
-    "main.8c303c11.js.map": "/static/js/main.8c303c11.js.map"
+    "main.00591e89.css.map": "/static/css/main.00591e89.css.map",
+    "main.2894e4ba.js.map": "/static/js/main.2894e4ba.js.map"
   },
   "entrypoints": [
-    "static/css/main.9c20a72b.css",
-    "static/js/main.8c303c11.js"
+    "static/css/main.00591e89.css",
+    "static/js/main.2894e4ba.js"
   ]
 }

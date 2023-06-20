@@ -63,9 +63,9 @@ export default function Home() {
             your book at:{" "}
             <a
               style={{ color: "white" }}
-              href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
+              href="mailto:contact@rentalandread.tech?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
             >
-              mustalichunawala@gmail.com
+              contact@rentalandread.tech
             </a>
           </h5>
         </div>

@@ -125,7 +125,7 @@ const Record = (props) => {
     <div>
       <div className="card w-75">
         <img
-          src={require(`./books/${props.record.imgurl}`)}
+          src={props.record.imgurl}
           className="card-img-top"
           width="100"
           height="170"
