@@ -63,12 +63,13 @@ export default function Home() {
             your book at:{" "}
             <a
               style={{ color: "white" }}
-              href="mailto:mustalichunawala@gmail.com?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
+              href="contact@rentalandread.tech?subject=Mail from RentAndRead.&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
             >
-              mustalichunawala@gmail.com
+              contact@rentalandread.tech
             </a>
           </h5>
         </div>
+       
         {/* <div
           id="sideimage"
           style={{
@@ -87,7 +88,8 @@ export default function Home() {
               filter: "drop-shadow(8px 5px 4px #303030)",
             }}
           />
-        </div> */}
+        </div>
+        */}
       </div>
       <AboutSection />
       <Testimonials />
