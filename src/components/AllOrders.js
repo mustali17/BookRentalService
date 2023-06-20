@@ -126,13 +126,16 @@ export default function AllOrders() {
       return;
     }
     async function getRecords() {
-      const response = await fetch("http://localhost:5000/api/order", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-      });
+      const response = await fetch(
+        "https://rentandread.onrender.com/api/order",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      );
       if (!response.ok) {
         toast.error("You must be logged in!");
         setIsLoading(false);

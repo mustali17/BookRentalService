@@ -19,7 +19,9 @@ const AllUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/getusers");
+      const response = await axios.get(
+        "https://rentandread.onrender.com/api/getusers"
+      );
       setUsers(response.data);
     } catch (err) {
       console.error(err);
@@ -31,9 +33,12 @@ const AllUsers = () => {
 
   const handleToggleBlocked = async (id, blocked) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/${id}`, {
-        blocked: !blocked,
-      });
+      const response = await axios.put(
+        `https://rentandread.onrender.com/api/${id}`,
+        {
+          blocked: !blocked,
+        }
+      );
       const updatedUser = response.data;
 
       fetchUsers();
@@ -43,7 +48,7 @@ const AllUsers = () => {
   };
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/delete/${id}`);
+      await axios.delete(`https://rentandread.onrender.com/api/delete/${id}`);
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
       toast.error("User Deleted");
     } catch (err) {

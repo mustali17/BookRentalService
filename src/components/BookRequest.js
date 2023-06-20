@@ -20,7 +20,7 @@ const BookRequest = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/getbookrequest"
+        "https://rentandread.onrender.com/api/getbookrequest"
       );
       setUsers(response.data);
     } catch (err) {
@@ -33,7 +33,9 @@ const BookRequest = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/deleterequest/${id}`);
+      await axios.delete(
+        `https://rentandread.onrender.com/api/deleterequest/${id}`
+      );
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
       toast.error("Book Deleted");
     } catch (err) {
