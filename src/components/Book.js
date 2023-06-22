@@ -9,7 +9,7 @@ const Record = (props) => (
     <div className="col">
       <div className="container card border shadow" style={{ width: "18rem" }}>
         <img
-          src={require(`./books/${props.record.imgurl}`)}
+          src={props.record.imgurl}
           className="card-img-top"
           width="100"
           height="220"
@@ -38,6 +38,8 @@ const Record = (props) => (
 export default function RecordList() {
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   // This method fetches the records from the database.
   useEffect(() => {
@@ -50,52 +52,58 @@ export default function RecordList() {
         const message = `An error occurred: ${response.statusText} Please Refresh this page`;
         toast.error(message);
         setIsLoading(false);
-        if (!isReloaded) {
-          isReloaded = true;
-          setTimeout(() => window.location.reload(false), 1000); // reload after 1 second
-        }
         return;
       }
 
       const records = await response.json();
       setRecords(records);
+      setSearchResults(records); // Initialize searchResults with all records
       setIsLoading(false); // set isLoading to false once data is fetched
     }
 
     getRecords();
+  }, []);
 
-    return;
-  }, [records.length]);
-
-  // This method will delete a record
-  // async function deleteRecord(id) {
-  //   await fetch(`https://rentandread.onrender.com/api/${id}`, {
-  //     method: "DELETE",
-  //   });
-
-  //   const newRecords = records.filter((el) => el._id !== id);
-  //   setRecords(newRecords);
-  // }
-
-  // This method will map out the records on the table
   function recordList() {
-    return records.map((record) => {
-      return (
-        <Record
-          record={record}
-          // deleteRecord={() => deleteRecord(record._id)}
-          key={record._id}
-        />
-      );
+    return searchResults.map((record) => {
+      return <Record record={record} key={record._id} />;
     });
   }
 
-  // This following section will display the table with the records of individuals.
+  function searchBooks(event) {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    const filteredRecords = records.filter((record) =>
+      record.bookname.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(filteredRecords);
+  }
+
   return (
     <div>
       <h3 style={{ textAlign: "center", fontFamily: "yellowtail" }}>
         View Books:
       </h3>
+      <div
+        style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}
+      >
+        <input
+          type="search"
+          value={searchQuery}
+          onChange={searchBooks}
+          placeholder="&#128269; Search books..."
+          style={{
+            padding: "8px",
+            borderRadius: "20px",
+            width: "300px",
+            border: "none",
+            outline: "none",
+            background: "#f2f2f2",
+          }}
+        />
+      </div>
+
       {isLoading ? (
         <div
           style={{
@@ -109,10 +117,49 @@ export default function RecordList() {
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
-      ) : (
+      ) : searchResults.length > 0 ? (
         <div className="container" style={{ alignItems: "center" }}>
           <div className="row row-cols-1 row-cols-md-3 g-2">{recordList()}</div>
         </div>
+      ) : (
+        <>
+          <p style={{ textAlign: "center", marginTop: "20px", color: "#fff" }}>
+            No books found.
+          </p>
+          <p style={{ textAlign: "center", marginTop: "20px", color: "#fff" }}>
+            Didn't find the book you were looking for? No worries, request it
+            now.
+          </p>
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <Link
+              className="btn btn-primary"
+              to={`/requestbook`}
+              style={{ backgroundColor: "#fff", color: "rgb(76, 134, 226)" }}
+            >
+              Request a Book
+            </Link>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <img
+              src={require("../2672266-removebg-preview.png")}
+              alt="No books found"
+              style={{
+                maxWidth: "100%",
+                minWidth: "70px",
+                height: "auto",
+                transform: "rotateY(-20deg)",
+                filter: "drop-shadow(8px 5px 4px #303030)",
+              }}
+            />
+          </div>
+        </>
       )}
       <ToastContainer />
     </div>

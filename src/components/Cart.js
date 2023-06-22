@@ -93,7 +93,7 @@ export default function Cart() {
                 <div className="row g-0">
                   <div className="col-md-4">
                     <img
-                      src={require(`./books/${form.imgurl}`)}
+                      src={form.imgurl}
                       className="img-fluid rounded-start"
                       alt="..."
                     />
