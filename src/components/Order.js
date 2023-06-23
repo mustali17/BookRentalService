@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Checkout from "./Checkout";
+import axios from "axios";
 
 export default function Order() {
   const params = useParams();
@@ -136,53 +138,28 @@ export default function Order() {
   var bookID = params.id;
   async function onSubmit(e) {
     e.preventDefault();
-
-    const response = await fetch("https://rentandread.onrender.com/api/order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-      body: JSON.stringify({
-        name,
-        phone,
-        email,
-        addr1,
-        addr2,
-        pin,
-        state,
-        country,
-        userID,
-        username,
-        bookID,
-        bookname,
-        imgurl,
-        price,
-        days,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          toast.error(data.error);
-        } else {
-          toast.success("Order Successfully");
-          navigate("/sucess");
-          fetch(`https://rentandread.onrender.com/api/onrent/${bookID}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              // "Authorization":"Bearer "+localStorage.getItem("jwt")
-            },
-            body: JSON.stringify({
-              onRent: true,
-            }),
-          });
+    axios
+      .post(
+        "https://rentandread.onrender.com/api/stripe/create-checkout-session",
+        {
+          form1,
+          form,
+          price: price,
+          days: days,
+          userID: userID,
+          username: username,
+          bookID: bookID,
         }
-      });
-
-    //  navigate("/");
+      )
+      .then((res) => {
+        if (res.data.url) {
+          window.location.href = res.data.url;
+        }
+      })
+      .catch((err) => console.log(err.message));
   }
+
+  //  navigate("/");
 
   return (
     <div>
@@ -280,7 +257,7 @@ export default function Order() {
                   type="submit"
                   className="btn btn-primary"
                   name="login"
-                  value="Submit"
+                  value="Checkout"
                 />
               </div>
             </div>

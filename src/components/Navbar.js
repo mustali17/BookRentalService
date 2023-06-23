@@ -88,7 +88,7 @@ export default function Navbr() {
                       </NavItem>
                     </Link>
                   </li>
-                  <li className="nav-item mx-auto mx-md-2">
+                  {/* <li className="nav-item mx-auto mx-md-2">
                     <Link
                       className="nav-link active"
                       to="/authenticate"
@@ -98,7 +98,7 @@ export default function Navbr() {
                         <i className="bi bi-plus"></i> Add Books
                       </NavItem>
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="nav-item mx-auto mx-md-2">
                     <Link
                       className="nav-link active"

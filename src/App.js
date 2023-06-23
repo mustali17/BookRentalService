@@ -25,6 +25,8 @@ import AdminPage from "./components/AdminPage";
 import AllUsers from "./components/AllUsers";
 import RequestBook from "./components/RequestBook";
 import BookRequest from "./components/BookRequest";
+import EBooks from "./components/EBooks";
+import Checkout from "./components/Checkout";
 
 // import BookRecommendations from "./components/BookRecommendations";
 export default function App() {
@@ -56,6 +58,8 @@ export default function App() {
           <Route path="/admin/all-users" element={<AllUsers />} />
           <Route path="/requestbook" element={<RequestBook />} />
           <Route path="/admin/book-request" element={<BookRequest />} />
+          <Route path="/ebooks" element={<EBooks />} />
+          <Route path="/checkout" element={<Checkout />} />
 
           {/* <Route path="/recomedbook" element={<BookRecommendations />} /> */}
         </Routes>
