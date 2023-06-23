@@ -94,23 +94,25 @@ const EBooks = () => {
             {details.map((book, index) => (
               <div className="col" key={index}>
                 <div className="card border shadow" style={{ width: "18rem" }}>
-                  <motion.img
-                    src={
-                      book.volumeInfo.imageLinks
-                        ? book.volumeInfo.imageLinks.thumbnail
-                        : defaultBook
-                    }
-                    width="100%"
-                    alt="Book Cover"
-                    variants={imageVariants}
-                    whileHover="hover"
-                    style={{
-                      objectFit: "cover",
-                      height: "15rem",
-                      borderTopLeftRadius: "10px",
-                      borderTopRightRadius: "10px",
-                    }}
-                  />
+                  {book.volumeInfo.imageLinks &&
+                  book.volumeInfo.imageLinks.thumbnail ? (
+                    <motion.img
+                      src={book.volumeInfo.imageLinks.thumbnail}
+                      width="100%"
+                      alt="Book Cover"
+                      variants={imageVariants}
+                      whileHover="hover"
+                      style={{
+                        objectFit: "cover",
+                        height: "15rem",
+                        borderTopLeftRadius: "10px",
+                        borderTopRightRadius: "10px",
+                      }}
+                    />
+                  ) : (
+                    <div className="no-thumbnail">No Thumbnail Available</div>
+                  )}
+
                   <div className="card-body">
                     <h3
                       className="card-title"
