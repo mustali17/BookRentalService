@@ -55,7 +55,9 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch("http://localhost:5000/api/record");
+      const response = await fetch(
+        "https://rentandread.onrender.com/api/record"
+      );
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText} Please Refresh this page`;
