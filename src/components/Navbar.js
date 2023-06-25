@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar, NavItem } from "react-bootstrap";
 import Avatar from "react-avatar";
+import { motion } from "framer-motion";
 
 let status = "Login";
 let linkto = "signin";
@@ -123,19 +124,21 @@ export default function Navbr() {
                   </li>
                   {user ? (
                     <li className="nav-item mx-auto mx-md-2">
-                      <Link
-                        className="nav-link active"
-                        to="/profile"
-                        onClick={closeMenu}
-                      >
-                        <NavItem>
-                          <Avatar
-                            name={user ? user.username : "R & R"}
-                            round={true}
-                            size="30"
-                          />
-                        </NavItem>
-                      </Link>
+                      <motion.div whileHover={{ scale: 1.2 }}>
+                        <Link
+                          className="nav-link active"
+                          to="/profile"
+                          onClick={closeMenu}
+                        >
+                          <NavItem>
+                            <Avatar
+                              name={user ? user.username : "R & R"}
+                              round={true}
+                              size="30"
+                            />
+                          </NavItem>
+                        </Link>
+                      </motion.div>
                     </li>
                   ) : (
                     ""

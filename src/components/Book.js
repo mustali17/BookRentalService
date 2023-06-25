@@ -3,17 +3,34 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdsComponent from "./AdsComponent";
-
+import { motion } from "framer-motion";
+const imageVariants = {
+  hover: {
+    scale: 1.1,
+    boxShadow: "0px 0px 8px #000",
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      delay: 0.15,
+    },
+  },
+};
 const Record = (props) => (
   <div>
     <div className="col">
       <div className="container card border shadow" style={{ width: "18rem" }}>
-        <img
+        <motion.img
           src={props.record.imgurl}
           className="card-img-top"
           width="100"
           height="220"
+          variants={imageVariants}
+          whileHover="hover"
           alt="..."
+          style={{
+            borderTopLeftRadius: "10px",
+            borderTopRightRadius: "10px",
+          }}
         />
         <div className="card-body">
           <h5 className="card-title">{props.record.bookname}</h5>
@@ -33,11 +50,14 @@ const Record = (props) => (
               </button>
             </>
           ) : (
-            <Link
-              className="btn btn-primary"
-              to={`/books/cart/${props.record._id}`}
-            >
-              Rent Now!{" "}
+            <Link to={`/books/cart/${props.record._id}`}>
+              <motion.button
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.1 }}
+                className="btn btn-primary"
+              >
+                Rent Now!{" "}
+              </motion.button>
             </Link>
           )}
         </div>

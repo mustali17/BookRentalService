@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Testimonials from "./Testimonials";
 import AdsComponent from "./AdsComponent";
 import AboutSection from "./AboutSection";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [records, setRecords] = useState([]);
@@ -50,9 +51,17 @@ export default function Home() {
             Books on your doorstep
           </h3>
           <Link to="/books">
-            <button type="button" className="btn btn-light">
+            {/* <button type="button" className="btn btn-light"> */}
+            <motion.button
+              whileHover={{
+                scale: 1.2,
+                transition: { duration: 0.1 },
+              }}
+              whileTap={{ scale: 0.9 }}
+              className="btn btn-light"
+            >
               Rent Books
-            </button>
+            </motion.button>
           </Link>
 
           <br />
