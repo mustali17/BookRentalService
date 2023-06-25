@@ -1,10 +1,15 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import image from "../5127314-removebg-preview.png";
 
 export default function Contact() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    toast.success("Thanks for contacting us!");
+  }
   return (
     <div>
       <head>
@@ -45,12 +50,7 @@ export default function Contact() {
               </div>
             </div>
             <div className="col-md-6">
-              <form
-                id="contact-form"
-                name="contact-form"
-                action="mail.php"
-                method="POST"
-              >
+              <form id="contact-form" name="contact-form">
                 <div className="row">
                   <div className="col-md-6">
                     <div className="md-form mb-0">
@@ -113,11 +113,7 @@ export default function Contact() {
                 </div>
 
                 <div className="text-center text-md-left">
-                  <button
-                    className="btn btn-primary"
-                    // onClick={function d() {
-                    //   document.getElementById("contact-form").submit();}}
-                  >
+                  <button className="btn btn-primary" onClick={handleSubmit}>
                     Send
                   </button>
                 </div>
@@ -127,6 +123,7 @@ export default function Contact() {
           </div>
         </section>
       </div>
+      <ToastContainer />
     </div>
   );
 }

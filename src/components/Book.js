@@ -20,15 +20,26 @@ const Record = (props) => (
           <h6 className="card-subtitle mb-2 text-muted">
             {props.record.authorname}
           </h6>
-          <p className="card-text mb-2" style={{ color: "green" }}>
+          <p className="card-text mb-1" style={{ color: "green" }}>
             ₹{props.record.price}/pm
           </p>
-          <Link
-            className="btn btn-primary"
-            to={`/books/cart/${props.record._id}`}
-          >
-            Rent Now!{" "}
-          </Link>
+          {props.record.onRent ? (
+            <>
+              <p className="card-text" style={{ color: "red" }}>
+                Out of Stock
+              </p>
+              <button className="btn btn-primary" disabled={true}>
+                Rent Now!
+              </button>
+            </>
+          ) : (
+            <Link
+              className="btn btn-primary"
+              to={`/books/cart/${props.record._id}`}
+            >
+              Rent Now!{" "}
+            </Link>
+          )}
         </div>
       </div>
     </div>
@@ -44,9 +55,7 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(
-        "https://rentandread.onrender.com/api/record"
-      );
+      const response = await fetch("http://localhost:5000/api/record");
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText} Please Refresh this page`;
