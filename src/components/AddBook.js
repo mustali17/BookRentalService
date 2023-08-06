@@ -136,7 +136,7 @@ export default function AddBook() {
             </div>
             <div className="mb-3 form-group">
               <label htmlFor="upload-photo" className="btn btn-primary">
-                Upload Book Image
+                Upload Book Image.
               </label>
               <input
                 onChange={(e) => {
