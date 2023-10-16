@@ -1,0 +1,3 @@
+User-agent: *
+
+Allow: /  # Allow crawlers to access the rest of your site
