@@ -74,8 +74,8 @@ export default function AboutSection() {
             <div>
               <h3 style={textColor}>A decentralized library for everyone</h3>
               <p className="mt-4 fs-5 opacity-75" style={textColor}>
-                Find your favorite books from the comfort of your home without
-                spending any money.
+                Find your favorite books from the comfort of your home while
+                spending very little money.
               </p>
             </div>
           </div>

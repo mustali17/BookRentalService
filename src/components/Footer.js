@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <div>
       <footer className="bg-light text-center text-white">
-        <div className="container p-4 pb-0">
+        {/* <div className="container p-4 pb-0">
           <section className="mb-4">
             <a
               className="btn btn-primary btn-floating m-1"
@@ -59,13 +59,35 @@ export default function Footer() {
               <i className="bi bi-github"></i>
             </a>
           </section>
-        </div>
+        </div> */}
 
+      {/* skill icons */}
+      <p align="center" style={{height:"60px"}}>
+    <a href="https://instagram.com">
+    <img src ="https://skillicons.dev/icons?i=instagram"  height={"30px"} style={{margin:"15px 10px"}}/>
+    </a>
+    <a href="https://linkedin.com">
+    <img src ="https://skillicons.dev/icons?i=linkedin"  height={"30px"} style={{margin:"15px 10px"}}/>
+    </a>
+    <a href="https://github.com">
+    <img src ="https://skillicons.dev/icons?i=github"  height={"30px"} style={{margin:"15px 10px"}}/>
+    </a>
+    {/* <a href="https://google.com">
+    <img src ="https://skillicons.dev/icons?i=gcp"  height={"30px"} style={{margin:"15px 10px"}}/>
+    </a> */}
+    <a href="https://dicord.com">
+    <img src ="https://skillicons.dev/icons?i=discord"  height={"30px"} style={{margin:"15px 10px"}}/>
+    </a>
+    <a href="https://twitter.com">
+    <img src ="https://skillicons.dev/icons?i=twitter"  height={"30px"} style={{margin:"15px 10px"}}/>
+    </a>
+
+</p>
         <div
           className="text-center p-3"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" ,color:"black"}}
         >
-          Developer@MustaliC
+          &copy; 2023 Rent&Read. All rights reserved.
         </div>
       </footer>
     </div>
