@@ -16,7 +16,7 @@ export default function admin() {
       );
       const result = await response.json();
       setRecords(result);
-      console.log(result);
+      
     };
     fetchData();
   }, []);
