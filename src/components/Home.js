@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     async function getRecords() {
       const response = await fetch(
-        "https://rentandread.onrender.com/api/record"
+        "http://rentandread.centralindia.cloudapp.azure.com:5000/api/record"
       );
 
       if (!response.ok) {

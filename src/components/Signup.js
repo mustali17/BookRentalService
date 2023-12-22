@@ -33,7 +33,7 @@ export default function SignUp() {
         const name = nameArray[0];
         const lname = nameArray[1];
         const response = await axios.post(
-          "https://rentandread.onrender.com/api/user/signup",
+          "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/signup",
           {
             name: name,
             lname: lname,
@@ -111,7 +111,7 @@ export default function SignUp() {
     const newPerson = { ...form };
 
     const response = await fetch(
-      "https://rentandread.onrender.com/api/user/signup",
+      "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/signup",
       {
         method: "POST",
         headers: {

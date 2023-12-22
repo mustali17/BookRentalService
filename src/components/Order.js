@@ -55,7 +55,7 @@ export default function Order() {
     async function fetchData() {
       // const id = params.id.toString();
       const response = await fetch(
-        `https://rentandread.onrender.com/api/user/${userID}`,
+        `http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/${userID}`,
         {
           method: "GET",
           headers: {
@@ -91,7 +91,7 @@ export default function Order() {
     async function fetchData() {
       const id = params.id.toString();
       const response = await fetch(
-        `https://rentandread.onrender.com/api/record/${params.id.toString()}`,
+        `http://rentandread.centralindia.cloudapp.azure.com:5000/api/record/${params.id.toString()}`,
         {
           method: "GET",
           headers: {
@@ -140,7 +140,7 @@ export default function Order() {
     e.preventDefault();
     axios
       .post(
-        "https://rentandread.onrender.com/api/stripe/create-checkout-session",
+        "http://rentandread.centralindia.cloudapp.azure.com:5000/api/stripe/create-checkout-session",
         {
           form1,
           form,

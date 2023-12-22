@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Authenticate() {
   let history = useNavigate();
@@ -11,7 +11,9 @@ export default function Authenticate() {
   useEffect(() => {
     // Fetch data from backend API and set it to the state
     const fetchData = async () => {
-      const response = await fetch("https://rentandread.onrender.com/api/admin");
+      const response = await fetch(
+        "http://rentandread.centralindia.cloudapp.azure.com:5000/api/admin"
+      );
       const result = await response.json();
       setRecords(result);
       console.log(result);
@@ -23,8 +25,9 @@ export default function Authenticate() {
     if (username == records[0].username && password == records[0].password) {
       history("/addbook");
     } else {
-      toast.error("Invalid Credentials")
-      setUserName("");setPassword("");
+      toast.error("Invalid Credentials");
+      setUserName("");
+      setPassword("");
     }
   }
 

@@ -7,7 +7,7 @@ const Record = (props) => {
   const handleBookRecieved = async () => {
     console.log(props.record._id);
     const response = await fetch(
-      `https://rentandread.onrender.com/api/bookrecieved/${props.record._id}/${props.record.bookID}`,
+      `http://rentandread.centralindia.cloudapp.azure.com:5000/api/bookrecieved/${props.record._id}/${props.record.bookID}`,
       {
         method: "PUT",
         headers: {
@@ -26,7 +26,7 @@ const Record = (props) => {
   };
   const handleBookDelivered = async () => {
     const response = await fetch(
-      `https://rentandread.onrender.com/api/bookdelivered/${props.record._id}`,
+      `http://rentandread.centralindia.cloudapp.azure.com:5000/api/bookdelivered/${props.record._id}`,
       {
         method: "PUT",
         headers: {
@@ -127,7 +127,7 @@ export default function AllOrders() {
     }
     async function getRecords() {
       const response = await fetch(
-        "https://rentandread.onrender.com/api/order",
+        "http://rentandread.centralindia.cloudapp.azure.com:5000/api/order",
         {
           method: "GET",
           headers: {

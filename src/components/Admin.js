@@ -12,7 +12,7 @@ export default function admin() {
     // Fetch data from backend API and set it to the state
     const fetchData = async () => {
       const response = await fetch(
-        "https://rentandread.onrender.com/api/admin"
+        "http://rentandread.centralindia.cloudapp.azure.com:5000/api/admin"
       );
       const result = await response.json();
       setRecords(result);
