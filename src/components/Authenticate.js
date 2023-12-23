@@ -12,7 +12,7 @@ export default function Authenticate() {
     // Fetch data from backend API and set it to the state
     const fetchData = async () => {
       const response = await fetch(
-        "http://rentandread.centralindia.cloudapp.azure.com:5000/api/admin"
+        "https://rentandread.onrender.com/api/admin"
       );
       const result = await response.json();
       setRecords(result);

@@ -12,7 +12,7 @@ export default function Signin() {
   async function onSignin(e) {
     e.preventDefault();
     const response = await fetch(
-      "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/signin",
+      "https://rentandread.onrender.com/api/user/signin",
       {
         method: "POST",
         headers: {

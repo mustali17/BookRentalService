@@ -50,7 +50,7 @@ export default function Profile() {
     async function fetchData() {
       // const id = params.id.toString();
       const response = await fetch(
-        `http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/${userID}`,
+        `https://rentandread.onrender.com/api/user/${userID}`,
         {
           method: "GET",
           headers: {
@@ -88,7 +88,7 @@ export default function Profile() {
     const newPerson = { ...form };
 
     const response = await fetch(
-      `http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/update/${userID}`,
+      `https://rentandread.onrender.com/api/user/update/${userID}`,
       {
         method: "POST",
         headers: {

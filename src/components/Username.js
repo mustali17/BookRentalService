@@ -11,7 +11,7 @@ export default function Username() {
   async function onSignUp(e) {
     e.preventDefault();
     const response = await fetch(
-      `http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/addusername/${state.email}`,
+      `https://rentandread.onrender.com/api/user/addusername/${state.email}`,
       {
         method: "POST",
         headers: {

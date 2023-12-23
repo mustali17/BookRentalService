@@ -32221,7 +32221,7 @@
                             return (
                               (e.next = 2),
                               fetch(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/record"
+                                "https://rentandread.onrender.com/api/record"
                               )
                             );
                           case 2:
@@ -33495,7 +33495,7 @@
                             return (
                               (e.next = 2),
                               fetch(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/record"
+                                "https://rentandread.onrender.com/api/record"
                               )
                             );
                           case 2:
@@ -33690,7 +33690,7 @@
                             (t = d.id.toString()),
                             (e.next = 3),
                             fetch(
-                              "http://rentandread.centralindia.cloudapp.azure.com:5000/api/record/".concat(
+                              "https://rentandread.onrender.com/api/record/".concat(
                                 d.id.toString()
                               )
                             )
@@ -33726,7 +33726,7 @@
                             s(a),
                             (e.next = 18),
                             fetch(
-                              "http://rentandread.centralindia.cloudapp.azure.com:5000/api/review/".concat(
+                              "https://rentandread.onrender.com/api/review/".concat(
                                 d.id.toString()
                               )
                             )
@@ -33989,7 +33989,7 @@
                           return (
                             (t.next = 2),
                             fetch(
-                              "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/".concat(
+                              "https://rentandread.onrender.com/api/user/".concat(
                                 e
                               ),
                               {
@@ -34059,7 +34059,7 @@
                               (t = n.id.toString()),
                               (e.next = 3),
                               fetch(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/record/".concat(
+                                "https://rentandread.onrender.com/api/record/".concat(
                                   n.id.toString()
                                 ),
                                 {
@@ -34136,34 +34136,31 @@
                       return (
                         r.preventDefault(),
                         (n.next = 3),
-                        fetch(
-                          "http://rentandread.centralindia.cloudapp.azure.com:5000/api/order",
-                          {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                              Authorization:
-                                "Bearer " + localStorage.getItem("jwt"),
-                            },
-                            body: JSON.stringify({
-                              name: y,
-                              phone: g,
-                              email: b,
-                              addr1: k,
-                              addr2: w,
-                              pin: x,
-                              state: _,
-                              country: E,
-                              userID: e,
-                              username: t,
-                              bookID: I,
-                              bookname: S,
-                              imgurl: T,
-                              price: s,
-                              days: o,
-                            }),
-                          }
-                        )
+                        fetch("https://rentandread.onrender.com/api/order", {
+                          method: "POST",
+                          headers: {
+                            "Content-Type": "application/json",
+                            Authorization:
+                              "Bearer " + localStorage.getItem("jwt"),
+                          },
+                          body: JSON.stringify({
+                            name: y,
+                            phone: g,
+                            email: b,
+                            addr1: k,
+                            addr2: w,
+                            pin: x,
+                            state: _,
+                            country: E,
+                            userID: e,
+                            username: t,
+                            bookID: I,
+                            bookname: S,
+                            imgurl: T,
+                            price: s,
+                            days: o,
+                          }),
+                        })
                           .then(function (e) {
                             return e.json();
                           })
@@ -34173,7 +34170,7 @@
                               : (Cc.success("Order Successfully"),
                                 i("/sucess"),
                                 fetch(
-                                  "http://rentandread.centralindia.cloudapp.azure.com:5000/api/onrent/".concat(
+                                  "https://rentandread.onrender.com/api/onrent/".concat(
                                     I
                                   ),
                                   {
@@ -34745,7 +34742,7 @@
                             return (
                               (n.next = 2),
                               fetch(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/return/".concat(
+                                "https://rentandread.onrender.com/api/return/".concat(
                                   e.id
                                 ),
                                 {
@@ -34770,7 +34767,7 @@
                               }),
                               (n.next = 6),
                               fetch(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/review/add",
+                                "https://rentandread.onrender.com/api/review/add",
                                 {
                                   method: "POST",
                                   headers: {
@@ -34976,7 +34973,7 @@
                         return (
                           (t.next = 2),
                           fetch(
-                            "http://rentandread.centralindia.cloudapp.azure.com:5000/api/order/".concat(
+                            "https://rentandread.onrender.com/api/order/".concat(
                               e
                             ),
                             {
@@ -35119,7 +35116,7 @@
                         (r = ee({}, u)),
                         (t.next = 4),
                         fetch(
-                          "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/update/".concat(
+                          "https://rentandread.onrender.com/api/user/update/".concat(
                             e
                           ),
                           {
@@ -35180,7 +35177,7 @@
                             return (
                               (t.next = 2),
                               fetch(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/".concat(
+                                "https://rentandread.onrender.com/api/user/".concat(
                                   e
                                 ),
                                 {
@@ -54339,7 +54336,7 @@
                                     r.append("ownermail", t.ownermail),
                                     r.append("image", e);
                                   fetch(
-                                    "http://rentandread.centralindia.cloudapp.azure.com:5000/api/record/add",
+                                    "https://rentandread.onrender.com/api/record/add",
                                     {
                                       method: "POST",
                                       headers: {
@@ -54531,9 +54528,7 @@
                         case 0:
                           return (
                             (e.next = 2),
-                            fetch(
-                              "http://rentandread.centralindia.cloudapp.azure.com:5000/api/admin"
-                            )
+                            fetch("https://rentandread.onrender.com/api/admin")
                           );
                         case 2:
                           return (t = e.sent), (e.next = 5), t.json();
@@ -85910,7 +85905,7 @@
                               (c = s[1]),
                               (n.next = 12),
                               lF().post(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/signup",
+                                "https://rentandread.onrender.com/api/user/signup",
                                 {
                                   name: u,
                                   lname: c,
@@ -86012,7 +86007,7 @@
                         (n = ee({}, i)),
                         (e.next = 7),
                         fetch(
-                          "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/signup",
+                          "https://rentandread.onrender.com/api/user/signup",
                           {
                             method: "POST",
                             headers: {
@@ -86177,7 +86172,7 @@
                         n.preventDefault(),
                         (e.next = 3),
                         fetch(
-                          "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/signin",
+                          "https://rentandread.onrender.com/api/user/signin",
                           {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -86346,7 +86341,7 @@
                           console.log(e.record._id),
                           (t.next = 3),
                           fetch(
-                            "http://rentandread.centralindia.cloudapp.azure.com:5000/api/bookrecieved/"
+                            "https://rentandread.onrender.com/api/bookrecieved/"
                               .concat(e.record._id, "/")
                               .concat(e.record.bookID),
                             {
@@ -86386,7 +86381,7 @@
                         return (
                           (t.next = 2),
                           fetch(
-                            "http://rentandread.centralindia.cloudapp.azure.com:5000/api/bookdelivered/".concat(
+                            "https://rentandread.onrender.com/api/bookdelivered/".concat(
                               e.record._id
                             ),
                             {
@@ -86515,7 +86510,7 @@
                               return (
                                 (e.next = 2),
                                 fetch(
-                                  "http://rentandread.centralindia.cloudapp.azure.com:5000/api/order",
+                                  "https://rentandread.onrender.com/api/order",
                                   {
                                     method: "GET",
                                     headers: {
@@ -86697,7 +86692,7 @@
                         n.preventDefault(),
                         (e.next = 3),
                         fetch(
-                          "http://rentandread.centralindia.cloudapp.azure.com:5000/api/user/addusername/".concat(
+                          "https://rentandread.onrender.com/api/user/addusername/".concat(
                             u.email
                           ),
                           {
@@ -86813,9 +86808,7 @@
                         case 0:
                           return (
                             (e.next = 2),
-                            fetch(
-                              "http://rentandread.centralindia.cloudapp.azure.com:5000/api/admin"
-                            )
+                            fetch("https://rentandread.onrender.com/api/admin")
                           );
                         case 2:
                           return (t = e.sent), (e.next = 5), t.json();
@@ -87076,7 +87069,7 @@
                                 (e.prev = 0),
                                 (e.next = 3),
                                 lF().get(
-                                  "http://rentandread.centralindia.cloudapp.azure.com:5000/api/getusers"
+                                  "https://rentandread.onrender.com/api/getusers"
                                 )
                               );
                             case 3:
@@ -87120,7 +87113,7 @@
                               (e.prev = 0),
                               (e.next = 3),
                               lF().put(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/".concat(
+                                "https://rentandread.onrender.com/api/".concat(
                                   t
                                 ),
                                 { blocked: !n }
@@ -87160,7 +87153,7 @@
                               (e.prev = 0),
                               (e.next = 3),
                               lF().delete(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/delete/".concat(
+                                "https://rentandread.onrender.com/api/delete/".concat(
                                   t
                                 )
                               )
@@ -87377,7 +87370,7 @@
                         a.append("email", t.email),
                         (e.next = 8),
                         fetch(
-                          "http://rentandread.centralindia.cloudapp.azure.com:5000/api/request/add",
+                          "https://rentandread.onrender.com/api/request/add",
                           {
                             method: "POST",
                             headers: {
@@ -87528,7 +87521,7 @@
                               (e.prev = 0),
                               (e.next = 3),
                               lF().get(
-                                "http://rentandread.centralindia.cloudapp.azure.com:5000/api/getbookrequest"
+                                "https://rentandread.onrender.com/api/getbookrequest"
                               )
                             );
                           case 3:
@@ -87571,7 +87564,7 @@
                           (e.prev = 0),
                           (e.next = 3),
                           lF().delete(
-                            "http://rentandread.centralindia.cloudapp.azure.com:5000/api/deleterequest/".concat(
+                            "https://rentandread.onrender.com/api/deleterequest/".concat(
                               t
                             )
                           )

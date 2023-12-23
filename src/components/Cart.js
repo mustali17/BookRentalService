@@ -23,7 +23,7 @@ export default function Cart() {
     async function fetchData() {
       const id = params.id.toString();
       const response = await fetch(
-        `http://rentandread.centralindia.cloudapp.azure.com:5000/api/record/${params.id.toString()}`
+        `https://rentandread.onrender.com/api/record/${params.id.toString()}`
       );
 
       if (!response.ok) {
@@ -41,7 +41,7 @@ export default function Cart() {
 
       setForm(record);
       const reviewResponse = await fetch(
-        `http://rentandread.centralindia.cloudapp.azure.com:5000/api/review/${params.id.toString()}`
+        `https://rentandread.onrender.com/api/review/${params.id.toString()}`
       );
       const reviewData = await reviewResponse.json();
       setReview(reviewData);
