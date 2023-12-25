@@ -28,7 +28,7 @@ export default function RequestBook() {
     formData.append("email", form.email);
 
     const response = await fetch(
-      "https://rentandread.onrender.com/api/request/add",
+      "https://rentandread.azurewebsites.net/api/request/add",
       {
         method: "POST",
         headers: {

@@ -11,7 +11,7 @@ export default function Username() {
   async function onSignUp(e) {
     e.preventDefault();
     const response = await fetch(
-      `https://rentandread.onrender.com/api/user/addusername/${state.email}`,
+      `https://rentandread.azurewebsites.net/api/user/addusername/${state.email}`,
       {
         method: "POST",
         headers: {

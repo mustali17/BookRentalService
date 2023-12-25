@@ -30,7 +30,7 @@ const Record = (props) => {
 
     const handleReturnRequest = async () => {
       const response = await fetch(
-        `https://rentandread.onrender.com/api/return/${props.id}`,
+        `https://rentandread.azurewebsites.net/api/return/${props.id}`,
         {
           method: "PUT",
           headers: {
@@ -49,7 +49,7 @@ const Record = (props) => {
       };
 
       const reviewResponse = await fetch(
-        `https://rentandread.onrender.com/api/review/add`,
+        `https://rentandread.azurewebsites.net/api/review/add`,
         {
           method: "POST",
           headers: {
@@ -194,7 +194,7 @@ export default function MyOrder() {
 
   async function getRecords() {
     const response = await fetch(
-      `https://rentandread.onrender.com/api/order/${userID}`,
+      `https://rentandread.azurewebsites.net/api/order/${userID}`,
       {
         method: "GET",
         headers: {

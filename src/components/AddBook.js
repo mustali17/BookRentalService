@@ -50,7 +50,7 @@ export default function AddBook() {
               formData.append("image", downloadURL);
 
               const response = fetch(
-                "https://rentandread.onrender.com/api/record/add",
+                "https://rentandread.azurewebsites.net/api/record/add",
                 {
                   method: "POST",
                   headers: {

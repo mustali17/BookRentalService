@@ -20,7 +20,7 @@ const AllUsers = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        "https://rentandread.onrender.com/api/getusers"
+        "https://rentandread.azurewebsites.net/api/getusers"
       );
       setUsers(response.data);
     } catch (err) {
@@ -34,7 +34,7 @@ const AllUsers = () => {
   const handleToggleBlocked = async (id, blocked) => {
     try {
       const response = await axios.put(
-        `https://rentandread.onrender.com/api/${id}`,
+        `https://rentandread.azurewebsites.net/api/${id}`,
         {
           blocked: !blocked,
         }
@@ -48,7 +48,9 @@ const AllUsers = () => {
   };
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://rentandread.onrender.com/api/delete/${id}`);
+      await axios.delete(
+        `https://rentandread.azurewebsites.net/api/delete/${id}`
+      );
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
       toast.error("User Deleted");
     } catch (err) {

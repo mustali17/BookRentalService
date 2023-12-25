@@ -32221,7 +32221,7 @@
                             return (
                               (e.next = 2),
                               fetch(
-                                "https://rentandread.onrender.com/api/record"
+                                "https://rentandread.azurewebsites.net/api/record"
                               )
                             );
                           case 2:
@@ -33495,7 +33495,7 @@
                             return (
                               (e.next = 2),
                               fetch(
-                                "https://rentandread.onrender.com/api/record"
+                                "https://rentandread.azurewebsites.net/api/record"
                               )
                             );
                           case 2:
@@ -33690,7 +33690,7 @@
                             (t = d.id.toString()),
                             (e.next = 3),
                             fetch(
-                              "https://rentandread.onrender.com/api/record/".concat(
+                              "https://rentandread.azurewebsites.net/api/record/".concat(
                                 d.id.toString()
                               )
                             )
@@ -33726,7 +33726,7 @@
                             s(a),
                             (e.next = 18),
                             fetch(
-                              "https://rentandread.onrender.com/api/review/".concat(
+                              "https://rentandread.azurewebsites.net/api/review/".concat(
                                 d.id.toString()
                               )
                             )
@@ -33989,7 +33989,7 @@
                           return (
                             (t.next = 2),
                             fetch(
-                              "https://rentandread.onrender.com/api/user/".concat(
+                              "https://rentandread.azurewebsites.net/api/user/".concat(
                                 e
                               ),
                               {
@@ -34059,7 +34059,7 @@
                               (t = n.id.toString()),
                               (e.next = 3),
                               fetch(
-                                "https://rentandread.onrender.com/api/record/".concat(
+                                "https://rentandread.azurewebsites.net/api/record/".concat(
                                   n.id.toString()
                                 ),
                                 {
@@ -34136,31 +34136,34 @@
                       return (
                         r.preventDefault(),
                         (n.next = 3),
-                        fetch("https://rentandread.onrender.com/api/order", {
-                          method: "POST",
-                          headers: {
-                            "Content-Type": "application/json",
-                            Authorization:
-                              "Bearer " + localStorage.getItem("jwt"),
-                          },
-                          body: JSON.stringify({
-                            name: y,
-                            phone: g,
-                            email: b,
-                            addr1: k,
-                            addr2: w,
-                            pin: x,
-                            state: _,
-                            country: E,
-                            userID: e,
-                            username: t,
-                            bookID: I,
-                            bookname: S,
-                            imgurl: T,
-                            price: s,
-                            days: o,
-                          }),
-                        })
+                        fetch(
+                          "https://rentandread.azurewebsites.net/api/order",
+                          {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                              Authorization:
+                                "Bearer " + localStorage.getItem("jwt"),
+                            },
+                            body: JSON.stringify({
+                              name: y,
+                              phone: g,
+                              email: b,
+                              addr1: k,
+                              addr2: w,
+                              pin: x,
+                              state: _,
+                              country: E,
+                              userID: e,
+                              username: t,
+                              bookID: I,
+                              bookname: S,
+                              imgurl: T,
+                              price: s,
+                              days: o,
+                            }),
+                          }
+                        )
                           .then(function (e) {
                             return e.json();
                           })
@@ -34170,7 +34173,7 @@
                               : (Cc.success("Order Successfully"),
                                 i("/sucess"),
                                 fetch(
-                                  "https://rentandread.onrender.com/api/onrent/".concat(
+                                  "https://rentandread.azurewebsites.net/api/onrent/".concat(
                                     I
                                   ),
                                   {
@@ -34742,7 +34745,7 @@
                             return (
                               (n.next = 2),
                               fetch(
-                                "https://rentandread.onrender.com/api/return/".concat(
+                                "https://rentandread.azurewebsites.net/api/return/".concat(
                                   e.id
                                 ),
                                 {
@@ -34767,7 +34770,7 @@
                               }),
                               (n.next = 6),
                               fetch(
-                                "https://rentandread.onrender.com/api/review/add",
+                                "https://rentandread.azurewebsites.net/api/review/add",
                                 {
                                   method: "POST",
                                   headers: {
@@ -34973,7 +34976,7 @@
                         return (
                           (t.next = 2),
                           fetch(
-                            "https://rentandread.onrender.com/api/order/".concat(
+                            "https://rentandread.azurewebsites.net/api/order/".concat(
                               e
                             ),
                             {
@@ -35116,7 +35119,7 @@
                         (r = ee({}, u)),
                         (t.next = 4),
                         fetch(
-                          "https://rentandread.onrender.com/api/user/update/".concat(
+                          "https://rentandread.azurewebsites.net/api/user/update/".concat(
                             e
                           ),
                           {
@@ -35177,7 +35180,7 @@
                             return (
                               (t.next = 2),
                               fetch(
-                                "https://rentandread.onrender.com/api/user/".concat(
+                                "https://rentandread.azurewebsites.net/api/user/".concat(
                                   e
                                 ),
                                 {
@@ -54336,7 +54339,7 @@
                                     r.append("ownermail", t.ownermail),
                                     r.append("image", e);
                                   fetch(
-                                    "https://rentandread.onrender.com/api/record/add",
+                                    "https://rentandread.azurewebsites.net/api/record/add",
                                     {
                                       method: "POST",
                                       headers: {
@@ -54528,7 +54531,9 @@
                         case 0:
                           return (
                             (e.next = 2),
-                            fetch("https://rentandread.onrender.com/api/admin")
+                            fetch(
+                              "https://rentandread.azurewebsites.net/api/admin"
+                            )
                           );
                         case 2:
                           return (t = e.sent), (e.next = 5), t.json();
@@ -85905,7 +85910,7 @@
                               (c = s[1]),
                               (n.next = 12),
                               lF().post(
-                                "https://rentandread.onrender.com/api/user/signup",
+                                "https://rentandread.azurewebsites.net/api/user/signup",
                                 {
                                   name: u,
                                   lname: c,
@@ -86007,7 +86012,7 @@
                         (n = ee({}, i)),
                         (e.next = 7),
                         fetch(
-                          "https://rentandread.onrender.com/api/user/signup",
+                          "https://rentandread.azurewebsites.net/api/user/signup",
                           {
                             method: "POST",
                             headers: {
@@ -86172,7 +86177,7 @@
                         n.preventDefault(),
                         (e.next = 3),
                         fetch(
-                          "https://rentandread.onrender.com/api/user/signin",
+                          "https://rentandread.azurewebsites.net/api/user/signin",
                           {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
@@ -86341,7 +86346,7 @@
                           console.log(e.record._id),
                           (t.next = 3),
                           fetch(
-                            "https://rentandread.onrender.com/api/bookrecieved/"
+                            "https://rentandread.azurewebsites.net/api/bookrecieved/"
                               .concat(e.record._id, "/")
                               .concat(e.record.bookID),
                             {
@@ -86381,7 +86386,7 @@
                         return (
                           (t.next = 2),
                           fetch(
-                            "https://rentandread.onrender.com/api/bookdelivered/".concat(
+                            "https://rentandread.azurewebsites.net/api/bookdelivered/".concat(
                               e.record._id
                             ),
                             {
@@ -86510,7 +86515,7 @@
                               return (
                                 (e.next = 2),
                                 fetch(
-                                  "https://rentandread.onrender.com/api/order",
+                                  "https://rentandread.azurewebsites.net/api/order",
                                   {
                                     method: "GET",
                                     headers: {
@@ -86692,7 +86697,7 @@
                         n.preventDefault(),
                         (e.next = 3),
                         fetch(
-                          "https://rentandread.onrender.com/api/user/addusername/".concat(
+                          "https://rentandread.azurewebsites.net/api/user/addusername/".concat(
                             u.email
                           ),
                           {
@@ -86808,7 +86813,9 @@
                         case 0:
                           return (
                             (e.next = 2),
-                            fetch("https://rentandread.onrender.com/api/admin")
+                            fetch(
+                              "https://rentandread.azurewebsites.net/api/admin"
+                            )
                           );
                         case 2:
                           return (t = e.sent), (e.next = 5), t.json();
@@ -87069,7 +87076,7 @@
                                 (e.prev = 0),
                                 (e.next = 3),
                                 lF().get(
-                                  "https://rentandread.onrender.com/api/getusers"
+                                  "https://rentandread.azurewebsites.net/api/getusers"
                                 )
                               );
                             case 3:
@@ -87113,7 +87120,7 @@
                               (e.prev = 0),
                               (e.next = 3),
                               lF().put(
-                                "https://rentandread.onrender.com/api/".concat(
+                                "https://rentandread.azurewebsites.net/api/".concat(
                                   t
                                 ),
                                 { blocked: !n }
@@ -87153,7 +87160,7 @@
                               (e.prev = 0),
                               (e.next = 3),
                               lF().delete(
-                                "https://rentandread.onrender.com/api/delete/".concat(
+                                "https://rentandread.azurewebsites.net/api/delete/".concat(
                                   t
                                 )
                               )
@@ -87370,7 +87377,7 @@
                         a.append("email", t.email),
                         (e.next = 8),
                         fetch(
-                          "https://rentandread.onrender.com/api/request/add",
+                          "https://rentandread.azurewebsites.net/api/request/add",
                           {
                             method: "POST",
                             headers: {
@@ -87521,7 +87528,7 @@
                               (e.prev = 0),
                               (e.next = 3),
                               lF().get(
-                                "https://rentandread.onrender.com/api/getbookrequest"
+                                "https://rentandread.azurewebsites.net/api/getbookrequest"
                               )
                             );
                           case 3:
@@ -87564,7 +87571,7 @@
                           (e.prev = 0),
                           (e.next = 3),
                           lF().delete(
-                            "https://rentandread.onrender.com/api/deleterequest/".concat(
+                            "https://rentandread.azurewebsites.net/api/deleterequest/".concat(
                               t
                             )
                           )
