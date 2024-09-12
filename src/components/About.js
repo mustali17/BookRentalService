@@ -21,16 +21,7 @@ export default function About() {
             </h4>
             <br />
             <p>
-              My name is Mustali, and I’m a college student in my third year of
-              studies. I’ve always been passionate about reading, but I know how
-              expensive it can be to buy books. That’s why I started this
-              website, to help others like me who love reading but can’t always
-              afford to buy new books. Our website offers a wide selection of
-              books for rent, from classic literature to contemporary
-              bestsellers. We believe that reading is not just a hobby, but a
-              way to expand your mind and explore new ideas. By renting books
-              from us, you can save money and still enjoy the pleasure of
-              reading.
+            We are college students in our third year of studies. We've always been passionate about reading, but we know how expensive it can be to buy books. That's why we started this website, to help others like us who love reading but can't always afford to buy new books. Our website offers a wide selection of books for rent, from classic literature to contemporary bestsellers. We believe that reading is not just a hobby, but a way to expand our minds and explore new ideas. By renting books from us, you can save money and still enjoy the pleasure of reading.
             </p>
             <br />
             <p>
@@ -45,7 +36,7 @@ export default function About() {
               happy reading!
             </p>
             <br />
-            <button className="btn btn-outline-primary">Get in Touch</button>
+            <button className="btn btn-primary">Get in Touch</button>
             <div></div>
             <br />
             <br />

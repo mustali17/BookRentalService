@@ -70,14 +70,15 @@ export default function Home() {
           <h5 style={{ fontFamily: "garamond", fontSize: "2vm" }}>
             If you want to give your books on rent kindly email the details of
             your book at:{" "}
-            <a
+         <a
               style={{ color: "white" }}
-              href="mailto:contact@rentalandread.tech?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
+              href="contact@rentalandread.tech?subject=Mail from RentAndRead.&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
             >
               contact@rentalandread.tech
             </a>
           </h5>
         </div>
+       
         {/* <div
           id="sideimage"
           style={{
@@ -96,7 +97,8 @@ export default function Home() {
               filter: "drop-shadow(8px 5px 4px #303030)",
             }}
           />
-        </div> */}
+        </div>
+        */}
       </div>
       <AboutSection />
       <Testimonials />
