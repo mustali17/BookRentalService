@@ -1,32 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Checkout from "./Checkout";
 import axios from "axios";
+import { motion } from "framer-motion";
+import { Loader, ShoppingBag } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const API_BASE_URL = "https://rentandread.onrender.com/api";
 
 export default function Order() {
-  const params = useParams();
+  const { id: bookId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const days = parseInt(searchParams.get("days")) || 30;
-  const price = parseInt(searchParams.get("price")) || 49;
-  // const [name, setName] = useState("");
-  // const [number, setNumber] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [emailid, setEmailId] = useState("");
-  // const [pincode, setPincode] = useState("");
-  const [form1, setForm1] = useState({
-    bookname: "",
-    authorname: "",
-    desc: "",
-    imgurl: "",
-    price: "",
-    ownermail: "",
-  });
 
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
@@ -36,237 +24,178 @@ export default function Order() {
     state: "",
     country: "",
   });
-  function updateForm(value) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
-  }
-  var userID;
-  var username;
-  if (localStorage.getItem("user")) {
-    const user = JSON.parse(localStorage.getItem("user"));
-    username = user.username;
-    userID = user._id;
-  } else {
-    navigate("/signin");
-  }
+
+  const [bookData, setBookData] = useState({
+    bookname: "",
+    authorname: "",
+    desc: "",
+    imgurl: "",
+    price: "",
+    ownermail: "",
+  });
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const days = parseInt(searchParams.get("days")) || 30;
+  const price = parseInt(searchParams.get("price")) || 49;
+
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const { username, _id: userId } = user;
 
   useEffect(() => {
-    async function fetchData() {
-      // const id = params.id.toString();
-      const response = await fetch(
-        `https://rentandread.onrender.com/api/user/${userID}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("jwt"),
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        toast.error(message);
-        navigate("/signin");
-        return;
-      }
-
-      const record = await response.json();
-      if (!record) {
-        window.alert(`Record with id ${id} not found`);
-        navigate("/");
-        return;
-      }
-
-      setForm(record);
+    if (!userId) {
+      navigate("/signin");
+      return;
     }
 
-    fetchData();
+    const fetchData = async () => {
+      try {
+        const [userResponse, bookResponse] = await Promise.all([
+          fetch(`${API_BASE_URL}/user/${userId}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }),
+          fetch(`${API_BASE_URL}/record/${bookId}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }),
+        ]);
 
-    return;
-  }, [params.id, navigate]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const id = params.id.toString();
-      const response = await fetch(
-        `https://rentandread.onrender.com/api/record/${params.id.toString()}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("jwt"),
-          },
+        if (!userResponse.ok || !bookResponse.ok) {
+          throw new Error(`An error has occurred`);
         }
-      );
 
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        toast.error(message);
-        navigate("/signin");
-        return;
-      }
+        const userData = await userResponse.json();
+        const bookData = await bookResponse.json();
 
-      const record = await response.json();
-      if (!record) {
-        window.alert(`Record with id ${id} not found`);
+        const { password, blocked, ...filteredUserData } = userData;
+
+        setFormData(filteredUserData);
+        setBookData(bookData);
+        setIsLoading(false);
+      } catch (error) {
+        toast.error(error.message);
         navigate("/");
-        return;
       }
-
-      setForm1(record);
-    }
+    };
 
     fetchData();
+  }, [userId, bookId, navigate]);
 
-    return;
-  }, [params.id, navigate]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
-  // const book = useSelector((state) => state.book.book);
-  var name = form.name;
-  var phone = form.phone;
-  var email = form.email;
-  var addr1 = form.addr1;
-  var addr2 = form.addr2;
-  var pin = form.pin;
-  var state = form.state;
-  var country = form.country;
-  var bookname = form1.bookname;
-  var imgurl = form1.imgurl;
-  // var price = form1.price;
-  var bookID = params.id;
-  async function onSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "https://rentandread.onrender.com/api/stripe/create-checkout-session",
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/stripe/create-checkout-session`,
         {
-          form1,
-          form,
-          price: price,
-          days: days,
-          userID: userID,
-          username: username,
-          bookID: bookID,
+          form1: bookData,
+          form: formData,
+          price,
+          days,
+          userID: userId,
+          username,
+          bookID: bookId,
         }
-      )
-      .then((res) => {
-        if (res.data.url) {
-          window.location.href = res.data.url;
-        }
-      })
-      .catch((err) => console.log(err.message));
-  }
+      );
 
-  //  navigate("/");
+      if (response.data.url) {
+        window.location.href = response.data.url;
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error creating checkout session");
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#F3E9D2]">
+        <Loader className="w-12 h-12 text-[#1A936F] animate-spin" />
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <div className="container rounded bg-white mt-5 mb-5">
-        <div className="card-header text-center">Enter Your Details</div>
-
-        <div className="card-body">
-          <form onSubmit={onSubmit}>
-            <div className="form-group">
-              <div className="mb-3">
-                <label className="labels">Name</label>
-                <input
-                  type="text"
-                  onChange={(e) => updateForm({ name: e.target.value })}
-                  className="form-control"
-                  placeholder="Enter your Name"
-                  value={form.name}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="labels">Phone Number</label>
-                <input
-                  type="text"
-                  onChange={(e) => updateForm({ phone: e.target.value })}
-                  className="form-control"
-                  placeholder="Enter your Phone Number"
-                  value={form.phone}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="labels">Email ID</label>
-                <input
-                  type="text"
-                  onChange={(e) => updateForm({ email: e.target.value })}
-                  className="form-control"
-                  placeholder="Enter your Email Id"
-                  value={form.email}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="labels">Address line 1</label>
-                <input
-                  type="text"
-                  onChange={(e) => updateForm({ addr1: e.target.value })}
-                  className="form-control"
-                  placeholder="Address line 1"
-                  value={form.addr1}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="labels">Address line 2</label>
-                <input
-                  type="text"
-                  onChange={(e) => updateForm({ addr2: e.target.value })}
-                  className="form-control"
-                  placeholder="Address line 2"
-                  value={form.addr2}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="labels">Pincode</label>
-                <input
-                  type="text"
-                  onChange={(e) => updateForm({ pin: e.target.value })}
-                  className="form-control"
-                  placeholder="Enter your Pincode"
-                  value={form.pin}
-                />
-              </div>
-              <div className="row mt-3">
-                <div className="col-md-6">
-                  <label className="labels">Country</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="country"
-                    value={form.country}
-                    onChange={(e) => updateForm({ country: e.target.value })}
+    <div className="bg-[#F3E9D2] min-h-screen py-12">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-lg shadow-md overflow-hidden"
+        >
+          <div className="p-6">
+            <h2 className="text-3xl font-bold text-[#114B5F] mb-6 flex items-center">
+              <ShoppingBag className="mr-2" /> Order Details
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-semibold text-[#1A936F] mb-4">
+                  Book Information
+                </h3>
+                <div className="bg-gray-100 p-4 rounded-lg">
+                  <img
+                    src={bookData.imgurl}
+                    alt={bookData.bookname}
+                    className="w-full h-48 object-cover rounded-md mb-4"
                   />
-                </div>
-                <div className="col-md-6">
-                  <label className="labels">State/Region</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={form.state}
-                    onChange={(e) => updateForm({ state: e.target.value })}
-                    placeholder="state"
-                  />
+                  <h4 className="text-lg font-semibold text-[#114B5F]">
+                    {bookData.bookname}
+                  </h4>
+                  <p className="text-gray-600">{bookData.authorname}</p>
+                  <p className="text-[#1A936F] font-semibold mt-2">
+                    Rental Period: {days} days
+                  </p>
+                  <p className="text-xl font-bold text-[#114B5F] mt-2">
+                    ₹ {price}
+                  </p>
                 </div>
               </div>
-
-              <div className="mt-5 text-center">
-                <input
-                  type="submit"
-                  className="btn btn-primary"
-                  name="login"
-                  value="Checkout"
-                />
+              <div>
+                <h3 className="text-xl font-semibold text-[#1A936F] mb-4">
+                  Your Information
+                </h3>
+                <form onSubmit={handleSubmit}>
+                  {Object.entries(formData).map(([key, value]) => (
+                    <div className="mb-4" key={key}>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                      </label>
+                      <input
+                        type="text"
+                        name={key}
+                        value={value}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                        placeholder={`Enter your ${key}`}
+                        required
+                      />
+                    </div>
+                  ))}
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    type="submit"
+                    className="w-full mt-6 px-6 py-3 bg-[#1A936F] text-white rounded-lg hover:bg-[#114B5F] transition duration-300"
+                  >
+                    Proceed to Payment
+                  </motion.button>
+                </form>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </motion.div>
       </div>
       <ToastContainer />
-      <br />
-      <br />
     </div>
   );
 }

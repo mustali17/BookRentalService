@@ -1,127 +1,123 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid, regular } from "@fortawesome/fontawesome-svg-core";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import image from "../5127314-removebg-preview.png";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Contact() {
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     toast.success("Thanks for contacting us!");
-  }
+  };
+
   return (
-    <div>
-      <head>
-        <link
-          rel="stylesheet"
-          to="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-      </head>
-      <div className="container" style={{ padding: "5px" }}>
-        <section className="mb-4">
-          <h2 className="h1-responsive font-weight-bold text-center my-4">
-            Contact us!
-          </h2>
-          <p className="text-center w-responsive mx-auto mb-5">
-            Do you have any questions? Please do not hesitate to contact us
-            directly. Our team will come back to you within a matter of hours to
-            help you.
-          </p>
-          <div className="row">
-            <div className="col-md-6">
-              <div
-                id="sideimage"
-                style={{
-                  perspective: "800px",
-                  transformStyle: "preserve-3d",
-                }}
+    <div className="bg-[#F3E9D2] text-[#114B5F] min-h-screen py-20">
+      <div className="container mx-auto px-4">
+        <motion.h1 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-5xl font-bold mb-8 text-center"
+        >
+          Contact Us
+        </motion.h1>
+        
+        <p className="text-xl text-center mb-12 max-w-2xl mx-auto">
+          Have questions about our book rental service? We're here to help! Reach out to us, and our team will get back to you promptly.
+        </p>
+
+        <div className="flex flex-col md:flex-row items-start justify-between">
+          <div className="md:w-1/2 mb-10 md:mb-0">
+            <div className="relative">
+              <motion.div
+                initial={{ rotate: 0 }}
+                whileHover={{ rotate: -5 }}
+                transition={{ duration: 0.3 }}
+                className="relative z-10 bg-white p-4 rounded-lg shadow-lg"
               >
                 <img
-                  src={image}
-                  alt="Contact"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    transform: "rotateY(20deg)",
-                    filter: "drop-shadow(8px 5px 4px #303030)",
-                  }}
+                  src={require("../5127314-removebg-preview.png")}
+                  alt="Contact Us illustration"
+                  className="w-full h-auto rounded-lg"
                 />
+              </motion.div>
+              <div 
+                className="absolute top-4 left-4 w-full h-full bg-[#1A936F] rounded-lg"
+                style={{ zIndex: 1 }}
+              ></div>
+            </div>
+            
+            <div className="mt-12 space-y-6 bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center">
+                <Mail className="text-[#1A936F] mr-4" size={24} />
+                <span className="text-lg">contact@rentandread.com</span>
+              </div>
+              <div className="flex items-center">
+                <Phone className="text-[#1A936F] mr-4" size={24} />
+                <span className="text-lg">(123) 456-7890</span>
+              </div>
+              <div className="flex items-center">
+                <MapPin className="text-[#1A936F] mr-4" size={24} />
+                <span className="text-lg">123 Book Street, Reading City, RC 12345</span>
               </div>
             </div>
-            <div className="col-md-6">
-              <form id="contact-form" name="contact-form">
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="md-form mb-0">
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        className="form-control"
-                      />
-                      <label htmlFor="name" className="">
-                        Your name
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="col-md-6">
-                    <div className="md-form mb-0">
-                      <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        className="form-control"
-                      />
-                      <label htmlFor="email" className="">
-                        Your email
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="md-form mb-0">
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        className="form-control"
-                      />
-                      <label htmlFor="subject" className="">
-                        Subject
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="md-form">
-                      <textarea
-                        type="text"
-                        id="message"
-                        name="message"
-                        rows="2"
-                        className="form-control md-textarea"
-                      ></textarea>
-                      <label htmlFor="message">Your message</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-center text-md-left">
-                  <button className="btn btn-primary" onClick={handleSubmit}>
-                    Send
-                  </button>
-                </div>
-                <div className="status"></div>
-              </form>
-            </div>
           </div>
-        </section>
+          
+          <form onSubmit={handleSubmit} className="md:w-1/2 bg-white rounded-lg shadow-md p-8">
+            <div className="mb-6">
+              <label htmlFor="name" className="block text-sm font-medium mb-2">Your Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                required
+              />
+            </div>
+            
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-sm font-medium mb-2">Your Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                required
+              />
+            </div>
+            
+            <div className="mb-6">
+              <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                required
+              />
+            </div>
+            
+            <div className="mb-6">
+              <label htmlFor="message" className="block text-sm font-medium mb-2">Your Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                required
+              ></textarea>
+            </div>
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="w-full px-6 py-3 text-lg bg-[#1A936F] text-white rounded-lg hover:bg-[#114B5F] transition duration-300"
+            >
+              Send Message
+            </motion.button>
+          </form>
+        </div>
       </div>
       <ToastContainer />
     </div>

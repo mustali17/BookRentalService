@@ -1,268 +1,148 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import AdsComponent from "./AdsComponent";
-import Avatar from "react-avatar";
-import StarRating from "star-rating-react";
-export default function Cart() {
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Star, Loader } from 'lucide-react';
+
+export default function BookDetails() {
   const [isLoading, setIsLoading] = useState(true);
-  const [form, setForm] = useState({
-    bookname: "",
-    authorname: "",
-    desc: "",
-    imgurl: "",
-    price: "",
-    records: [],
-  });
-  const [review, setReview] = useState({});
+  const [book, setBook] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [selectedDays, setSelectedDays] = useState(30);
+  const [price, setPrice] = useState(49);
   const params = useParams();
   const navigate = useNavigate();
-  const [selectedDays, setSelectedDays] = useState(30); // default value of 30 days
 
   useEffect(() => {
     async function fetchData() {
-      const id = params.id.toString();
-      const response = await fetch(
-        `https://rentandread.onrender.com/api/record/${params.id.toString()}`
-      );
+      try {
+        const bookResponse = await fetch(`https://rentandread.onrender.com/api/record/${params.id}`);
+        const reviewResponse = await fetch(`https://rentandread.onrender.com/api/review/${params.id}`);
+        
+        if (!bookResponse.ok || !reviewResponse.ok) {
+          throw new Error('Failed to fetch data');
+        }
 
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
+        const bookData = await bookResponse.json();
+        const reviewData = await reviewResponse.json();
+
+        setBook(bookData);
+        setReviews(reviewData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        navigate('/');
       }
-
-      const record = await response.json();
-      if (!record) {
-        window.alert(`Record with id ${id} not found`);
-        navigate("/");
-        return;
-      }
-
-      setForm(record);
-      const reviewResponse = await fetch(
-        `https://rentandread.onrender.com/api/review/${params.id.toString()}`
-      );
-      const reviewData = await reviewResponse.json();
-      setReview(reviewData);
-
-      setIsLoading(false);
     }
 
     fetchData();
-
-    return;
   }, [params.id, navigate]);
-  const [price, setPrice] = useState(49);
-  const handleChange = (event) => {
-    setSelectedDays(event.target.value);
-    const days = parseInt(event.target.value);
-    let newPrice;
-    if (days === 30) {
-      newPrice = 49;
-    } else if (days === 60) {
-      newPrice = 99;
-    } else if (days === 90) {
-      newPrice = 199;
-    }
-    setPrice(newPrice);
-  };
-  return (
-    <div>
-      <div className="container text-center">
-        <div className="row">
-          <div className="col-md-8">
-            <div
-              className="card mb-3 border-primary"
-              style={{ maxWidth: "540px" }}
-            >
-              {isLoading ? (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "200px",
-                  }}
-                >
-                  <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                </div>
-              ) : (
-                <div className="row g-0">
-                  <div className="col-md-4">
-                    <img
-                      src={form.imgurl}
-                      className="img-fluid rounded-start"
-                      alt="..."
-                    />
-                  </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title">{form.bookname}</h5>
-                      <p className="card-text">{form.authorname}</p>
-                      <p className="card-text">
-                        <small className="text-muted">{form.desc}</small>
-                      </p>
-                      <div className="form-group">
-                        <label htmlFor="days">Rent for</label>
-                        <select
-                          className="form-control"
-                          id="days"
-                          name="days"
-                          onChange={handleChange}
-                          value={selectedDays}
-                        >
-                          <option value="30">30 Days</option>
-                          <option value="60">60 Days</option>
-                          <option value="90">90 Days</option>
-                        </select>
-                      </div>
 
-                      <p className="card-text">₹ {price}</p>
-                      <Link
-                        to={`/books/order/${params.id}?days=${selectedDays}&price=${price}`}
-                      >
-                        <button className="btn btn-primary">Rent Book</button>
-                      </Link>
-                    </div>
+  const handleDaysChange = (event) => {
+    const days = parseInt(event.target.value);
+    setSelectedDays(days);
+    setPrice(days === 30 ? 49 : days === 60 ? 99 : 199);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#F3E9D2]">
+        <Loader className="w-12 h-12 text-[#1A936F] animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#F3E9D2] min-h-screen py-12">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Book Details Section */}
+          <div className="md:w-2/3">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-lg shadow-md overflow-hidden"
+            >
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-1/3 p-4">
+                  <img src={book.imgurl} alt={book.bookname} className="w-full h-auto rounded-lg" />
+                </div>
+                <div className="md:w-2/3 p-6">
+                  <h2 className="text-3xl font-bold text-[#114B5F] mb-2">{book.bookname}</h2>
+                  <h3 className="text-xl text-[#1A936F] mb-4">{book.authorname}</h3>
+                  <p className="text-gray-600 mb-6">{book.desc}</p>
+                  <div className="mb-6">
+                    <label htmlFor="days" className="block text-sm font-medium text-gray-700 mb-2">Rent for</label>
+                    <select
+                      id="days"
+                      value={selectedDays}
+                      onChange={handleDaysChange}
+                      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                    >
+                      <option value={30}>30 Days</option>
+                      <option value={60}>60 Days</option>
+                      <option value={90}>90 Days</option>
+                    </select>
                   </div>
+                  <p className="text-2xl font-bold text-[#114B5F] mb-4">₹ {price}</p>
+                  <Link to={`/books/order/${params.id}?days=${selectedDays}&price=${price}`}>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-full px-6 py-3 bg-[#1A936F] text-white rounded-lg hover:bg-[#114B5F] transition duration-300"
+                    >
+                      Rent Book
+                    </motion.button>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Reviews Section */}
+          <div className="md:w-1/3">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-white rounded-lg shadow-md p-6"
+            >
+              <h3 className="text-2xl font-bold text-[#114B5F] mb-6">Reviews</h3>
+              {reviews.length > 0 ? (
+                reviews.map((review) => (
+                  <div key={review._id} className="mb-6 pb-6 border-b border-gray-200 last:border-b-0">
+                    <div className="flex items-center mb-2">
+                      <div className="w-10 h-10 bg-[#1A936F] rounded-full flex items-center justify-center text-white font-bold mr-3">
+                        {review.username.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-[#114B5F]">{review.username}</h4>
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                              fill={i < review.rating ? 'currentColor' : 'none'}
+                            />
+                          ))}
+                          <span className="ml-2 text-sm text-gray-600">{review.rating}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-gray-600">{review.review}</p>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center">
+                  <p className="text-gray-600 mb-4">No reviews available</p>
+                  <img
+                    src="/api/placeholder/300/200"
+                    alt="No reviews"
+                    className="mx-auto w-3/4 h-auto rounded-lg"
+                  />
                 </div>
               )}
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div
-              className="card mb-3 border-primary"
-              style={{ maxWidth: "540px" }}
-            >
-              <div className="card-body">
-                <h5 className="card-title">Reviews</h5>
-                {review.length > 0 ? (
-                  review.map((reviewItem) => (
-                    <div
-                      key={reviewItem._id}
-                      className="review-item"
-                      style={{
-                        marginBottom: "1.5rem",
-                        padding: "1.5rem",
-                        background: "#f9f9f9",
-                        borderRadius: "10px",
-                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      }}
-                    >
-                      <div
-                        className="d-flex align-items-center mb-4"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "1rem",
-                        }}
-                      >
-                        <div>
-                          <Avatar
-                            name={reviewItem.username}
-                            size="48"
-                            round
-                            textSizeRatio={2}
-                            style={{
-                              border: "2px solid #fff",
-                              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                            }}
-                          />
-                        </div>
-                        <div
-                          className="ms-3"
-                          style={{
-                            marginLeft: "1rem",
-                          }}
-                        >
-                          <h6
-                            className="mb-1 username"
-                            style={{
-                              fontSize: "1.2rem",
-                              fontWeight: "bold",
-                              marginBottom: "0.5rem",
-                              color: "#333",
-                            }}
-                          >
-                            {reviewItem.username}
-                          </h6>
-                          <div
-                            className="star-rating"
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              marginBottom: "0.5rem",
-                            }}
-                          >
-                            <StarRating
-                              count={5}
-                              value={reviewItem.rating}
-                              activeColor="#ffd700"
-                              inactiveColor="#ccc"
-                              edit={false}
-                            />
-                            <span
-                              className="rating-value"
-                              style={{
-                                marginLeft: "0.5rem",
-                                fontSize: "1.2rem",
-                                color: "#555",
-                              }}
-                            >
-                              {reviewItem.rating}
-                            </span>
-                          </div>
-                          <p
-                            className="mt-1 review"
-                            style={{
-                              fontSize: "1rem",
-                              color: "#555",
-                              lineHeight: "1.4",
-                            }}
-                          >
-                            {reviewItem.review}
-                          </p>
-                        </div>
-                      </div>
-                      <hr
-                        className="divider"
-                        style={{
-                          border: "none",
-                          borderTop: "1px solid #ddd",
-                          marginTop: "1.5rem",
-                        }}
-                      />
-                    </div>
-                  ))
-                ) : (
-                  <>
-                    <p>No reviews available</p>
-                    <div
-                      id="sideimage"
-                      style={{
-                        perspective: "800px",
-                        transformStyle: "preserve-3d",
-                      }}
-                    >
-                      <img
-                        src={require("../5385893-removebg-preview.png")}
-                        alt="..."
-                        style={{
-                          maxWidth: "70%",
-                          minWidth: "70px",
-                          height: "auto",
-                          transform: "rotateY(20deg)",
-                          filter: "drop-shadow(8px 5px 4px #303030)",
-                        }}
-                      />
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
