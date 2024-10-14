@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Testimonials from "./Testimonials";
-import AdsComponent from "./AdsComponent";
-import AboutSection from "./AboutSection";
-import { motion } from "framer-motion";
+import { AboutSection } from "./Home/AboutSection";
+import { HeroSection } from "./Home/HeroSection";
+import { Testimonials } from "./Home/Testimonial";
 
-export default function Home() {
+function App() {
   const [records, setRecords] = useState([]);
 
   useEffect(() => {
@@ -13,93 +11,26 @@ export default function Home() {
       const response = await fetch(
         "https://rentandread.onrender.com/api/record"
       );
-
       if (!response.ok) {
-        const message = `An error occurred: ${response.statusText} Please Refresh this page`;
-
+        console.error(`An error occurred: ${response.statusText}`);
         return;
       }
-
       const records = await response.json();
       setRecords(records);
     }
 
     getRecords();
-
-    return;
   }, []);
-  return (
-    <>
-      <div
-        className="container text-center"
-        style={{
-          height: "80vh",
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
-        }}
-      >
-        <div>
-          <h1
-            style={{ fontFamily: "cambria", color: "white", fontSize: "7.5vw" }}
-          >
-            Books on Rent
-          </h1>
-          <h3
-            style={{ fontFamily: "cambria", color: "white", fontSize: "3.5vw" }}
-          >
-            Books on your doorstep
-          </h3>
-          <Link to="/books">
-            {/* <button type="button" className="btn btn-light"> */}
-            <motion.button
-              whileHover={{
-                scale: 1.2,
-                transition: { duration: 0.1 },
-              }}
-              whileTap={{ scale: 0.9 }}
-              className="btn btn-light"
-            >
-              Rent Books
-            </motion.button>
-          </Link>
 
-          <br />
-          <br />
-          <br />
-          <h5 style={{ fontFamily: "garamond", fontSize: "2vm" }}>
-            If you want to give your books on rent kindly email the details of
-            your book at:{" "}
-            <a
-              style={{ color: "white" }}
-              href="mailto:contact@rentalandread.tech?subject=Mail from website&body=Hey! Thanks for connecting with us. Please fill out the following details of your book.%0d%0aBook Name:%0d%0aAuthor Name: %0d%0aYour Address: %0d%0aDuration:"
-            >
-              contact@rentalandread.tech
-            </a>
-          </h5>
-        </div>
-        {/* <div
-          id="sideimage"
-          style={{
-            perspective: "800px",
-            transformStyle: "preserve-3d",
-          }}
-        >
-          <img
-            src={require("./5437683-removebg-preview.png")}
-            alt="..."
-            style={{
-              maxWidth: "70%",
-              minWidth: "70px",
-              height: "auto",
-              transform: "rotateY(20deg)",
-              filter: "drop-shadow(8px 5px 4px #303030)",
-            }}
-          />
-        </div> */}
-      </div>
-      <AboutSection />
-      <Testimonials />
-    </>
+  return (
+    <div className="App">
+      <main className="bg-[#F3E9D2] text-[#114B5F] min-h-screen">
+        <HeroSection />
+        <AboutSection />
+        <Testimonials />
+      </main>
+    </div>
   );
 }
+
+export default App;

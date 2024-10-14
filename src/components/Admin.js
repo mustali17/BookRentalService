@@ -18,6 +18,7 @@ export default function admin() {
       setRecords(result);
     };
     fetchData();
+    console.log("test");
   }, []);
   function auth(e) {
     e.preventDefault();
