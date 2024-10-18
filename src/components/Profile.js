@@ -1,275 +1,272 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import MyOrder from "./MyOrder";
-import Avatar from "react-avatar";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { motion } from 'framer-motion';
+import MyOrder from './MyOrder';
 
-export default function Profile() {
-  var userID;
+const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
-  //   if(localStorage.length>0){
-  //     const user=JSON.parse(localStorage.getItem("user"));
-  //     userID=user._id;
-  //   }else{
-  // console.log("empty");
-  // console.log("dcerj");
-  //   }
-  const params = useParams();
+  const [user, setUser] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [form, setForm] = useState({});
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: "",
-    lname: "",
-    username: "",
-    email: "",
-    password: "",
-    phone: "",
-    addr1: "",
-    addr2: "",
-    pin: "",
-    state: "",
-    country: "",
-    userID: userID,
-  });
-
-  function updateForm(value) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
-  }
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      userID = user._id;
-    } else {
-      console.log("empty");
-      console.log("dcerj");
-    }
-    async function fetchData() {
-      // const id = params.id.toString();
-      const response = await fetch(
-        `https://rentandread.onrender.com/api/user/${userID}`,
-        {
-          method: "GET",
+    const fetchUserData = async () => {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (!storedUser) {
+        toast.error('You must be logged in!');
+        navigate('/signin');
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://rentandread.onrender.com/api/user/${storedUser._id}`, {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("jwt"),
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
           },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
         }
-      );
+
+        const userData = await response.json();
+        setUser(userData);
+        setForm(userData);
+        setIsLoading(false);
+      } catch (error) {
+        toast.error('An error occurred while fetching data');
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
+
+  const handleInputChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`https://rentandread.onrender.com/api/user/update/${user._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: JSON.stringify(form),
+      });
 
       if (!response.ok) {
-        toast.error("You must be logged in!");
-        navigate("/signin");
-        return;
+        throw new Error('Failed to update profile');
       }
 
-      const record = await response.json();
-      if (!record) {
-        window.alert(`Record with id ${id} not found`);
-        navigate("/");
-        return;
-      }
-
-      setForm(record);
-      setIsLoading(false);
+      setUser(form);
+      setIsEditing(false);
+      toast.success('Profile updated successfully!');
+    } catch (error) {
+      toast.error('Failed to update profile');
     }
+  };
 
-    fetchData();
-
-    return;
-  }, [params.id, navigate]);
-
-  async function onSubmit(e) {
-    e.preventDefault();
-
-    const newPerson = { ...form };
-
-    const response = await fetch(
-      `https://rentandread.onrender.com/api/user/update/${userID}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify(newPerson),
-      }
-    ).catch((error) => {
-      toast.error(error);
-      return;
-    });
-    if (!response.ok) {
-      const message = `An error occurred: ${response.statusText}`;
-      toast.error(message);
-      return;
-    }
-
-    setForm({
-      bookname: "",
-      authorname: "",
-      desc: "",
-      price: "",
-      imgurl: "",
-      ownermail: "",
-    });
-    //  navigate("/");
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#F3E9D2]">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#114B5F]"></div>
+      </div>
+    );
   }
 
   return (
-    <>
-      {isLoading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "200px",
-          }}
-        >
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      ) : (
-        <div className="container rounded bg-white mt-5 mb-5">
-          <div className="row">
-            <div className="col-md-3 border-right">
-              <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                <Avatar
-                  className="rounded-circle mt-5"
-                  name={form.name}
-                  size={130}
-                />
-                <br />
-                <br />
-                <span className="font-weight-bold">{form.name}</span>
-                <span className="text-black-50">{form.email}</span>
-                <span> </span>
+    <div className="min-h-screen bg-[#F3E9D2] text-[#114B5F] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+          <div className="p-8 md:p-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Avatar */}
+              <div className="flex flex-col items-center md:order-2">
+                <div className="w-40 h-40 bg-[#88D498] rounded-full flex items-center justify-center text-5xl font-bold text-white shadow-lg">
+                  {user.name.charAt(0)}
+                </div>
+                <p className="mt-4 text-2xl font-semibold text-[#114B5F]">{user.name} {user.lname}</p>
+                <p className="text-[#1A936F]">{user.email}</p>
               </div>
-            </div>
-            <div className="col-md-5 border-right">
-              <div className="p-3 py-5">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h4 className="text-right">Profile Settings</h4>
-                </div>
-                <div className="row mt-2">
-                  <div className="col-md-6">
-                    <label className="labels">Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="First name"
-                      value={form.name}
-                      onChange={(e) => updateForm({ name: e.target.value })}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <label className="labels">Surname</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={form.lname}
-                      onChange={(e) => updateForm({ lname: e.target.value })}
-                      placeholder="Last name"
-                    />
-                  </div>
-                </div>
-                <div className="row mt-3">
-                  <div className="col-md-12">
-                    <label className="labels">Mobile Number</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="enter phone number"
-                      value={form.phone}
-                      onChange={(e) => updateForm({ phone: e.target.value })}
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    <label className="labels">Address Line 1</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="enter address line 1"
-                      value={form.addr1}
-                      onChange={(e) => updateForm({ addr1: e.target.value })}
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    <label className="labels">Address Line 2</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="enter address line 2"
-                      value={form.addr2}
-                      onChange={(e) => updateForm({ addr2: e.target.value })}
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    <label className="labels">Postcode</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="enter address line 2"
-                      value={form.pin}
-                      onChange={(e) => updateForm({ pin: e.target.value })}
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    <label className="labels">Email ID</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="enter email id"
-                      onChange={(e) => updateForm({ email: e.target.value })}
-                      value={form.email}
-                    />
-                  </div>
-                </div>
-                <div className="row mt-3">
-                  <div className="col-md-6">
-                    <label className="labels">Country</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="country"
-                      value={form.country}
-                      onChange={(e) => updateForm({ country: e.target.value })}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <label className="labels">State/Region</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={form.state}
-                      onChange={(e) => updateForm({ state: e.target.value })}
-                      placeholder="state"
-                    />
-                  </div>
-                </div>
-                <div className="mt-5 text-center">
-                  <button
-                    className="btn btn-primary profile-button"
-                    type="button"
-                    onClick={onSubmit}
+
+              {/* Profile Information */}
+              <div className="md:col-span-2 md:order-1">
+                <h2 className="text-4xl font-bold mb-8 text-[#114B5F]">Profile Information</h2>
+                {isEditing ? (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-[#114B5F] mb-1">First Name</label>
+                        <input
+                          id="name"
+                          name="name"
+                          type="text"
+                          value={form.name}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                          placeholder="First Name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="lname" className="block text-sm font-medium text-[#114B5F] mb-1">Last Name</label>
+                        <input
+                          id="lname"
+                          name="lname"
+                          type="text"
+                          value={form.lname}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                          placeholder="Last Name"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-[#114B5F] mb-1">Email</label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-[#114B5F] mb-1">Phone</label>
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        value={form.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                        placeholder="Phone"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="addr1" className="block text-sm font-medium text-[#114B5F] mb-1">Address Line 1</label>
+                      <input
+                        id="addr1"
+                        name="addr1"
+                        type="text"
+                        value={form.addr1}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                        placeholder="Address Line 1"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="addr2" className="block text-sm font-medium text-[#114B5F] mb-1">Address Line 2</label>
+                      <input
+                        id="addr2"
+                        name="addr2"
+                        type="text"
+                        value={form.addr2}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                        placeholder="Address Line 2"
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div>
+                        <label htmlFor="pin" className="block text-sm font-medium text-[#114B5F] mb-1">PIN Code</label>
+                        <input
+                          id="pin"
+                          name="pin"
+                          type="text"
+                          value={form.pin}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                          placeholder="PIN Code"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="state" className="block text-sm font-medium text-[#114B5F] mb-1">State</label>
+                        <input
+                          id="state"
+                          name="state"
+                          type="text"
+                          value={form.state}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                          placeholder="State"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="country" className="block text-sm font-medium text-[#114B5F] mb-1">Country</label>
+                        <input
+                          id="country"
+                          name="country"
+                          type="text"
+                          value={form.country}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-[#C6DABF] rounded-md focus:outline-none focus:ring-2 focus:ring-[#88D498] focus:border-[#88D498] transition duration-150 ease-in-out"
+                          placeholder="Country"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end space-x-4">
+                      <button
+                        type="button"
+                        onClick={() => setIsEditing(false)}
+                        className="px-6 py-2 text-sm font-medium text-[#114B5F] bg-[#C6DABF] rounded-md hover:bg-[#88D498] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#88D498] transition duration-150 ease-in-out"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-6 py-2 text-sm font-medium text-white bg-[#1A936F] rounded-md hover:bg-[#114B5F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1A936F] transition duration-150 ease-in-out"
+                      >
+                        Save Changes
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="space-y-6 text-lg"
                   >
-                    Save Profile
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="p-3 py-5">
-                <MyOrder />
+                    <p><span className="font-semibold text-[#1A936F]">Name:</span> <span className="text-[#114B5F]">{user.name} {user.lname}</span></p>
+                    <p><span className="font-semibold text-[#1A936F]">Email:</span> <span className="text-[#114B5F]">{user.email}</span></p>
+                    <p><span className="font-semibold text-[#1A936F]">Phone:</span> <span className="text-[#114B5F]">{user.phone}</span></p>
+                    <p><span className="font-semibold text-[#1A936F]">Address:</span> <span className="text-[#114B5F]">{user.addr1}, {user.addr2}</span></p>
+                    <p><span className="font-semibold text-[#1A936F]">PIN Code:</span> <span className="text-[#114B5F]">{user.pin}</span></p>
+                    <p><span className="font-semibold text-[#1A936F]">State:</span> <span className="text-[#114B5F]">{user.state}</span></p>
+                    <p><span className="font-semibold text-[#1A936F]">Country:</span> <span className="text-[#114B5F]">{user.country}</span></p>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setIsEditing(true)}
+                      className="px-6 py-2 text-sm font-medium text-white bg-[#1A936F] rounded-md hover:bg-[#114B5F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1A936F] transition duration-150 ease-in-out"
+                    >
+                      Edit Profile
+                    </motion.button>
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>
         </div>
-      )}
-    </>
+
+        {/* My Orders */}
+        <div className="mt-12">
+          <MyOrder />
+        </div>
+      </div>
+
+      <ToastContainer />
+    </div>
   );
-}
+};
+
+export default Profile;

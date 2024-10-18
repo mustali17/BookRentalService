@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 const BookRequest = () => {
   const navigate = useNavigate();
+  const [requests, setRequests] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const adminLogin = localStorage.getItem("adminLogin");
@@ -12,131 +16,104 @@ const BookRequest = () => {
       navigate("/");
       return;
     }
+    fetchRequests();
   }, [navigate]);
-  const [users, setUsers] = useState([]);
-  const [refreshTable, setRefreshTable] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
 
-  const fetchUsers = async () => {
+  const fetchRequests = async () => {
     try {
       const response = await axios.get(
         "https://rentandread.onrender.com/api/getbookrequest"
       );
-      setUsers(response.data);
+      setRequests(response.data);
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
+      toast.error("Failed to fetch book requests");
+      setIsLoading(false);
     }
   };
-  useEffect(() => {
-    fetchUsers();
-  }, [refreshTable]);
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(
         `https://rentandread.onrender.com/api/deleterequest/${id}`
       );
-      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
-      toast.error("Book Deleted");
+      setRequests((prevRequests) => prevRequests.filter((request) => request._id !== id));
+      toast.success("Book request deleted successfully");
     } catch (err) {
       console.error(err);
+      toast.error("Failed to delete book request");
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#1A936F]"></div>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h2>Books Requested by users: </h2>
-      <div>
-        <table style={{ borderCollapse: "collapse", width: "100%" }}>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold text-[#114B5F] mb-6">Books Requested by Users</h2>
+      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table className="min-w-full leading-normal">
           <thead>
             <tr>
-              <th
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "8px",
-                  backgroundColor: "#f2f2f2",
-                }}
-              >
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Book Name
               </th>
-              <th
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "8px",
-                  backgroundColor: "#f2f2f2",
-                }}
-              >
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Author Name
               </th>
-              <th
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "8px",
-                  backgroundColor: "#f2f2f2",
-                }}
-              >
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Book Description
               </th>
-
-              <th
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "8px",
-                  backgroundColor: "#f2f2f2",
-                }}
-              >
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 User Email
               </th>
-
-              <th
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "8px",
-                  backgroundColor: "#f2f2f2",
-                }}
-              >
-                Delete
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+                Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {user.bookname}
+            {requests.map((request) => (
+              <motion.tr 
+                key={request._id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">{request.bookname}</p>
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {user.authorname}
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">{request.authorname}</p>
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {user.desc}
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">{request.desc}</p>
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  {user.email}
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">{request.email}</p>
                 </td>
-                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  <button
-                    style={{
-                      padding: "6px 12px",
-                      borderRadius: "4px",
-                      border: "none",
-                      backgroundColor: "#f44336",
-                      color: "#fff",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => handleDelete(user._id)}
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white transition duration-300 ease-in-out"
+                    onClick={() => handleDelete(request._id)}
                   >
                     Delete
-                  </button>
+                  </motion.button>
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
       </div>
       <ToastContainer />
-
-      {/* <button onClick={handleLogout}>Logout</button> */}
     </div>
   );
 };
