@@ -1,211 +1,192 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-const Record = (props) => {
-  const handleBookRecieved = async () => {
-    console.log(props.record._id);
-    const response = await fetch(
-      `https://rentandread.onrender.com/api/bookrecieved/${props.record._id}/${props.record.bookID}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify({ bookReturend: true }),
-      }
-    );
-    if (response.ok) {
-      toast.success("Book Recieved successfully!");
-      window.location.reload();
-    } else {
-      toast.error("Failed to Recieve book!");
-    }
-  };
-  const handleBookDelivered = async () => {
-    const response = await fetch(
-      `https://rentandread.onrender.com/api/bookdelivered/${props.record._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify({ bookDelivered: true }),
-      }
-    );
-    if (response.ok) {
-      toast.success("Book Delivered successfully!");
-      window.location.reload();
-    } else {
-      toast.error("Failed to Delivered book!");
-    }
-  };
-  return (
-    <tr>
-      <td>
-        <img
-          src={props.record.imgurl}
-          className="card-img-top"
-          width="100"
-          height="170"
-          alt="..."
-        />
-      </td>
-      <td>{props.record.bookname}</td>
-      <td>{props.record.name}</td>
-      <td>{props.record.phone}</td>
-      <td>{props.record.email}</td>
-      <td>
-        {props.record.addr1}
-        <br />
-        {props.record.addr2}
-        <br />
-        {props.record.pin}
-        <br />
-        {props.record.state}
-        <br />
-        {props.record.country}
-      </td>
-      <td>₹{props.record.price}/-</td>
-      <td>{props.record.FDate}</td>
-      <td>{props.record.RDate}</td>
-      <td>
-        {props.record.bookDelivered ? (
-          <>
-            {props.record.bookReturend ? (
-              "Book Returned!"
-            ) : (
-              <>
-                Return Request:{" "}
-                {props.record.returnRequest ? (
-                  <>
-                    <span style={{ color: "green" }}>Yes</span>
-                  </>
-                ) : (
-                  <span style={{ color: "red" }}>No</span>
-                )}
-                <button
-                  className="btn btn-primary profile-button"
-                  type="button"
-                  disabled={!props.record.returnRequest}
-                  onClick={handleBookRecieved}
-                >
-                  Book Recieved
-                </button>
-              </>
-            )}
-          </>
-        ) : (
-          <button
-            className="btn btn-primary profile-button"
-            type="button"
-            onClick={handleBookDelivered}
-          >
-            Book Delivered
-          </button>
-        )}
-      </td>
-    </tr>
-  );
-};
-
-export default function AllOrders() {
-  const [records, setRecords] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const AllOrders = () => {
   const navigate = useNavigate();
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // This method fetches the records from the database.
   useEffect(() => {
     const adminLogin = localStorage.getItem("adminLogin");
     if (!adminLogin) {
       toast.error("You are not authorized to access this page.");
-      navigate("/"); // Redirect to home page or login page
+      navigate("/");
       return;
     }
-    async function getRecords() {
-      const response = await fetch(
+    fetchOrders();
+  }, [navigate]);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(
         "https://rentandread.onrender.com/api/order",
         {
-          method: "GET",
           headers: {
-            "Content-Type": "application/json",
             Authorization: "Bearer " + localStorage.getItem("jwt"),
           },
         }
       );
-      if (!response.ok) {
-        toast.error("You must be logged in!");
-        setIsLoading(false);
-        navigate("/signin");
-        return;
-      }
-
-      const records = await response.json();
-      setRecords(records);
+      setOrders(response.data);
       setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to fetch orders");
+      setIsLoading(false);
+      if (err.response && err.response.status === 401) {
+        navigate("/signin");
+      }
     }
+  };
 
-    getRecords();
-
-    return;
-  }, [records.length]);
-
-  // This method will map out the records on the table
-  function recordList() {
-    return records.map((record) => {
-      return (
-        <Record
-          record={record}
-          //  key={_id}
-        />
+  const handleBookDelivered = async (orderId) => {
+    try {
+      await axios.put(
+        `https://rentandread.onrender.com/api/bookdelivered/${orderId}`,
+        { bookDelivered: true },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
       );
-    });
+      toast.success("Book Delivered successfully!");
+      fetchOrders();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to deliver book!");
+    }
+  };
+
+  const handleBookReceived = async (orderId, bookId) => {
+    try {
+      await axios.put(
+        `https://rentandread.onrender.com/api/bookrecieved/${orderId}/${bookId}`,
+        { bookReturend: true },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      );
+      toast.success("Book Received successfully!");
+      fetchOrders();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to receive book!");
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#1A936F]"></div>
+      </div>
+    );
   }
 
-  // This following section will display the table with the records of individuals.
   return (
-    <div>
-      <h3 style={{ textAlign: "center", fontFamily: "yellowtail" }}>
-        All Orders:
-      </h3>
-      {isLoading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "200px",
-          }}
-        >
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      ) : (
-        <div className="card">
-          <table className="table table-striped table-bordered table-hover bg-white">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Book Name</th>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Email ID</th>
-                <th scope="col">Address</th>
-                <th scope="col">Rent Price</th>
-                <th scope="col">Order Date</th>
-                <th scope="col">Return Date</th>
-                <th scope="col">Order Status</th>
-              </tr>
-            </thead>
-            <tbody>{recordList()}</tbody>
-          </table>
-        </div>
-      )}
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold text-[#114B5F] mb-6">All Orders</h2>
+      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table className="min-w-full leading-normal">
+          <thead>
+            <tr>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+                Book
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+                Customer
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+                Price
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+                Dates
+              </th>
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <motion.tr
+                key={order._id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0 w-10 h-10">
+                      <img className="w-full h-full rounded-full" src={order.imgurl} alt={order.bookname} />
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-gray-900 whitespace-no-wrap">{order.bookname}</p>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">{order.name}</p>
+                  <p className="text-gray-600 whitespace-no-wrap">{order.email}</p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">₹{order.price}/-</p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p className="text-gray-900 whitespace-no-wrap">Order: {order.FDate}</p>
+                  <p className="text-gray-600 whitespace-no-wrap">Return: {order.RDate}</p>
+                </td>
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  {order.bookDelivered ? (
+                    <>
+                      {order.bookReturend ? (
+                        <span className="text-green-600 font-semibold">Book Returned!</span>
+                      ) : (
+                        <>
+                          <p>
+                            Return Request:{" "}
+                            {order.returnRequest ? (
+                              <span className="text-green-600 font-semibold">Yes</span>
+                            ) : (
+                              <span className="text-red-600 font-semibold">No</span>
+                            )}
+                          </p>
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="mt-2 px-4 py-2 rounded-full bg-[#114B5F] hover:bg-[#1A936F] text-white transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled={!order.returnRequest}
+                            onClick={() => handleBookReceived(order._id, order.bookID)}
+                          >
+                            Book Received
+                          </motion.button>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-4 py-2 rounded-full bg-[#1A936F] hover:bg-[#114B5F] text-white transition duration-300 ease-in-out"
+                      onClick={() => handleBookDelivered(order._id)}
+                    >
+                      Book Delivered
+                    </motion.button>
+                  )}
+                </td>
+              </motion.tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <ToastContainer />
     </div>
   );
-}
+};
+
+export default AllOrders;
