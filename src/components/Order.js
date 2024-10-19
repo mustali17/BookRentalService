@@ -72,7 +72,7 @@ export default function Order() {
         const userData = await userResponse.json();
         const bookData = await bookResponse.json();
 
-        const { password, blocked, ...filteredUserData } = userData;
+        const { _id, password, blocked, ...filteredUserData } = userData;
 
         setFormData(filteredUserData);
         setBookData(bookData);
@@ -118,14 +118,14 @@ export default function Order() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-[#F3E9D2]">
+      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100">
         <Loader className="w-12 h-12 text-[#1A936F] animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="bg-[#F3E9D2] min-h-screen py-12">
+    <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 min-h-screen py-12">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

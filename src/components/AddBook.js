@@ -1,13 +1,9 @@
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  uploadBytes,
-} from "firebase/storage";
 import { storage } from "./firebase";
 
 export default function AddBook() {
@@ -20,156 +16,193 @@ export default function AddBook() {
     ownermail: "",
   });
   const navigate = useNavigate();
-  const [image, setImage] = useState("");
-  // These methods will update the state properties.
-  function updateForm(value) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
-  }
-  const [imglink, setimglink] = useState("");
+  const [image, setImage] = useState(null);
 
-  // This function will handle the submission.
+  function updateForm(value) {
+    return setForm((prev) => ({ ...prev, ...value }));
+  }
+
   async function onSubmit(e) {
     e.preventDefault();
     if (image) {
-      const imageRef = ref(storage, `/images/${image.name}`);
-      uploadBytes(imageRef, image)
-        .then((snapshot) => {
-          getDownloadURL(snapshot.ref)
-            .then((downloadURL) => {
-              // Once image is uploaded, get the download URL
-              console.log("Image URL:", downloadURL);
-              setimglink(downloadURL);
-              const formData = new FormData();
-              formData.append("bookname", form.bookname);
-              formData.append("authorname", form.authorname);
-              formData.append("desc", form.desc);
-              formData.append("price", form.price);
-              formData.append("ownermail", form.ownermail);
-              formData.append("image", downloadURL);
+      try {
+        const imageRef = ref(storage, `/images/${image.name}`);
+        const snapshot = await uploadBytes(imageRef, image);
+        const downloadURL = await getDownloadURL(snapshot.ref);
 
-              const response = fetch(
-                "https://rentandread.onrender.com/api/record/add",
-                {
-                  method: "POST",
-                  headers: {
-                    Authorization: "Bearer " + localStorage.getItem("jwt"),
-                  },
-                  body: formData,
-                }
-              )
-                .then((res) => res.json())
-                .then((data) => {
-                  if (data.error) {
-                    toast.error(data.error);
-                  } else {
-                    toast.success("Book added Successfully");
-                    navigate("/books");
-                  }
-                });
+        const formData = new FormData();
+        formData.append("bookname", form.bookname);
+        formData.append("authorname", form.authorname);
+        formData.append("desc", form.desc);
+        formData.append("price", form.price);
+        formData.append("ownermail", form.ownermail);
+        formData.append("image", downloadURL);
 
-              setForm({
-                bookname: "",
-                authorname: "",
-                desc: "",
-                price: "",
-                ownermail: "",
-                image: null,
-              });
-            })
-            .catch((err) => {
-              console.error("Error getting download URL from Firebase", err);
-            });
-        })
-        .catch((err) => {
-          console.error("Error uploading image to Firebase Storage", err);
+        const response = await fetch(
+          "https://rentandread.onrender.com/api/record/add",
+          {
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            body: formData,
+          }
+        );
+
+        const data = await response.json();
+        if (data.error) {
+          toast.error(data.error);
+        } else {
+          toast.success("Book added Successfully");
+          navigate("/books");
+        }
+
+        setForm({
+          bookname: "",
+          authorname: "",
+          desc: "",
+          price: "",
+          ownermail: "",
+          image: null,
         });
+        setImage(null);
+      } catch (err) {
+        console.error("Error:", err);
+        toast.error("Failed to add book");
+      }
+    } else {
+      toast.error("Please upload an image");
     }
   }
 
   return (
-    <div>
-      <div className="container text-center card border-dark shadow">
-        <div className="card-header">Add a Book</div>
-        <div className="card-body">
-          <form onSubmit={onSubmit}>
-            <div className="mb-3 form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="bookname"
-                value={form.bookname}
-                placeholder="Enter Book Name"
-                onChange={(e) => updateForm({ bookname: e.target.value })}
-              />
-            </div>
-            <div className="mb-3 form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="authorname"
-                value={form.authorname}
-                placeholder="Enter Author Name"
-                onChange={(e) => updateForm({ authorname: e.target.value })}
-              />
-            </div>
-            <div className="mb-3 form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="desc"
-                value={form.desc}
-                placeholder="Enter Description"
-                onChange={(e) => updateForm({ desc: e.target.value })}
-              />
-            </div>
-            <div className="mb-3 form-group">
-              <input
-                type="text"
-                className="form-control"
-                id="price"
-                value={form.price}
-                placeholder="Enter Price"
-                onChange={(e) => updateForm({ price: e.target.value })}
-              />
-            </div>
-            <div className="mb-3 form-group">
-              <label htmlFor="upload-photo" className="btn btn-primary">
-                Upload Book Image.
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 flex items-center justify-center px-4 py-12">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white rounded-lg shadow-xl overflow-hidden max-w-md w-full"
+      >
+        <div className="bg-[#1A936F] text-white text-center py-4">
+          <h2 className="text-2xl font-bold">Add a Book</h2>
+        </div>
+        <div className="p-8">
+          <form onSubmit={onSubmit} className="space-y-6">
+            <div>
+              <label
+                htmlFor="bookname"
+                className="block text-sm font-medium text-[#114B5F] mb-2"
+              >
+                Book Name
               </label>
               <input
-                onChange={(e) => {
-                  setImage(e.target.files[0]);
-                }}
-                style={{ display: "none" }}
-                id="upload-photo"
-                name="upload-photo"
-                type="file"
+                type="text"
+                id="bookname"
+                value={form.bookname}
+                onChange={(e) => updateForm({ bookname: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                placeholder="Enter Book Name"
+                required
               />
             </div>
-
-            <div className="mb-3 form-group">
+            <div>
+              <label
+                htmlFor="authorname"
+                className="block text-sm font-medium text-[#114B5F] mb-2"
+              >
+                Author Name
+              </label>
               <input
                 type="text"
-                className="form-control"
+                id="authorname"
+                value={form.authorname}
+                onChange={(e) => updateForm({ authorname: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                placeholder="Enter Author Name"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="desc"
+                className="block text-sm font-medium text-[#114B5F] mb-2"
+              >
+                Description
+              </label>
+              <textarea
+                id="desc"
+                value={form.desc}
+                onChange={(e) => updateForm({ desc: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                placeholder="Enter Description"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <div>
+              <label
+                htmlFor="price"
+                className="block text-sm font-medium text-[#114B5F] mb-2"
+              >
+                Price
+              </label>
+              <input
+                type="number"
+                id="price"
+                value={form.price}
+                onChange={(e) => updateForm({ price: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                placeholder="Enter Price"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="upload-photo"
+                className="block text-sm font-medium text-[#114B5F] mb-2"
+              >
+                Book Image
+              </label>
+              <input
+                type="file"
+                id="upload-photo"
+                onChange={(e) => setImage(e.target.files[0])}
+                className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#1A936F] file:text-white hover:file:bg-[#114B5F]"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="ownermail"
+                className="block text-sm font-medium text-[#114B5F] mb-2"
+              >
+                Book Owner Email
+              </label>
+              <input
+                type="email"
                 id="ownermail"
                 value={form.ownermail}
-                placeholder="Book Owner Mail ID"
                 onChange={(e) => updateForm({ ownermail: e.target.value })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+                placeholder="Book Owner Email ID"
+                required
               />
             </div>
-            <div className="mb-3 form-group">
-              <input
+            <div className="flex justify-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 type="submit"
-                value="Add Book"
-                className="btn btn-primary"
-              />
+                className="px-6 py-2 bg-[#1A936F] text-white rounded-full hover:bg-[#114B5F] transition duration-300"
+              >
+                Add Book
+              </motion.button>
             </div>
           </form>
-          <ToastContainer />
         </div>
-      </div>
+      </motion.div>
+      <ToastContainer />
     </div>
   );
 }

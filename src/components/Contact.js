@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin } from 'lucide-react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { motion } from "framer-motion";
+import { Mail, MapPin, Phone } from "lucide-react";
+import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const handleSubmit = (e) => {
@@ -11,9 +11,9 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-[#F3E9D2] text-[#114B5F] min-h-screen py-20">
+    <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-[#114B5F] min-h-screen py-20">
       <div className="container mx-auto px-4">
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -21,9 +21,10 @@ export default function Contact() {
         >
           Contact Us
         </motion.h1>
-        
+
         <p className="text-xl text-center mb-12 max-w-2xl mx-auto">
-          Have questions about our book rental service? We're here to help! Reach out to us, and our team will get back to you promptly.
+          Have questions about our book rental service? We're here to help!
+          Reach out to us, and our team will get back to you promptly.
         </p>
 
         <div className="flex flex-col md:flex-row items-start justify-between">
@@ -41,12 +42,12 @@ export default function Contact() {
                   className="w-full h-auto rounded-lg"
                 />
               </motion.div>
-              <div 
+              <div
                 className="absolute top-4 left-4 w-full h-full bg-[#1A936F] rounded-lg"
                 style={{ zIndex: 1 }}
               ></div>
             </div>
-            
+
             <div className="mt-12 space-y-6 bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center">
                 <Mail className="text-[#1A936F] mr-4" size={24} />
@@ -58,14 +59,21 @@ export default function Contact() {
               </div>
               <div className="flex items-center">
                 <MapPin className="text-[#1A936F] mr-4" size={24} />
-                <span className="text-lg">123 Book Street, Reading City, RC 12345</span>
+                <span className="text-lg">
+                  123 Book Street, Reading City, RC 12345
+                </span>
               </div>
             </div>
           </div>
-          
-          <form onSubmit={handleSubmit} className="md:w-1/2 bg-white rounded-lg shadow-md p-8">
+
+          <form
+            onSubmit={handleSubmit}
+            className="md:w-1/2 bg-white rounded-lg shadow-md p-8"
+          >
             <div className="mb-6">
-              <label htmlFor="name" className="block text-sm font-medium mb-2">Your Name</label>
+              <label htmlFor="name" className="block text-sm font-medium mb-2">
+                Your Name
+              </label>
               <input
                 type="text"
                 id="name"
@@ -74,9 +82,11 @@ export default function Contact() {
                 required
               />
             </div>
-            
+
             <div className="mb-6">
-              <label htmlFor="email" className="block text-sm font-medium mb-2">Your Email</label>
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                Your Email
+              </label>
               <input
                 type="email"
                 id="email"
@@ -85,9 +95,14 @@ export default function Contact() {
                 required
               />
             </div>
-            
+
             <div className="mb-6">
-              <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</label>
+              <label
+                htmlFor="subject"
+                className="block text-sm font-medium mb-2"
+              >
+                Subject
+              </label>
               <input
                 type="text"
                 id="subject"
@@ -96,9 +111,14 @@ export default function Contact() {
                 required
               />
             </div>
-            
+
             <div className="mb-6">
-              <label htmlFor="message" className="block text-sm font-medium mb-2">Your Message</label>
+              <label
+                htmlFor="message"
+                className="block text-sm font-medium mb-2"
+              >
+                Your Message
+              </label>
               <textarea
                 id="message"
                 name="message"
@@ -107,7 +127,7 @@ export default function Contact() {
                 required
               ></textarea>
             </div>
-            
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

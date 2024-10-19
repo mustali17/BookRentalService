@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const AllOrders = () => {
   const navigate = useNavigate();
@@ -95,19 +95,19 @@ const AllOrders = () => {
         <table className="min-w-full leading-normal">
           <thead>
             <tr>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Book
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Customer
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Price
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Dates
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-[#F3E9D2] text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-left text-xs font-semibold text-[#114B5F] uppercase tracking-wider">
                 Status
               </th>
             </tr>
@@ -123,37 +123,59 @@ const AllOrders = () => {
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 w-10 h-10">
-                      <img className="w-full h-full rounded-full" src={order.imgurl} alt={order.bookname} />
+                      <img
+                        className="w-full h-full rounded-full"
+                        src={order.imgurl}
+                        alt={order.bookname}
+                      />
                     </div>
                     <div className="ml-3">
-                      <p className="text-gray-900 whitespace-no-wrap">{order.bookname}</p>
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        {order.bookname}
+                      </p>
                     </div>
                   </div>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p className="text-gray-900 whitespace-no-wrap">{order.name}</p>
-                  <p className="text-gray-600 whitespace-no-wrap">{order.email}</p>
+                  <p className="text-gray-900 whitespace-no-wrap">
+                    {order.name}
+                  </p>
+                  <p className="text-gray-600 whitespace-no-wrap">
+                    {order.email}
+                  </p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p className="text-gray-900 whitespace-no-wrap">₹{order.price}/-</p>
+                  <p className="text-gray-900 whitespace-no-wrap">
+                    ₹{order.price}/-
+                  </p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p className="text-gray-900 whitespace-no-wrap">Order: {order.FDate}</p>
-                  <p className="text-gray-600 whitespace-no-wrap">Return: {order.RDate}</p>
+                  <p className="text-gray-900 whitespace-no-wrap">
+                    Order: {order.FDate}
+                  </p>
+                  <p className="text-gray-600 whitespace-no-wrap">
+                    Return: {order.RDate}
+                  </p>
                 </td>
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   {order.bookDelivered ? (
                     <>
                       {order.bookReturend ? (
-                        <span className="text-green-600 font-semibold">Book Returned!</span>
+                        <span className="text-green-600 font-semibold">
+                          Book Returned!
+                        </span>
                       ) : (
                         <>
                           <p>
                             Return Request:{" "}
                             {order.returnRequest ? (
-                              <span className="text-green-600 font-semibold">Yes</span>
+                              <span className="text-green-600 font-semibold">
+                                Yes
+                              </span>
                             ) : (
-                              <span className="text-red-600 font-semibold">No</span>
+                              <span className="text-red-600 font-semibold">
+                                No
+                              </span>
                             )}
                           </p>
                           <motion.button
@@ -161,7 +183,9 @@ const AllOrders = () => {
                             whileTap={{ scale: 0.95 }}
                             className="mt-2 px-4 py-2 rounded-full bg-[#114B5F] hover:bg-[#1A936F] text-white transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={!order.returnRequest}
-                            onClick={() => handleBookReceived(order._id, order.bookID)}
+                            onClick={() =>
+                              handleBookReceived(order._id, order.bookID)
+                            }
                           >
                             Book Received
                           </motion.button>

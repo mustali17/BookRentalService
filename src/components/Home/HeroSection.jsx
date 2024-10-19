@@ -11,7 +11,7 @@ export function HeroSection() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 text-lg bg-[#C6DABF] text-[#114B5F] rounded-lg hover:bg-[#88D498] transition duration-300"
+              className="px-6 py-3 text-lg bg-[#1A936F] text-white rounded-lg hover:bg-[#114B5F] transition duration-300"
             >
               Explore Books
             </motion.button>

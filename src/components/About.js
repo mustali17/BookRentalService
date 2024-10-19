@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   return (
-    <div className="bg-[#F3E9D2] text-[#114B5F] min-h-screen py-20">
+    <div className="bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-[#114B5F] min-h-screen py-20">
       <div className="container mx-auto px-4">
         <h1 className="text-5xl font-bold mb-12 text-center">About Us</h1>
         

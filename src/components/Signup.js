@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { motion } from "framer-motion";
-import { User, Mail, Lock } from "lucide-react";
+import axios from "axios";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import axios from "axios";
+import { motion } from "framer-motion";
+import { User } from "lucide-react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp() {
   const [form, setForm] = useState({
@@ -32,14 +32,17 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch("https://rentandread.onrender.com/api/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify(form),
-      });
+      const response = await fetch(
+        "https://rentandread.onrender.com/api/user/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+          body: JSON.stringify(form),
+        }
+      );
 
       const data = await response.json();
       if (data.error) {
@@ -61,7 +64,7 @@ export default function SignUp() {
       const result = await firebase.auth().signInWithPopup(provider);
       const user = result.user;
       const [name, lname] = user.displayName.split(" ");
-      
+
       const response = await axios.post(
         "https://rentandread.onrender.com/api/user/signup",
         {
@@ -90,7 +93,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F3E9D2] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -98,13 +101,17 @@ export default function SignUp() {
         className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md"
       >
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-[#114B5F]">Sign up for an account</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-[#114B5F]">
+            Sign up for an account
+          </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={onSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="flex gap-4 mb-4">
               <div>
-                <label htmlFor="name" className="sr-only">First name</label>
+                <label htmlFor="name" className="sr-only">
+                  First name
+                </label>
                 <input
                   id="name"
                   name="name"
@@ -117,7 +124,9 @@ export default function SignUp() {
                 />
               </div>
               <div>
-                <label htmlFor="lname" className="sr-only">Last name</label>
+                <label htmlFor="lname" className="sr-only">
+                  Last name
+                </label>
                 <input
                   id="lname"
                   name="lname"
@@ -131,7 +140,9 @@ export default function SignUp() {
               </div>
             </div>
             <div>
-              <label htmlFor="username" className="sr-only">Username</label>
+              <label htmlFor="username" className="sr-only">
+                Username
+              </label>
               <input
                 id="username"
                 name="username"
@@ -144,7 +155,9 @@ export default function SignUp() {
               />
             </div>
             <div>
-              <label htmlFor="email-address" className="sr-only">Email address</label>
+              <label htmlFor="email-address" className="sr-only">
+                Email address
+              </label>
               <input
                 id="email-address"
                 name="email"
@@ -158,7 +171,9 @@ export default function SignUp() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
               <input
                 id="password"
                 name="password"
@@ -181,7 +196,10 @@ export default function SignUp() {
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#1A936F] hover:bg-[#114B5F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1A936F]"
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <User className="h-5 w-5 text-[#114B5F] group-hover:text-[#1A936F]" aria-hidden="true" />
+                <User
+                  className="h-5 w-5 text-[#114B5F] group-hover:text-[#1A936F]"
+                  aria-hidden="true"
+                />
               </span>
               Sign up
             </motion.button>
@@ -194,7 +212,9 @@ export default function SignUp() {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              <span className="px-2 bg-white text-gray-500">
+                Or continue with
+              </span>
             </div>
           </div>
 
@@ -212,7 +232,10 @@ export default function SignUp() {
         </div>
 
         <div className="text-sm text-center">
-          <Link to="/signin" className="font-medium text-[#1A936F] hover:text-[#114B5F]">
+          <Link
+            to="/signin"
+            className="font-medium text-[#1A936F] hover:text-[#114B5F]"
+          >
             Already have an account? Sign in
           </Link>
         </div>

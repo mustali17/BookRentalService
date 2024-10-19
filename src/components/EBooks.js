@@ -1,7 +1,35 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import SearchEBook from "./SearchEBook";
+import { Search, BookOpen, Loader2 } from "lucide-react";
+
+const SearchEBook = ({ searchText }) => {
+  const [text, setText] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    searchText(text);
+  };
+
+  return (
+    <form onSubmit={onSubmit} className="mb-8">
+      <div className="relative">
+        <input
+          onChange={(e) => setText(e.target.value)}
+          className="w-full p-4 rounded-full bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-[#1A936F]"
+          type="text"
+          placeholder="Search eBooks..."
+        />
+        <button
+          type="submit"
+          className="absolute right-0 top-0 mt-3 mr-4 text-[#1A936F]"
+        >
+          <Search size={24} />
+        </button>
+      </div>
+    </form>
+  );
+};
 
 const EBooks = () => {
   const [details, setDetails] = useState([]);
@@ -27,145 +55,58 @@ const EBooks = () => {
     setDetails((oldDetails) => [...oldDetails, ...resources.data.items]);
   };
 
-  const imageVariants = {
-    hover: {
-      scale: 1.1,
-      boxShadow: "0px 0px 8px #000",
-      transition: {
-        duration: 0.5,
-        type: "spring",
-        delay: 0.15,
-      },
-    },
-  };
-
   return (
-    <>
-      <h2
-        style={{
-          textTransform: "capitalize",
-          color: "#FFFFFF",
-          fontSize: "2.5rem",
-          marginTop: "-3rem",
-          marginBottom: "0.5rem",
-          fontFamily: "Scheherazade New",
-          textAlign: "center",
-        }}
-      >
-        Ebooks
-      </h2>
-      <SearchEBook searchText={(text) => setTerm(text)}></SearchEBook>
-      {isLoading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "200px",
-          }}
-        >
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-center text-[#114B5F] mb-8">
+          eBooks
+        </h2>
+        <SearchEBook searchText={(text) => setTerm(text)} />
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="w-12 h-12 animate-spin text-[#1A936F]" />
           </div>
-        </div>
-      ) : !details ? (
-        <h1
-          className="loading-name"
-          style={{
-            background: "white",
-            borderRadius: "1rem",
-            color: "#DB4437",
-            padding: "1rem",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            fontSize: "2rem",
-            fontFamily: "Inria Serif",
-            transform: "translate(-50%,-50%)",
-            textTransform: "capitalize",
-            textAlign: "center",
-          }}
-        >
-          😞 Couldn't find books about {term}
-        </h1>
-      ) : (
-        <div className="container">
-          <div className="row row-cols-1 row-cols-md-3 g-4">
-            {details.map((book, index) => (
-              <div className="col" key={index}>
-                <div className="card border shadow" style={{ width: "18rem" }}>
+        ) : !details ? (
+          <div className="text-center p-8 bg-white rounded-lg shadow-md">
+            <h1 className="text-2xl font-bold text-red-500">
+              😞 Couldn't find books about {term}
+            </h1>
+          </div>
+        ) : (
+          <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {details.map((book, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-white rounded-lg shadow-md overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {book.volumeInfo.imageLinks &&
                   book.volumeInfo.imageLinks.thumbnail ? (
-                    <motion.img
+                    <img
                       src={book.volumeInfo.imageLinks.thumbnail}
-                      width="100%"
                       alt="Book Cover"
-                      variants={imageVariants}
-                      whileHover="hover"
-                      style={{
-                        objectFit: "cover",
-                        height: "15rem",
-                        borderTopLeftRadius: "10px",
-                        borderTopRightRadius: "10px",
-                      }}
+                      className="w-full h-48 object-cover"
                     />
                   ) : (
-                    <div className="no-thumbnail">No Thumbnail Available</div>
+                    <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                      No Thumbnail Available
+                    </div>
                   )}
-
-                  <div className="card-body">
-                    <h3
-                      className="card-title"
-                      style={{
-                        marginBottom: "0.5rem",
-                        fontSize: "1.5rem",
-                        fontWeight: "bold",
-                        color: "#333",
-                        textOverflow: "ellipsis",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold text-[#114B5F] truncate">
                       {book.volumeInfo.title}
                     </h3>
-                    <h5
-                      className="card-subtitle mb-2"
-                      style={{
-                        marginBottom: "0.5rem",
-                        fontSize: "1.2rem",
-                        fontWeight: "normal",
-                        color: "#666",
-                      }}
-                    >
-                      Author:{" "}
-                      <span
-                        style={{
-                          fontWeight: "bold",
-                          color: "#3B3B3B",
-                        }}
-                      >
-                        {book.volumeInfo.authors ||
-                          "Author(s) name not available"}
-                      </span>
-                    </h5>
-                    <h6
-                      className="card-subtitle mb-2 text-muted"
-                      style={{
-                        marginBottom: "0.5rem",
-                        fontSize: "1rem",
-                        fontWeight: "normal",
-                      }}
-                    >
+                    <p className="text-sm text-gray-600 mb-2">
+                      By{" "}
+                      {book.volumeInfo.authors ||
+                        "Author(s) name not available"}
+                    </p>
+                    <p className="text-xs text-gray-500 mb-4">
                       Published by:{" "}
-                      <span
-                        style={{
-                          fontWeight: "bold",
-                          color: "#3B3B3B",
-                        }}
-                      >
-                        {book.volumeInfo.publisher || "Publisher not available"}
-                      </span>
-                    </h6>
+                      {book.volumeInfo.publisher || "Publisher not available"}
+                    </p>
                     <a
                       href={
                         book.volumeInfo.previewLink ||
@@ -173,45 +114,26 @@ const EBooks = () => {
                       }
                       target="_blank"
                       rel="noreferrer"
-                      className="btn btn-primary"
-                      style={{
-                        textDecoration: "none",
-                        backgroundColor: "#DB4437",
-                        color: "white",
-                        borderRadius: "5px",
-                        fontSize: "1rem",
-                        padding: "0.5rem 1rem",
-                      }}
+                      className="inline-flex items-center px-4 py-2 bg-[#1A936F] text-white rounded-full hover:bg-[#114B5F] transition duration-300"
                     >
-                      Read more <i className="bi bi-box-arrow-up-right"></i>
+                      Read more <BookOpen className="ml-2 h-4 w-4" />
                     </a>
                   </div>
-                </div>
-              </div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <button
+                onClick={loadMore}
+                className="px-6 py-2 bg-[#1A936F] text-white rounded-full hover:bg-[#114B5F] transition duration-300"
+              >
+                Load More
+              </button>
+            </div>
           </div>
-          <div
-            className="load-more"
-            style={{ textAlign: "center", marginTop: "2rem" }}
-          >
-            <button
-              onClick={() => loadMore()}
-              className="btn btn-primary"
-              style={{
-                padding: "0.5rem 2rem",
-                fontSize: "1rem",
-                backgroundColor: "#DB4437",
-                color: "white",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
-              Load More!
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 };
 

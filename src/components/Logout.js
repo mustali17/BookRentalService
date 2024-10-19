@@ -1,6 +1,6 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Logout() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function Logout() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F3E9D2] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -27,7 +27,9 @@ export default function Logout() {
           <form onSubmit={onSubmit}>
             <div className="text-center mb-6">
               <span className="text-6xl text-[#114B5F]">!</span>
-              <p className="mt-4 text-lg text-[#114B5F]">Are you sure you want to logout?</p>
+              <p className="mt-4 text-lg text-[#114B5F]">
+                Are you sure you want to logout?
+              </p>
             </div>
             <div className="flex justify-center space-x-4">
               <motion.button

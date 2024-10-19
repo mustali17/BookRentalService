@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { motion } from 'framer-motion';
-import MyOrder from './MyOrder';
+import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import MyOrder from "./MyOrder";
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,22 +14,25 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const storedUser = JSON.parse(localStorage.getItem('user'));
+      const storedUser = JSON.parse(localStorage.getItem("user"));
       if (!storedUser) {
-        toast.error('You must be logged in!');
-        navigate('/signin');
+        toast.error("You must be logged in!");
+        navigate("/signin");
         return;
       }
 
       try {
-        const response = await fetch(`https://rentandread.onrender.com/api/user/${storedUser._id}`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-          },
-        });
+        const response = await fetch(
+          `https://rentandread.onrender.com/api/user/${storedUser._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch user data');
+          throw new Error("Failed to fetch user data");
         }
 
         const userData = await response.json();
@@ -37,7 +40,7 @@ const Profile = () => {
         setForm(userData);
         setIsLoading(false);
       } catch (error) {
-        toast.error('An error occurred while fetching data');
+        toast.error("An error occurred while fetching data");
         setIsLoading(false);
       }
     };
@@ -52,37 +55,40 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://rentandread.onrender.com/api/user/update/${user._id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-        },
-        body: JSON.stringify(form),
-      });
+      const response = await fetch(
+        `https://rentandread.onrender.com/api/user/update/${user._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+          body: JSON.stringify(form),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to update profile');
+        throw new Error("Failed to update profile");
       }
 
       setUser(form);
       setIsEditing(false);
-      toast.success('Profile updated successfully!');
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      toast.error('Failed to update profile');
+      toast.error("Failed to update profile");
     }
   };
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-[#F3E9D2]">
+      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#114B5F]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F3E9D2] text-[#114B5F] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-[#114B5F] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white shadow-xl rounded-lg overflow-hidden">
           <div className="p-8 md:p-12">
@@ -92,18 +98,27 @@ const Profile = () => {
                 <div className="w-40 h-40 bg-[#88D498] rounded-full flex items-center justify-center text-5xl font-bold text-white shadow-lg">
                   {user.name.charAt(0)}
                 </div>
-                <p className="mt-4 text-2xl font-semibold text-[#114B5F]">{user.name} {user.lname}</p>
+                <p className="mt-4 text-2xl font-semibold text-[#114B5F]">
+                  {user.name} {user.lname}
+                </p>
                 <p className="text-[#1A936F]">{user.email}</p>
               </div>
 
               {/* Profile Information */}
               <div className="md:col-span-2 md:order-1">
-                <h2 className="text-4xl font-bold mb-8 text-[#114B5F]">Profile Information</h2>
+                <h2 className="text-4xl font-bold mb-8 text-[#114B5F]">
+                  Profile Information
+                </h2>
                 {isEditing ? (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-[#114B5F] mb-1">First Name</label>
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-[#114B5F] mb-1"
+                        >
+                          First Name
+                        </label>
                         <input
                           id="name"
                           name="name"
@@ -115,7 +130,12 @@ const Profile = () => {
                         />
                       </div>
                       <div>
-                        <label htmlFor="lname" className="block text-sm font-medium text-[#114B5F] mb-1">Last Name</label>
+                        <label
+                          htmlFor="lname"
+                          className="block text-sm font-medium text-[#114B5F] mb-1"
+                        >
+                          Last Name
+                        </label>
                         <input
                           id="lname"
                           name="lname"
@@ -128,7 +148,12 @@ const Profile = () => {
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-[#114B5F] mb-1">Email</label>
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-[#114B5F] mb-1"
+                      >
+                        Email
+                      </label>
                       <input
                         id="email"
                         name="email"
@@ -140,7 +165,12 @@ const Profile = () => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-[#114B5F] mb-1">Phone</label>
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-[#114B5F] mb-1"
+                      >
+                        Phone
+                      </label>
                       <input
                         id="phone"
                         name="phone"
@@ -152,7 +182,12 @@ const Profile = () => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="addr1" className="block text-sm font-medium text-[#114B5F] mb-1">Address Line 1</label>
+                      <label
+                        htmlFor="addr1"
+                        className="block text-sm font-medium text-[#114B5F] mb-1"
+                      >
+                        Address Line 1
+                      </label>
                       <input
                         id="addr1"
                         name="addr1"
@@ -164,7 +199,12 @@ const Profile = () => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="addr2" className="block text-sm font-medium text-[#114B5F] mb-1">Address Line 2</label>
+                      <label
+                        htmlFor="addr2"
+                        className="block text-sm font-medium text-[#114B5F] mb-1"
+                      >
+                        Address Line 2
+                      </label>
                       <input
                         id="addr2"
                         name="addr2"
@@ -177,7 +217,12 @@ const Profile = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div>
-                        <label htmlFor="pin" className="block text-sm font-medium text-[#114B5F] mb-1">PIN Code</label>
+                        <label
+                          htmlFor="pin"
+                          className="block text-sm font-medium text-[#114B5F] mb-1"
+                        >
+                          PIN Code
+                        </label>
                         <input
                           id="pin"
                           name="pin"
@@ -189,7 +234,12 @@ const Profile = () => {
                         />
                       </div>
                       <div>
-                        <label htmlFor="state" className="block text-sm font-medium text-[#114B5F] mb-1">State</label>
+                        <label
+                          htmlFor="state"
+                          className="block text-sm font-medium text-[#114B5F] mb-1"
+                        >
+                          State
+                        </label>
                         <input
                           id="state"
                           name="state"
@@ -201,7 +251,12 @@ const Profile = () => {
                         />
                       </div>
                       <div>
-                        <label htmlFor="country" className="block text-sm font-medium text-[#114B5F] mb-1">Country</label>
+                        <label
+                          htmlFor="country"
+                          className="block text-sm font-medium text-[#114B5F] mb-1"
+                        >
+                          Country
+                        </label>
                         <input
                           id="country"
                           name="country"
@@ -236,13 +291,52 @@ const Profile = () => {
                     transition={{ duration: 0.5 }}
                     className="space-y-6 text-lg"
                   >
-                    <p><span className="font-semibold text-[#1A936F]">Name:</span> <span className="text-[#114B5F]">{user.name} {user.lname}</span></p>
-                    <p><span className="font-semibold text-[#1A936F]">Email:</span> <span className="text-[#114B5F]">{user.email}</span></p>
-                    <p><span className="font-semibold text-[#1A936F]">Phone:</span> <span className="text-[#114B5F]">{user.phone}</span></p>
-                    <p><span className="font-semibold text-[#1A936F]">Address:</span> <span className="text-[#114B5F]">{user.addr1}, {user.addr2}</span></p>
-                    <p><span className="font-semibold text-[#1A936F]">PIN Code:</span> <span className="text-[#114B5F]">{user.pin}</span></p>
-                    <p><span className="font-semibold text-[#1A936F]">State:</span> <span className="text-[#114B5F]">{user.state}</span></p>
-                    <p><span className="font-semibold text-[#1A936F]">Country:</span> <span className="text-[#114B5F]">{user.country}</span></p>
+                    <p>
+                      <span className="font-semibold text-[#1A936F]">
+                        Name:
+                      </span>{" "}
+                      <span className="text-[#114B5F]">
+                        {user.name} {user.lname}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="font-semibold text-[#1A936F]">
+                        Email:
+                      </span>{" "}
+                      <span className="text-[#114B5F]">{user.email}</span>
+                    </p>
+                    <p>
+                      <span className="font-semibold text-[#1A936F]">
+                        Phone:
+                      </span>{" "}
+                      <span className="text-[#114B5F]">{user.phone}</span>
+                    </p>
+                    <p>
+                      <span className="font-semibold text-[#1A936F]">
+                        Address:
+                      </span>{" "}
+                      <span className="text-[#114B5F]">
+                        {user.addr1}, {user.addr2}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="font-semibold text-[#1A936F]">
+                        PIN Code:
+                      </span>{" "}
+                      <span className="text-[#114B5F]">{user.pin}</span>
+                    </p>
+                    <p>
+                      <span className="font-semibold text-[#1A936F]">
+                        State:
+                      </span>{" "}
+                      <span className="text-[#114B5F]">{user.state}</span>
+                    </p>
+                    <p>
+                      <span className="font-semibold text-[#1A936F]">
+                        Country:
+                      </span>{" "}
+                      <span className="text-[#114B5F]">{user.country}</span>
+                    </p>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
