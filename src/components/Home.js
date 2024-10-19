@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="App">
-      <main className="bg-[#F3E9D2] text-[#114B5F] min-h-screen">
+      <main className="bg-gradient-to-br from-purple-100 via-blue-100 to-indigo-100 text-[#114B5F] min-h-screen">
         <HeroSection />
         <AboutSection />
         <Testimonials />

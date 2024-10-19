@@ -27,6 +27,7 @@ import RequestBook from "./components/RequestBook";
 import BookRequest from "./components/BookRequest";
 import EBooks from "./components/EBooks";
 import Checkout from "./components/Checkout";
+import PaymentCancelled from "./components/PaymentCancelled";
 
 // import BookRecommendations from "./components/BookRecommendations";
 export default function App() {
@@ -60,11 +61,11 @@ export default function App() {
           <Route path="/admin/book-request" element={<BookRequest />} />
           <Route path="/ebooks" element={<EBooks />} />
           <Route path="/checkout" element={<Checkout />} />
-
+          <Route path="/payment-cancelled" element={<PaymentCancelled />} />
+          <Route path="/:id/cancelled" element={<PaymentCancelled />} />
           {/* <Route path="/recomedbook" element={<BookRecommendations />} /> */}
         </Routes>
-        <br />
-        <br />
+
         <Footer />
       </div>
     </BrowserRouter>
